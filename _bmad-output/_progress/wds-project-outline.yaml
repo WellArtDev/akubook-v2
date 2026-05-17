@@ -1,0 +1,77 @@
+# WDS Project Outline: AkuBook
+# Generated: 2026-05-13
+# Status: Phase 4 Active
+
+project_name: "AkuBook"
+project_type: "greenfield"  # New features within existing codebase
+product_complexity: "complex"  # Web application with complex features
+
+# Paths
+root_folder: "_bmad-output"
+output_folder: "_bmad-output"
+
+# Tech Stack
+tech_stack: "react"  # React 19 + Inertia.js 2
+component_library: "tailwind"  # Tailwind CSS 4
+framework: "laravel"  # Laravel 13 backend
+
+# Configuration
+brief_level: "complete"  # Full strategic documentation
+strategic_analysis: "full"  # Full trigger mapping completed
+skip_design_system: false  # Design system needed
+
+# Existing Materials
+existing_materials:
+  has_materials: true
+  product_brief: "A-Product-Brief/product-brief.md"
+  trigger_map: "B-Trigger-Map/00-trigger-map.md"
+  scenarios: "C-UX-Scenarios/00-ux-scenarios.md"
+  personas: "B-Trigger-Map/personas/"
+
+# Project Context
+project_context:
+  stakes: "small_business"  # Small business investment
+  involvement: "collaborative"  # Balanced collaboration
+  role: "product_owner"  # Product owner
+  presentation: "recommend"  # Recommend with rationale
+
+# Working Relationship
+working_relationship:
+  communication_language: "id"  # Indonesian
+  document_output_language: "id"  # Indonesian
+  tone: "professional"
+  detail_level: "balanced"
+
+# Phase Status
+phases:
+  phase_0_setup: "complete"
+  phase_1_brief: "complete"
+  phase_2_trigger_map: "complete"
+  phase_3_scenarios: "complete"
+  phase_4_ux_design: "complete"
+  phase_5_development: "active"
+  phase_6_design_system: "pending"
+  phase_7_launch: "pending"
+
+# Current Work
+current_phase: 5
+current_activity: "development"
+scenarios_total: 17
+scenarios_designed: 17  # All scenarios complete
+pages_designed: 95  # All 95 pages designed
+
+# Success Metrics
+success_metrics:
+  primary: "95%+ transactions auto-post to journal"
+  secondary:
+    - "Finance Admin only reviews & approves"
+    - "No manual journal entries for standard transactions"
+    - "Cross-module integration seamless"
+
+# Notes
+notes: |
+  - Phase 4 Complete: All 17 scenarios designed (95 pages)
+  - 4 scenarios with detailed specs, 13 with streamlined specs
+  - Design patterns established: auto-posting, approval workflows, mobile-first
+  - Ready for Phase 5: Development
+  - Recommended start: Scenario 01 (Company Setup) for foundation
