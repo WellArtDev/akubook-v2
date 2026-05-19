@@ -166,6 +166,11 @@ class JournalService
         });
     }
 
+    public function generateFromPurchaseInvoice(int $invoiceId): JournalEntry
+    {
+        throw new \BadMethodCallException('TODO: Implement after Epic 9 (Purchase module). Missing PurchaseInvoice model/context for journal generation.');
+    }
+
     public function reverseJournal(int $journalId, ?string $reversalDate = null): JournalEntry
     {
         return DB::transaction(function () use ($journalId, $reversalDate) {

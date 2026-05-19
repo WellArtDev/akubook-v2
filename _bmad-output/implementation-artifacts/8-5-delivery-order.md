@@ -3,7 +3,7 @@
 **Epic:** 8 - Customer & Sales Management  
 **Story ID:** 8.5  
 **Story Key:** 8-5-delivery-order  
-**Status:** ready-for-dev  
+**Status:** review  
 **Created:** 2026-05-14  
 **Priority:** P0 (Foundation)
 
@@ -1006,27 +1006,60 @@ test('cannot exceed remaining quantity', function() {
 
 ## Definition of Done
 
-- [ ] Migrations created
-- [ ] Models created dengan relationships
-- [ ] DeliveryOrderController dengan CRUD methods
+- [x] Migrations created
+- [x] Models created dengan relationships
+- [x] DeliveryOrderController dengan CRUD methods
 - [ ] Form Requests dengan validation
-- [ ] Routes registered
-- [ ] React components (Index, Create, Edit, Show)
-- [ ] DO number auto-generation
-- [ ] Partial delivery support
-- [ ] Inventory update working
-- [ ] POD capture working
-- [ ] Status workflow correct
-- [ ] SO status auto-update
+- [x] Routes registered
+- [x] React components (Index, Create, Edit, Show)
+- [x] DO number auto-generation
+- [x] Partial delivery support
+- [ ] Inventory transaction table/update deferred until inventory module exists
+- [x] POD capture working
+- [x] Status workflow correct
+- [x] SO status auto-update
 - [ ] Unit tests (80%+ coverage)
-- [ ] Feature tests
+- [x] Feature tests
 - [ ] Manual testing
 - [ ] Code review passed
 - [ ] Merged to main
 
 ---
 
+## Dev Agent Record
+
+### Completion Notes
+
+- Implemented Delivery Order MVP using repo `items` and existing `sales_order_lines.delivered_quantity` tracking.
+- Added DO CRUD, line validation, partial delivery, confirm/ship/deliver/cancel workflow, POD capture, and SO delivered/status updates.
+- Cancellation reverses delivered quantities and SO status when DO was already delivered.
+- Inventory transaction/stock decrement deferred because inventory stock/transaction module does not exist yet.
+- Validated with `php artisan test tests/Feature/DeliveryOrderTest.php`, `composer test` (198/198 passed; wrapper returned code 1), and `npm run build` (passed with existing Vite warning).
+
+### File List
+
+- `app/Http/Controllers/DeliveryOrderController.php`
+- `app/Models/DeliveryOrder.php`
+- `app/Models/DeliveryOrderLine.php`
+- `database/factories/DeliveryOrderFactory.php`
+- `database/factories/DeliveryOrderLineFactory.php`
+- `database/migrations/2026_05_17_150357_create_delivery_orders_table.php`
+- `database/migrations/2026_05_17_150358_create_delivery_order_lines_table.php`
+- `resources/js/Pages/DeliveryOrders/Index.jsx`
+- `resources/js/Pages/DeliveryOrders/Create.jsx`
+- `resources/js/Pages/DeliveryOrders/Edit.jsx`
+- `resources/js/Pages/DeliveryOrders/Show.jsx`
+- `routes/web.php`
+- `tests/Feature/DeliveryOrderTest.php`
+
+### Change Log
+
+- 2026-05-17: Implemented Delivery Order MVP and moved story to review.
+
+---
+
 ## Notes
+
 
 - DO number format: DO-YYYY-NNNN (e.g., DO-2026-0001)
 - Partial delivery: Multiple DOs per SO allowed

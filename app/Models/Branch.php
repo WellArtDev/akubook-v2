@@ -13,6 +13,15 @@ class Branch extends Model
 {
     use Auditable, HasFactory, SoftDeletes;
 
+    protected static function booted(): void
+    {
+        static::creating(function (self $branch): void {
+            if ($branch->is_active === null) {
+                $branch->is_active = true;
+            }
+        });
+    }
+
     protected $fillable = [
         'company_id',
         'code',

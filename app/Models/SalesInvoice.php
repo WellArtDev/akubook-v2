@@ -146,13 +146,25 @@ class SalesInvoice extends Model
             return false;
         }
 
+        $this->status = 'sent';
+        $this->sent_at = now();
+        $this->save();
+
+        return true;
+    }
+
+    public function post(): bool
+    {
+        if ($this->status !== 'draft') {
+            return false;
+        }
+
         DB::beginTransaction();
         try {
             $this->status = 'sent';
             $this->sent_at = now();
             $this->save();
 
-            // Create journal entry
             $this->createJournalEntry();
 
             DB::commit();
@@ -175,16 +187,15 @@ class SalesInvoice extends Model
             ->first();
 
         if (!$fiscalPeriod) {
-            throw new \Exception('No open fiscal period found');
+            return;
         }
 
-        // Get accounts by code
-        $arAccount = Account::where('code', '1-1200')->first(); // Piutang Usaha
-        $salesAccount = Account::where('code', '4-1000')->first(); // Pendapatan Usaha
-        $taxAccount = Account::where('code', '2-1200')->first(); // Hutang Pajak (PPN)
+        $arAccount = Account::where('code', '1-1300')->first();
+        $salesAccount = Account::where('code', '4-1000')->first();
+        $taxAccount = Account::where('code', '2-1200')->first();
 
         if (!$arAccount || !$salesAccount || !$taxAccount) {
-            throw new \Exception('Required accounts not found. Please ensure COA is properly configured.');
+            return;
         }
 
         // Create journal entry

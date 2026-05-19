@@ -13,6 +13,7 @@ return new class extends Migration
             $table->string('so_number', 50)->unique();
             $table->date('so_date');
             $table->foreignId('customer_id')->constrained()->onDelete('restrict');
+            $table->foreignId('branch_id')->nullable()->constrained('branches')->onDelete('restrict');
             $table->string('customer_po_number', 100)->nullable();
             $table->foreignId('sales_person_id')->constrained('users')->onDelete('restrict');
             $table->string('payment_terms', 50)->nullable();
@@ -25,6 +26,7 @@ return new class extends Migration
             $table->decimal('discount_amount', 15, 2)->default(0);
             $table->decimal('tax_amount', 15, 2)->default(0);
             $table->decimal('grand_total', 15, 2)->default(0);
+            $table->decimal('total_amount', 15, 2)->default(0);
             $table->boolean('approval_required')->default(false);
             $table->foreignId('approved_by')->nullable()->constrained('users')->onDelete('restrict');
             $table->timestamp('approved_at')->nullable();

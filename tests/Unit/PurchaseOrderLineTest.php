@@ -36,7 +36,8 @@ class PurchaseOrderLineTest extends TestCase
 
         $line = $po->lines()->create([
             'line_number' => 1,
-            'item_id' => $item->id,
+            'product_code' => $item->code,
+            'product_name' => $item->name,
             'quantity' => 10,
             'unit' => 'pcs',
             'unit_price' => 1500,
@@ -64,7 +65,8 @@ class PurchaseOrderLineTest extends TestCase
 
         $line = $po->lines()->create([
             'line_number' => 1,
-            'item_id' => $item->id,
+            'product_code' => $item->code,
+            'product_name' => $item->name,
             'quantity' => 10,
             'unit' => 'pcs',
             'unit_price' => 1000,
@@ -75,7 +77,7 @@ class PurchaseOrderLineTest extends TestCase
         $this->assertEquals($po->id, $line->purchaseOrder->id);
     }
 
-    public function test_it_belongs_to_item()
+    public function test_it_stores_product_fields()
     {
         $supplier = Supplier::factory()->create();
         $user = User::factory()->create();
@@ -91,14 +93,15 @@ class PurchaseOrderLineTest extends TestCase
 
         $line = $po->lines()->create([
             'line_number' => 1,
-            'item_id' => $item->id,
+            'product_code' => $item->code,
+            'product_name' => $item->name,
             'quantity' => 10,
             'unit' => 'pcs',
             'unit_price' => 1000,
             'line_total' => 10000,
         ]);
 
-        $this->assertInstanceOf(Item::class, $line->item);
-        $this->assertEquals($item->id, $line->item->id);
+        $this->assertEquals($item->code, $line->product_code);
+        $this->assertEquals($item->name, $line->product_name);
     }
 }

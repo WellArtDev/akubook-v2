@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('warehouses', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('branch_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('branch_id')->constrained()->restrictOnDelete();
             $table->string('code')->unique();
             $table->string('name');
             $table->text('address')->nullable();

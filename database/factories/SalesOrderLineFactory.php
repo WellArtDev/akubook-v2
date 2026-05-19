@@ -24,12 +24,15 @@ class SalesOrderLineFactory extends Factory
         $lineTotal = ($quantity * $unitPrice) - $discountAmount + $taxAmount;
         
         return [
+            'line_number' => fake()->numberBetween(1, 20),
             'description' => fake()->optional()->sentence(),
             'quantity' => $quantity,
+            'unit' => 'pcs',
             'unit_price' => $unitPrice,
             'discount_amount' => $discountAmount,
             'tax_amount' => $taxAmount,
             'line_total' => $lineTotal,
+            'item_id' => \App\Models\Item::factory(),
         ];
     }
 }

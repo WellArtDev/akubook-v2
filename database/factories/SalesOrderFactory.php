@@ -25,6 +25,7 @@ class SalesOrderFactory extends Factory
         return [
             'so_number' => 'SO-' . fake()->unique()->numberBetween(1000, 9999),
             'so_date' => fake()->dateTimeBetween('-1 month', 'now'),
+            'customer_id' => \App\Models\Customer::factory(),
             'sales_person_id' => \App\Models\User::factory(),
             'created_by' => \App\Models\User::factory(),
             'status' => fake()->randomElement(['draft', 'pending_approval', 'approved', 'in_progress', 'completed', 'cancelled']),
@@ -32,6 +33,7 @@ class SalesOrderFactory extends Factory
             'tax_amount' => $taxAmount,
             'discount_amount' => $discountAmount,
             'grand_total' => $grandTotal,
+            'total_amount' => $grandTotal,
             'notes' => fake()->optional()->sentence(),
         ];
     }

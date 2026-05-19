@@ -73,6 +73,31 @@ class PurchaseOrder extends Model
         return $this->belongsTo(User::class, 'updated_by');
     }
 
+    public function approvals(): HasMany
+    {
+        return $this->hasMany(PurchaseOrderApproval::class);
+    }
+
+    public function currentApproval()
+    {
+        return $this->hasOne(PurchaseOrderApproval::class)->latestOfMany();
+    }
+
+    public function approvalReasons(): array
+    {
+        $reasons = [];
+
+        if ($this->requiresApproval()) {
+            $reasons[] = [
+                'type' => 'high_value',
+                'message' => 'Total PO melebihi threshold approval Rp 10.000.000',
+                'amount' => (float) $this->grand_total,
+            ];
+        }
+
+        return $reasons;
+    }
+
     // Business Logic
     public static function generatePONumber(): string
     {

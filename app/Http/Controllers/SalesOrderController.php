@@ -6,6 +6,7 @@ use App\Models\SalesOrder;
 use App\Models\Customer;
 use App\Models\Branch;
 use App\Models\Item;
+use App\Models\SalesOrderApproval;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
@@ -166,6 +167,8 @@ class SalesOrderController extends Controller
             'deliveryAddress',
             'lines.item',
             'approvedBy',
+            'rejectedBy',
+            'cancelledBy',
             'createdBy'
         ]);
 
@@ -314,11 +317,22 @@ class SalesOrderController extends Controller
         }
 
         try {
-            $salesOrder->update([
-                'status' => 'approved',
-                'approved_by' => auth()->id(),
-                'approved_at' => now(),
-            ]);
+            DB::transaction(function () use ($salesOrder) {
+                $salesOrder->update([
+                    'status' => 'approved',
+                    'approved_by' => auth()->id(),
+                    'approved_at' => now(),
+                ]);
+
+                $salesOrder->approvals()
+                    ->where('status', 'pending')
+                    ->latest('id')
+                    ->first()?->update([
+                        'status' => 'approved',
+                        'reviewed_by' => auth()->id(),
+                        'reviewed_at' => now(),
+                    ]);
+            });
 
             return redirect()->route('sales-orders.show', $salesOrder)
                 ->with('success', "Sales Order {$salesOrder->so_number} berhasil diapprove.");
@@ -338,11 +352,139 @@ class SalesOrderController extends Controller
         }
 
         try {
-            $salesOrder->update(['status' => 'pending_approval']);
+            DB::transaction(function () use ($salesOrder) {
+                $salesOrder->update(['status' => 'pending_approval']);
+
+                SalesOrderApproval::create([
+                    'sales_order_id' => $salesOrder->id,
+                    'submitted_by' => auth()->id(),
+                    'submitted_at' => now(),
+                    'approval_reasons' => $salesOrder->approvalReasons(),
+                    'status' => 'pending',
+                ]);
+            });
 
             return redirect()->route('sales-orders.show', $salesOrder)
                 ->with('success', "Sales Order {$salesOrder->so_number} berhasil disubmit untuk approval.");
         } catch (\Exception $e) {
+            return back()->withErrors(['error' => $e->getMessage()]);
+        }
+    }
+
+    public function reject(Request $request, SalesOrder $salesOrder)
+    {
+        if ($salesOrder->status !== 'pending_approval') {
+            return back()->withErrors(['error' => 'Hanya SO pending approval yang dapat direject.']);
+        }
+
+        $validated = $request->validate([
+            'reason' => 'required|string|max:1000',
+        ]);
+
+        try {
+            $salesOrder->update([
+                'status' => 'draft',
+                'rejected_by' => auth()->id(),
+                'rejected_at' => now(),
+                'rejection_reason' => $validated['reason'],
+            ]);
+
+            return redirect()->route('sales-orders.show', $salesOrder)
+                ->with('success', "Sales Order {$salesOrder->so_number} berhasil direject ke draft.");
+        } catch (\Exception $e) {
+            return back()->withErrors(['error' => $e->getMessage()]);
+        }
+    }
+
+    public function cancel(Request $request, SalesOrder $salesOrder)
+    {
+        if (in_array($salesOrder->status, ['completed', 'cancelled'])) {
+            return back()->withErrors(['error' => 'SO completed atau cancelled tidak bisa dibatalkan.']);
+        }
+
+        $validated = $request->validate([
+            'reason' => 'required|string|max:1000',
+        ]);
+
+        try {
+            $salesOrder->update([
+                'status' => 'cancelled',
+                'cancelled_by' => auth()->id(),
+                'cancelled_at' => now(),
+                'cancellation_reason' => $validated['reason'],
+            ]);
+
+            return redirect()->route('sales-orders.show', $salesOrder)
+                ->with('success', "Sales Order {$salesOrder->so_number} berhasil dibatalkan.");
+        } catch (\Exception $e) {
+            return back()->withErrors(['error' => $e->getMessage()]);
+        }
+    }
+
+    public function duplicate(SalesOrder $salesOrder)
+    {
+        try {
+            DB::beginTransaction();
+
+            $year = date('Y');
+            $lastSO = SalesOrder::where('so_number', 'like', "SO-{$year}-%")
+                ->whereRaw('LENGTH(so_number) = ?', [strlen("SO-{$year}-") + 4])
+                ->orderBy('so_number', 'desc')
+                ->first();
+
+            $nextNumber = $lastSO ? intval(substr($lastSO->so_number, -4)) + 1 : 1;
+            $soNumber = sprintf('SO-%s-%04d', $year, $nextNumber);
+
+            $clone = $salesOrder->replicate([
+                'so_number',
+                'status',
+                'approved_by',
+                'approved_at',
+                'rejected_by',
+                'rejected_at',
+                'rejection_reason',
+                'cancelled_by',
+                'cancelled_at',
+                'cancellation_reason',
+                'created_by',
+            ]);
+
+            $clone->so_number = $soNumber;
+            $clone->so_date = now()->toDateString();
+            $clone->status = 'draft';
+            $clone->approved_by = null;
+            $clone->approved_at = null;
+            $clone->rejected_by = null;
+            $clone->rejected_at = null;
+            $clone->rejection_reason = null;
+            $clone->cancelled_by = null;
+            $clone->cancelled_at = null;
+            $clone->cancellation_reason = null;
+            $clone->created_by = auth()->id();
+            $clone->save();
+
+            $salesOrder->loadMissing('lines');
+            foreach ($salesOrder->lines as $line) {
+                $cloneLine = $line->replicate(['sales_order_id']);
+                $cloneLine->sales_order_id = $clone->id;
+                $cloneLine->save();
+            }
+
+            $clone->refresh();
+            $clone->load('lines');
+            $clone->calculateTotals();
+            $clone->approval_required = $clone->requiresApproval();
+            $creditCheck = $clone->checkCreditLimit();
+            $clone->credit_check_passed = $creditCheck['passed'];
+            $clone->credit_check_notes = $creditCheck['notes'];
+            $clone->save();
+
+            DB::commit();
+
+            return redirect()->route('sales-orders.edit', $clone)
+                ->with('success', "Sales Order {$salesOrder->so_number} berhasil diduplikasi ke {$clone->so_number}.");
+        } catch (\Exception $e) {
+            DB::rollBack();
             return back()->withErrors(['error' => $e->getMessage()]);
         }
     }

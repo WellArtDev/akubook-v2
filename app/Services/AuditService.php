@@ -74,7 +74,7 @@ class AuditService
             return AuditLog::create([
                 'user_id' => $user?->id,
                 'auditable_type' => 'App\Models\User',
-                'auditable_id' => $user?->id,
+                'auditable_id' => $user?->id ?? 0,
                 'event' => $event,
                 'old_values' => null,
                 'new_values' => $data,

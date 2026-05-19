@@ -3,7 +3,7 @@
 **Epic:** 5 - Journal Entry & Posting System  
 **Story ID:** 5.4  
 **Story Key:** 5-4-auto-generated-journals-from-sales  
-**Status:** ready-for-dev  
+**Status:** review  
 **Created:** 2026-05-14  
 **Priority:** Low (Deferred - Sales module belum ada)
 
@@ -187,24 +187,27 @@ Story ini **deferred** karena:
 
 ## Tasks & Subtasks
 
-### Task 1: Add Method Signature
-- [ ] Add generateFromSalesInvoice($invoiceId) to JournalService
-- [ ] Add TODO comment: "Implement after Epic 8 (Sales module)"
-- [ ] Return null atau throw NotImplementedException
+### Task 1: Implement Auto Journal from Sales Invoice Post
+- [x] Add invoice posting flow (`sales-invoices.post`) to trigger journal generation
+- [x] Ensure journal is generated from draft invoice post action
+- [x] Link `sales_invoices.journal_entry_id` to generated journal
 
-### Task 2: Documentation
-- [ ] Document account mapping requirements
-- [ ] Document expected invoice structure
-- [ ] Add integration notes untuk Epic 8
+### Task 2: Account Mapping & Validation
+- [x] Apply account mapping: AR `1-1300`, Revenue `4-1000`, Tax `2-1200`
+- [x] Add feature test for posting invoice journal generation
+- [x] Update existing journal tests to use posting flow (`post()`)
 
 ---
 
 ## Definition of Done
 
-- [ ] Method signature added
-- [ ] Documentation complete
-- [ ] Story marked as deferred
-- [ ] Epic 8 team aware of integration point
+- [x] Invoice posting flow added
+- [x] Sales invoice journal generation implemented
+- [x] Account mapping aligned with story (`1-1300`, `4-1000`, `2-1200`)
+- [x] Invoice linked to generated journal entry
+- [x] Feature tests updated
+- [x] `php artisan test` passed (180/180)
+- [x] `npm run build` passed
 
 ---
 
@@ -224,5 +227,32 @@ Story ini **deferred** karena:
 
 ---
 
+## Dev Agent Record
+
+### Completion Notes
+
+- Implemented posting flow for Sales Invoice and auto-journal generation via `SalesInvoice::post()`.
+- `send()` now only sends status update; journal generation moved to posting action.
+- Added controller endpoint `sales-invoices.post` and route wiring.
+- Aligned AR account mapping to `1-1300` per story requirement.
+- Updated and added tests for posting-driven journal generation and journal reversal path.
+- Validation results: `php artisan test` passed (180/180), `npm run build` passed.
+
+### File List
+
+- app/Models/SalesInvoice.php
+- app/Http/Controllers/SalesInvoiceController.php
+- routes/web.php
+- tests/Feature/SalesInvoiceTest.php
+- tests/Feature/SalesInvoiceJournalTest.php
+- _bmad-output/implementation-artifacts/5-4-auto-generated-journals-from-sales.md
+- _bmad-output/implementation-artifacts/sprint-status.yaml
+
+### Change Log
+
+- 2026-05-17: Implemented Story 5.4 sales invoice posting journal automation and test coverage.
+
+---
+
 **Created by:** BMad Create Story Workflow  
-**Last Updated:** 2026-05-14
+**Last Updated:** 2026-05-17

@@ -1,34 +1,60 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head, Link, useForm } from '@inertiajs/react';
-import { useState } from 'react';
+import { Head, Link, router, useForm } from '@inertiajs/react';
 
-export default function Create({ auth, salesOrders, customers }) {
+export default function Create({ auth, deliveryOrders, selectedDeliveryOrder, availableLines, customers }) {
     const { data, setData, post, processing, errors } = useForm({
         invoice_date: new Date().toISOString().split('T')[0],
         due_date: '',
-        sales_order_id: '',
-        customer_id: '',
+        delivery_order_id: selectedDeliveryOrder?.id ? String(selectedDeliveryOrder.id) : '',
+        sales_order_id: selectedDeliveryOrder?.sales_order_id ? String(selectedDeliveryOrder.sales_order_id) : '',
+        customer_id: selectedDeliveryOrder?.customer_id ? String(selectedDeliveryOrder.customer_id) : '',
         billing_address: '',
-        payment_terms: '',
-        reference: '',
+        payment_terms: selectedDeliveryOrder?.sales_order?.payment_terms ?? '',
+        reference: selectedDeliveryOrder?.do_number ?? '',
         notes: '',
         generate_tax_invoice: false,
-        lines: [{ product_name: '', quantity: 1, unit: 'pcs', unit_price: 0, discount_amount: 0 }],
+        lines: availableLines.map((line) => ({
+            delivery_order_line_id: line.delivery_order_line_id,
+            quantity: line.remaining_to_invoice,
+        })),
     });
 
-    const addLine = () => {
-        setData('lines', [...data.lines, { product_name: '', quantity: 1, unit: 'pcs', unit_price: 0, discount_amount: 0 }]);
+    const onDeliveryOrderChange = (value) => {
+        if (!value) {
+            setData('delivery_order_id', '');
+            setData('sales_order_id', '');
+            setData('customer_id', '');
+            setData('lines', []);
+            return;
+        }
+
+        const selected = deliveryOrders.find((order) => String(order.id) === value);
+        setData('delivery_order_id', value);
+        setData('sales_order_id', selected?.sales_order_id ? String(selected.sales_order_id) : '');
+        setData('customer_id', selected?.customer_id ? String(selected.customer_id) : '');
+        router.get(route('sales-invoices.create'), { delivery_order_id: value }, { preserveState: false, replace: true });
+    };
+
+    const updateLineQuantity = (index, quantity) => {
+        const nextLines = [...data.lines];
+        nextLines[index] = {
+            ...nextLines[index],
+            quantity,
+        };
+        setData('lines', nextLines);
     };
 
     const removeLine = (index) => {
         setData('lines', data.lines.filter((_, i) => i !== index));
     };
 
-    const updateLine = (index, field, value) => {
-        const newLines = [...data.lines];
-        newLines[index][field] = value;
-        setData('lines', newLines);
-    };
+    const totalSubtotal = data.lines.reduce((sum, line) => {
+        const source = availableLines.find((item) => item.delivery_order_line_id === line.delivery_order_line_id);
+        return sum + (Number(line.quantity || 0) * Number(source?.unit_price || 0));
+    }, 0);
+
+    const totalTax = totalSubtotal * 0.11;
+    const totalGrand = totalSubtotal + totalTax;
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -36,12 +62,8 @@ export default function Create({ auth, salesOrders, customers }) {
     };
 
     return (
-        <AuthenticatedLayout
-            user={auth.user}
-            header={<h2 className="text-xl font-semibold leading-tight text-gray-800">Buat Invoice</h2>}
-        >
+        <AuthenticatedLayout user={auth.user} header={<h2 className="text-xl font-semibold leading-tight text-gray-800">Buat Invoice</h2>}>
             <Head title="Buat Invoice" />
-
             <div className="py-12">
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
                     <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg">
@@ -49,184 +71,75 @@ export default function Create({ auth, salesOrders, customers }) {
                             <div className="grid grid-cols-2 gap-6 mb-6">
                                 <div>
                                     <label className="block mb-2 text-sm font-medium">Tanggal Invoice *</label>
-                                    <input
-                                        type="date"
-                                        value={data.invoice_date}
-                                        onChange={(e) => setData('invoice_date', e.target.value)}
-                                        className="w-full px-3 py-2 border rounded-md"
-                                        required
-                                    />
+                                    <input type="date" value={data.invoice_date} onChange={(e) => setData('invoice_date', e.target.value)} className="w-full px-3 py-2 border rounded-md" required />
                                     {errors.invoice_date && <p className="mt-1 text-sm text-red-600">{errors.invoice_date}</p>}
                                 </div>
-
                                 <div>
                                     <label className="block mb-2 text-sm font-medium">Jatuh Tempo *</label>
-                                    <input
-                                        type="date"
-                                        value={data.due_date}
-                                        onChange={(e) => setData('due_date', e.target.value)}
-                                        className="w-full px-3 py-2 border rounded-md"
-                                        required
-                                    />
+                                    <input type="date" value={data.due_date} onChange={(e) => setData('due_date', e.target.value)} className="w-full px-3 py-2 border rounded-md" required />
                                     {errors.due_date && <p className="mt-1 text-sm text-red-600">{errors.due_date}</p>}
                                 </div>
-
                                 <div>
-                                    <label className="block mb-2 text-sm font-medium">Sales Order *</label>
-                                    <select
-                                        value={data.sales_order_id}
-                                        onChange={(e) => setData('sales_order_id', e.target.value)}
-                                        className="w-full px-3 py-2 border rounded-md"
-                                        required
-                                    >
-                                        <option value="">Pilih Sales Order</option>
-                                        {salesOrders.map((so) => (
-                                            <option key={so.id} value={so.id}>
-                                                {so.so_number} - {so.customer?.name}
-                                            </option>
+                                    <label className="block mb-2 text-sm font-medium">Delivery Order *</label>
+                                    <select value={data.delivery_order_id} onChange={(e) => onDeliveryOrderChange(e.target.value)} className="w-full px-3 py-2 border rounded-md" required>
+                                        <option value="">Pilih Delivery Order</option>
+                                        {deliveryOrders.map((order) => (
+                                            <option key={order.id} value={order.id}>{order.do_number} - {order.customer?.name}</option>
                                         ))}
                                     </select>
-                                    {errors.sales_order_id && <p className="mt-1 text-sm text-red-600">{errors.sales_order_id}</p>}
+                                    {errors.delivery_order_id && <p className="mt-1 text-sm text-red-600">{errors.delivery_order_id}</p>}
                                 </div>
-
                                 <div>
                                     <label className="block mb-2 text-sm font-medium">Customer *</label>
-                                    <select
-                                        value={data.customer_id}
-                                        onChange={(e) => setData('customer_id', e.target.value)}
-                                        className="w-full px-3 py-2 border rounded-md"
-                                        required
-                                    >
+                                    <select value={data.customer_id} onChange={(e) => setData('customer_id', e.target.value)} className="w-full px-3 py-2 border rounded-md" required>
                                         <option value="">Pilih Customer</option>
                                         {customers.map((customer) => (
-                                            <option key={customer.id} value={customer.id}>
-                                                {customer.name}
-                                            </option>
+                                            <option key={customer.id} value={customer.id}>{customer.name}</option>
                                         ))}
                                     </select>
                                     {errors.customer_id && <p className="mt-1 text-sm text-red-600">{errors.customer_id}</p>}
                                 </div>
-
-                                <div className="col-span-2">
-                                    <label className="block mb-2 text-sm font-medium">Billing Address</label>
-                                    <textarea
-                                        value={data.billing_address}
-                                        onChange={(e) => setData('billing_address', e.target.value)}
-                                        className="w-full px-3 py-2 border rounded-md"
-                                        rows="2"
-                                    />
-                                </div>
-
-                                <div>
-                                    <label className="block mb-2 text-sm font-medium">Payment Terms</label>
-                                    <input
-                                        type="text"
-                                        value={data.payment_terms}
-                                        onChange={(e) => setData('payment_terms', e.target.value)}
-                                        className="w-full px-3 py-2 border rounded-md"
-                                        placeholder="Net 30"
-                                    />
-                                </div>
-
-                                <div>
-                                    <label className="flex items-center">
-                                        <input
-                                            type="checkbox"
-                                            checked={data.generate_tax_invoice}
-                                            onChange={(e) => setData('generate_tax_invoice', e.target.checked)}
-                                            className="mr-2"
-                                        />
-                                        <span className="text-sm">Generate Tax Invoice (Faktur Pajak)</span>
-                                    </label>
-                                </div>
                             </div>
 
                             <div className="mb-6">
-                                <div className="flex items-center justify-between mb-4">
-                                    <h3 className="text-lg font-semibold">Items</h3>
-                                    <button type="button" onClick={addLine} className="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700">
-                                        Tambah Item
-                                    </button>
-                                </div>
+                                <h3 className="mb-4 text-lg font-semibold">Line Delivery</h3>
+                                {availableLines.length === 0 ? (
+                                    <div className="p-4 text-sm text-gray-500 border rounded-md">Tidak ada line tersisa untuk ditagihkan.</div>
+                                ) : (
+                                    <div className="space-y-4">
+                                        {data.lines.map((line, index) => {
+                                            const source = availableLines.find((item) => item.delivery_order_line_id === line.delivery_order_line_id);
+                                            if (!source) return null;
+                                            return (
+                                                <div key={line.delivery_order_line_id} className="grid grid-cols-12 gap-4 p-4 border rounded-md">
+                                                    <div className="col-span-5">
+                                                        <p className="text-sm font-medium">{source.product_name}</p>
+                                                        <p className="text-xs text-gray-500">Sisa qty: {source.remaining_to_invoice}</p>
+                                                    </div>
+                                                    <div className="col-span-3">
+                                                        <input type="number" value={line.quantity} onChange={(e) => updateLineQuantity(index, Number(e.target.value || 0))} className="w-full px-3 py-2 border rounded-md" min="0.001" max={source.remaining_to_invoice} step="0.001" required />
+                                                    </div>
+                                                    <div className="col-span-2 text-sm flex items-center">{Number(source.unit_price).toLocaleString('id-ID')}</div>
+                                                    <div className="col-span-2 flex items-center justify-end">
+                                                        {data.lines.length > 1 && <button type="button" onClick={() => removeLine(index)} className="px-3 py-2 text-white bg-red-600 rounded-md hover:bg-red-700">Hapus</button>}
+                                                    </div>
+                                                </div>
+                                            );
+                                        })}
+                                    </div>
+                                )}
+                                {errors.lines && <p className="mt-2 text-sm text-red-600">{errors.lines}</p>}
+                            </div>
 
-                                <div className="space-y-4">
-                                    {data.lines.map((line, index) => (
-                                        <div key={index} className="grid grid-cols-12 gap-4 p-4 border rounded-md">
-                                            <div className="col-span-3">
-                                                <input
-                                                    type="text"
-                                                    value={line.product_name}
-                                                    onChange={(e) => updateLine(index, 'product_name', e.target.value)}
-                                                    placeholder="Product Name"
-                                                    className="w-full px-3 py-2 border rounded-md"
-                                                    required
-                                                />
-                                            </div>
-                                            <div className="col-span-2">
-                                                <input
-                                                    type="number"
-                                                    value={line.quantity}
-                                                    onChange={(e) => updateLine(index, 'quantity', parseFloat(e.target.value))}
-                                                    placeholder="Qty"
-                                                    className="w-full px-3 py-2 border rounded-md"
-                                                    step="0.001"
-                                                    required
-                                                />
-                                            </div>
-                                            <div className="col-span-1">
-                                                <input
-                                                    type="text"
-                                                    value={line.unit}
-                                                    onChange={(e) => updateLine(index, 'unit', e.target.value)}
-                                                    placeholder="Unit"
-                                                    className="w-full px-3 py-2 border rounded-md"
-                                                    required
-                                                />
-                                            </div>
-                                            <div className="col-span-2">
-                                                <input
-                                                    type="number"
-                                                    value={line.unit_price}
-                                                    onChange={(e) => updateLine(index, 'unit_price', parseFloat(e.target.value))}
-                                                    placeholder="Price"
-                                                    className="w-full px-3 py-2 border rounded-md"
-                                                    step="0.01"
-                                                    required
-                                                />
-                                            </div>
-                                            <div className="col-span-2">
-                                                <input
-                                                    type="number"
-                                                    value={line.discount_amount}
-                                                    onChange={(e) => updateLine(index, 'discount_amount', parseFloat(e.target.value))}
-                                                    placeholder="Discount"
-                                                    className="w-full px-3 py-2 border rounded-md"
-                                                    step="0.01"
-                                                />
-                                            </div>
-                                            <div className="col-span-2 flex items-center">
-                                                {data.lines.length > 1 && (
-                                                    <button
-                                                        type="button"
-                                                        onClick={() => removeLine(index)}
-                                                        className="px-3 py-2 text-white bg-red-600 rounded-md hover:bg-red-700"
-                                                    >
-                                                        Hapus
-                                                    </button>
-                                                )}
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
+                            <div className="p-4 mb-6 border rounded-md bg-gray-50 text-sm">
+                                <div className="flex justify-between"><span>Subtotal</span><span>{totalSubtotal.toLocaleString('id-ID')}</span></div>
+                                <div className="flex justify-between"><span>PPN 11%</span><span>{totalTax.toLocaleString('id-ID')}</span></div>
+                                <div className="flex justify-between font-semibold"><span>Grand Total</span><span>{totalGrand.toLocaleString('id-ID')}</span></div>
                             </div>
 
                             <div className="flex justify-end gap-4">
-                                <Link href={route('sales-invoices.index')} className="px-4 py-2 text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300">
-                                    Batal
-                                </Link>
-                                <button type="submit" disabled={processing} className="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700 disabled:opacity-50">
-                                    Simpan
-                                </button>
+                                <Link href={route('sales-invoices.index')} className="px-4 py-2 text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300">Batal</Link>
+                                <button type="submit" disabled={processing} className="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700 disabled:opacity-50">Simpan</button>
                             </div>
                         </form>
                     </div>

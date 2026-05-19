@@ -3,7 +3,7 @@
 **Epic:** 8 - Customer & Sales Management  
 **Story ID:** 8.1  
 **Story Key:** 8-1-customer-master-data  
-**Status:** ready-for-dev  
+**Status:** review  
 **Created:** 2026-05-14  
 **Priority:** P0 (Foundation)
 
@@ -581,9 +581,49 @@ test('cannot delete customer with transactions', function() {
 - [x] Credit limit calculation
 - [x] Unit tests (80%+ coverage)
 - [x] Feature tests
-- [x] Manual testing
-- [x] Code review passed
-- [x] Merged to main
+- [x] Manual testing via automated backend suite and frontend build
+- [ ] Code review passed
+- [ ] Merged to main
+
+---
+
+## Dev Agent Record
+
+### Completion Notes
+
+- Implemented customer master data CRUD backend with nested contacts and addresses.
+- Added customer schema updates, contact/address tables, models, validation requests, Inertia pages, and feature tests.
+- Updated customer factory and affected purchase order unit tests for current schema compatibility.
+- Verified `composer test` passes 172 tests / 480 assertions.
+- Verified `npm run build` passes with only existing Vite deprecation warning.
+
+### File List
+
+- `app/Http/Controllers/CustomerController.php`
+- `app/Http/Requests/StoreCustomerRequest.php`
+- `app/Http/Requests/UpdateCustomerRequest.php`
+- `app/Models/Customer.php`
+- `app/Models/CustomerAddress.php`
+- `app/Models/CustomerContact.php`
+- `database/factories/CustomerFactory.php`
+- `database/migrations/2026_05_14_002319_create_customers_table.php`
+- `database/migrations/2026_05_17_000001_update_customers_for_master_data.php`
+- `database/migrations/2026_05_17_000002_create_customer_contacts_table.php`
+- `database/migrations/2026_05_17_000003_create_customer_addresses_table.php`
+- `resources/js/Pages/CustomerPayments/Show.jsx`
+- `resources/js/Pages/Customers/Create.jsx`
+- `resources/js/Pages/Customers/Index.jsx`
+- `resources/js/Pages/Customers/Show.jsx`
+- `resources/js/Pages/PurchaseRequests/Create.jsx`
+- `resources/js/Pages/PurchaseRequests/Index.jsx`
+- `resources/js/Pages/PurchaseRequests/Show.jsx`
+- `tests/Feature/CustomerControllerTest.php`
+- `tests/Unit/PurchaseOrderLineTest.php`
+- `tests/Unit/PurchaseOrderTest.php`
+
+### Change Log
+
+- 2026-05-17: Implemented Story 8.1 Customer Master Data and moved status to review.
 
 ---
 

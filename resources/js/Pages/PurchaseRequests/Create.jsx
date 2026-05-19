@@ -1,9 +1,23 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { Button } from '@/Components/ui/button';
-import { Input } from '@/Components/ui/input';
-import { Label } from '@/Components/ui/label';
-import { Textarea } from '@/Components/ui/textarea';
+const Button = ({ className = '', variant = 'default', ...props }) => (
+    <button
+        className={`${variant === 'outline' ? 'border border-gray-300 bg-white text-gray-700 hover:bg-gray-50' : 'bg-indigo-600 text-white hover:bg-indigo-700'} inline-flex items-center px-4 py-2 rounded-md font-semibold text-xs uppercase tracking-widest disabled:opacity-25 transition ${className}`}
+        {...props}
+    />
+);
+
+const Input = ({ className = '', ...props }) => (
+    <input className={`border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm ${className}`} {...props} />
+);
+
+const Label = ({ className = '', ...props }) => (
+    <label className={`block font-medium text-sm text-gray-700 ${className}`} {...props} />
+);
+
+const Textarea = ({ className = '', ...props }) => (
+    <textarea className={`border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm ${className}`} {...props} />
+);
 
 export default function Create({ auth }) {
     const { data, setData, post, processing, errors } = useForm({

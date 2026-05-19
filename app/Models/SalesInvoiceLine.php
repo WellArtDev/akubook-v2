@@ -13,6 +13,7 @@ class SalesInvoiceLine extends Model
     protected $fillable = [
         'sales_invoice_id',
         'sales_order_line_id',
+        'delivery_order_line_id',
         'line_number',
         'product_id',
         'product_name',
@@ -41,6 +42,11 @@ class SalesInvoiceLine extends Model
     public function salesOrderLine(): BelongsTo
     {
         return $this->belongsTo(SalesOrderLine::class);
+    }
+
+    public function deliveryOrderLine(): BelongsTo
+    {
+        return $this->belongsTo(DeliveryOrderLine::class);
     }
 
     public function calculateLineTotal(): void

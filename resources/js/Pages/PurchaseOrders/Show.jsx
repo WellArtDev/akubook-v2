@@ -26,6 +26,15 @@ export default function Show({ auth, purchaseOrder }) {
         }
     };
 
+    const handleReject = () => {
+        const reason = prompt('Alasan reject PO:');
+        if (reason && reason.trim() !== '') {
+            router.post(route('purchase-orders.reject', purchaseOrder.id), {
+                rejection_reason: reason,
+            });
+        }
+    };
+
     const handleDelete = () => {
         if (confirm(`Hapus Purchase Order ${purchaseOrder.po_number}?`)) {
             router.delete(route('purchase-orders.destroy', purchaseOrder.id));
@@ -90,7 +99,21 @@ export default function Show({ auth, purchaseOrder }) {
                                         >
                                             Approve
                                         </button>
+                                        <button
+                                            onClick={handleReject}
+                                            className="px-4 py-2 text-white bg-red-600 rounded-md hover:bg-red-700"
+                                        >
+                                            Reject
+                                        </button>
                                     </>
+                                )}
+                                {purchaseOrder.status === 'pending_approval' && (
+                                    <Link
+                                        href={route('purchase-order-approvals.index')}
+                                        className="px-4 py-2 text-white bg-indigo-600 rounded-md hover:bg-indigo-700"
+                                    >
+                                        Dashboard Approval
+                                    </Link>
                                 )}
                             </div>
 

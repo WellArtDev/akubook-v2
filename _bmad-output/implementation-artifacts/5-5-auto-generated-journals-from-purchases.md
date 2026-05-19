@@ -3,7 +3,7 @@
 **Epic:** 5 - Journal Entry & Posting System  
 **Story ID:** 5.5  
 **Story Key:** 5-5-auto-generated-journals-from-purchases  
-**Status:** ready-for-dev  
+**Status:** review  
 **Created:** 2026-05-14  
 **Priority:** Low (Deferred - Purchase module belum ada)
 
@@ -189,23 +189,27 @@ Story ini **deferred** karena:
 ## Tasks & Subtasks
 
 ### Task 1: Add Method Signature
-- [ ] Add generateFromPurchaseInvoice($invoiceId) to JournalService
-- [ ] Add TODO comment: "Implement after Epic 9 (Purchase module)"
-- [ ] Return null atau throw NotImplementedException
+- [x] Add generateFromPurchaseInvoice($invoiceId) to JournalService
+- [x] Add TODO message: "Implement after Epic 9 (Purchase module)"
+- [x] Throw BadMethodCallException until PurchaseInvoice model/context exists
 
 ### Task 2: Documentation
-- [ ] Document account mapping requirements
-- [ ] Document expected invoice structure
-- [ ] Add integration notes untuk Epic 9
+- [x] Document account mapping requirements
+- [x] Document expected invoice structure
+- [x] Add integration notes untuk Epic 9
+
+### Task 3: Test Coverage
+- [x] Add JournalService placeholder guard test
 
 ---
 
 ## Definition of Done
 
-- [ ] Method signature added
-- [ ] Documentation complete
-- [ ] Story marked as deferred
-- [ ] Epic 9 team aware of integration point
+- [x] Method signature added
+- [x] Documentation complete
+- [x] Story marked as deferred placeholder implemented
+- [x] Epic 9 integration point documented
+- [x] Placeholder behavior tested
 
 ---
 
@@ -226,4 +230,26 @@ Story ini **deferred** karena:
 ---
 
 **Created by:** BMad Create Story Workflow  
-**Last Updated:** 2026-05-14
+**Last Updated:** 2026-05-17
+
+---
+
+## Dev Agent Record
+
+### Completion Notes
+
+- Added `JournalService::generateFromPurchaseInvoice(int $invoiceId): JournalEntry` placeholder.
+- Placeholder throws `BadMethodCallException` with Epic 9 dependency message until `PurchaseInvoice` exists.
+- Added unit test coverage for placeholder guard behavior.
+- Validation done: `php artisan test tests/Unit/JournalServiceTest.php` passed.
+
+### File List
+
+- app/Services/JournalService.php
+- tests/Unit/JournalServiceTest.php
+- _bmad-output/implementation-artifacts/5-5-auto-generated-journals-from-purchases.md
+- _bmad-output/implementation-artifacts/sprint-status.yaml
+
+### Change Log
+
+- 2026-05-17: Implemented deferred purchase journal placeholder and marked story ready for review.

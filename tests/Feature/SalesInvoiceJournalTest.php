@@ -73,7 +73,7 @@ class SalesInvoiceJournalTest extends TestCase
         ]);
 
         $this->actingAs($this->user);
-        $invoice->send();
+        $invoice->post();
 
         $invoice->refresh();
         $this->assertNotNull($invoice->journal_entry_id);
@@ -101,7 +101,7 @@ class SalesInvoiceJournalTest extends TestCase
         ]);
 
         $this->actingAs($this->user);
-        $invoice->send();
+        $invoice->post();
 
         $journal = $invoice->journalEntry;
         $lines = $journal->lines;
@@ -137,7 +137,7 @@ class SalesInvoiceJournalTest extends TestCase
         ]);
 
         $this->actingAs($this->user);
-        $invoice->send();
+        $invoice->post();
 
         $originalJournalId = $invoice->journal_entry_id;
 

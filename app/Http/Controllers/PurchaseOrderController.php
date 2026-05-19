@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PurchaseOrder;
+use App\Models\PurchaseOrderApproval;
 use App\Models\PurchaseOrderLine;
 use App\Models\PurchaseRequest;
 use App\Models\Supplier;
@@ -109,7 +110,7 @@ class PurchaseOrderController extends Controller
 
     public function show(PurchaseOrder $purchaseOrder)
     {
-        $purchaseOrder->load(['supplier', 'deliveryAddress', 'lines', 'createdBy', 'approvedBy', 'updatedBy']);
+        $purchaseOrder->load(['supplier', 'deliveryAddress', 'lines', 'createdBy', 'approvedBy', 'updatedBy', 'approvals.submitter', 'approvals.reviewer']);
 
         return Inertia::render('PurchaseOrders/Show', [
             'purchaseOrder' => $purchaseOrder,
@@ -208,7 +209,19 @@ class PurchaseOrderController extends Controller
     public function submit(PurchaseOrder $purchaseOrder)
     {
         try {
-            $purchaseOrder->submit();
+            DB::transaction(function () use ($purchaseOrder) {
+                $purchaseOrder->submit();
+
+                if ($purchaseOrder->status === 'pending_approval') {
+                    PurchaseOrderApproval::create([
+                        'purchase_order_id' => $purchaseOrder->id,
+                        'submitted_by' => auth()->id(),
+                        'submitted_at' => now(),
+                        'approval_reasons' => $purchaseOrder->approvalReasons(),
+                        'status' => 'pending',
+                    ]);
+                }
+            });
 
             return back()->with('success', 'Purchase Order submitted successfully');
         } catch (\Exception $e) {
@@ -219,7 +232,22 @@ class PurchaseOrderController extends Controller
     public function approve(PurchaseOrder $purchaseOrder)
     {
         try {
-            $purchaseOrder->approve(auth()->id());
+            if ($purchaseOrder->created_by === auth()->id()) {
+                return back()->withErrors(['error' => 'Tidak bisa approve PO buatan sendiri.']);
+            }
+
+            DB::transaction(function () use ($purchaseOrder) {
+                $purchaseOrder->approve(auth()->id());
+
+                $purchaseOrder->approvals()
+                    ->where('status', 'pending')
+                    ->latest('submitted_at')
+                    ->first()?->update([
+                        'status' => 'approved',
+                        'reviewed_by' => auth()->id(),
+                        'reviewed_at' => now(),
+                    ]);
+            });
 
             return back()->with('success', 'Purchase Order approved');
         } catch (\Exception $e) {
@@ -227,10 +255,32 @@ class PurchaseOrderController extends Controller
         }
     }
 
-    public function reject(PurchaseOrder $purchaseOrder)
+    public function reject(Request $request, PurchaseOrder $purchaseOrder)
     {
+        $validated = $request->validate([
+            'rejection_reason' => 'nullable|string|max:1000',
+            'comments' => 'nullable|string',
+        ]);
+
         try {
-            $purchaseOrder->reject(auth()->id());
+            if ($purchaseOrder->created_by === auth()->id()) {
+                return back()->withErrors(['error' => 'Tidak bisa reject PO buatan sendiri.']);
+            }
+
+            DB::transaction(function () use ($purchaseOrder, $validated) {
+                $purchaseOrder->reject(auth()->id());
+
+                $purchaseOrder->approvals()
+                    ->where('status', 'pending')
+                    ->latest('submitted_at')
+                    ->first()?->update([
+                        'status' => 'rejected',
+                        'reviewed_by' => auth()->id(),
+                        'reviewed_at' => now(),
+                        'rejection_reason' => $validated['rejection_reason'] ?? null,
+                        'comments' => $validated['comments'] ?? null,
+                    ]);
+            });
 
             return back()->with('success', 'Purchase Order rejected');
         } catch (\Exception $e) {

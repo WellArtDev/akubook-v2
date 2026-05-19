@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\SalesInvoice;
-use App\Models\SalesOrder;
 use App\Models\Customer;
+use App\Models\DeliveryOrder;
+use App\Models\DeliveryOrderLine;
+use App\Models\SalesInvoice;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class SalesInvoiceController extends Controller
@@ -21,12 +22,12 @@ class SalesInvoiceController extends Controller
         }
 
         if ($request->filled('search')) {
-            $query->where(function($q) use ($request) {
+            $query->where(function ($q) use ($request) {
                 $q->where('invoice_number', 'ilike', '%' . $request->search . '%')
-                  ->orWhere('tax_invoice_number', 'ilike', '%' . $request->search . '%')
-                  ->orWhereHas('customer', function($sq) use ($request) {
-                      $sq->where('name', 'ilike', '%' . $request->search . '%');
-                  });
+                    ->orWhere('tax_invoice_number', 'ilike', '%' . $request->search . '%')
+                    ->orWhereHas('customer', function ($sq) use ($request) {
+                        $sq->where('name', 'ilike', '%' . $request->search . '%');
+                    });
             });
         }
 
@@ -41,20 +42,25 @@ class SalesInvoiceController extends Controller
         ]);
     }
 
-    public function create()
+    public function create(Request $request)
     {
-        // Get approved sales orders that can be invoiced
-        $salesOrders = SalesOrder::with(['customer', 'lines'])
-            ->where('status', 'approved')
-            ->orderBy('so_date', 'desc')
+        $deliveryOrders = DeliveryOrder::with(['customer', 'salesOrder', 'lines.item'])
+            ->whereIn('status', ['delivered'])
+            ->orderByDesc('do_date')
             ->get();
+
+        $selectedDeliveryOrder = $request->filled('delivery_order_id')
+            ? DeliveryOrder::with(['customer', 'salesOrder', 'lines.item', 'lines.salesOrderLine'])->findOrFail($request->delivery_order_id)
+            : null;
 
         $customers = Customer::where('is_active', true)
             ->orderBy('name')
             ->get(['id', 'name', 'code', 'tax_id']);
 
         return Inertia::render('SalesInvoices/Create', [
-            'salesOrders' => $salesOrders,
+            'deliveryOrders' => $deliveryOrders,
+            'selectedDeliveryOrder' => $selectedDeliveryOrder,
+            'availableLines' => $selectedDeliveryOrder ? $this->buildAvailableLines($selectedDeliveryOrder) : [],
             'customers' => $customers,
         ]);
     }
@@ -64,6 +70,7 @@ class SalesInvoiceController extends Controller
         $validated = $request->validate([
             'invoice_date' => 'required|date',
             'due_date' => 'required|date|after_or_equal:invoice_date',
+            'delivery_order_id' => 'required|exists:delivery_orders,id',
             'sales_order_id' => 'required|exists:sales_orders,id',
             'customer_id' => 'required|exists:customers,id',
             'billing_address' => 'nullable|string',
@@ -72,15 +79,14 @@ class SalesInvoiceController extends Controller
             'notes' => 'nullable|string',
             'generate_tax_invoice' => 'boolean',
             'lines' => 'required|array|min:1',
-            'lines.*.sales_order_line_id' => 'nullable|exists:sales_order_lines,id',
-            'lines.*.product_id' => 'nullable|integer',
-            'lines.*.product_name' => 'required|string',
-            'lines.*.description' => 'nullable|string',
+            'lines.*.delivery_order_line_id' => 'required|exists:delivery_order_lines,id',
             'lines.*.quantity' => 'required|numeric|min:0.001',
-            'lines.*.unit' => 'required|string|max:20',
-            'lines.*.unit_price' => 'required|numeric|min:0',
-            'lines.*.discount_amount' => 'nullable|numeric|min:0',
         ]);
+
+        $deliveryOrder = DeliveryOrder::with(['lines.item', 'lines.salesOrderLine', 'salesOrder'])->findOrFail($validated['delivery_order_id']);
+        abort_unless($deliveryOrder->status === 'delivered', 422, 'Delivery order must be delivered.');
+
+        $available = collect($this->buildAvailableLines($deliveryOrder))->keyBy('delivery_order_line_id');
 
         DB::beginTransaction();
         try {
@@ -103,27 +109,30 @@ class SalesInvoiceController extends Controller
 
             $invoice->save();
 
-            // Create invoice lines
             foreach ($validated['lines'] as $index => $lineData) {
+                $source = $available->get((int) $lineData['delivery_order_line_id']);
+                abort_if(!$source, 422, 'Invalid delivery order line.');
+                abort_if((float) $lineData['quantity'] > (float) $source['remaining_to_invoice'], 422, 'Invoice quantity exceeds remaining delivered quantity.');
+
                 $line = $invoice->lines()->create([
-                    'sales_order_line_id' => $lineData['sales_order_line_id'] ?? null,
+                    'sales_order_line_id' => $source['sales_order_line_id'],
+                    'delivery_order_line_id' => $source['delivery_order_line_id'],
                     'line_number' => $index + 1,
-                    'product_id' => $lineData['product_id'] ?? null,
-                    'product_name' => $lineData['product_name'],
-                    'description' => $lineData['description'] ?? null,
+                    'product_id' => $source['product_id'],
+                    'product_name' => $source['product_name'],
+                    'description' => $source['description'],
                     'quantity' => $lineData['quantity'],
-                    'unit' => $lineData['unit'],
-                    'unit_price' => $lineData['unit_price'],
+                    'unit' => $source['unit'],
+                    'unit_price' => $source['unit_price'],
                     'discount_amount' => $lineData['discount_amount'] ?? 0,
+                    'line_total' => 0,
                 ]);
 
-                // Calculate tax (PPN 11%)
                 $line->calculateTax(0.11);
                 $line->calculateLineTotal();
                 $line->save();
             }
 
-            // Calculate invoice totals
             $invoice->load('lines');
             $invoice->calculateTotals();
             $invoice->save();
@@ -134,13 +143,14 @@ class SalesInvoiceController extends Controller
                 ->with('success', 'Invoice created successfully');
         } catch (\Exception $e) {
             DB::rollBack();
+
             return back()->withErrors(['error' => 'Failed to create invoice: ' . $e->getMessage()]);
         }
     }
 
     public function show(SalesInvoice $salesInvoice)
     {
-        $salesInvoice->load(['customer', 'salesOrder', 'lines', 'createdBy']);
+        $salesInvoice->load(['customer', 'salesOrder', 'lines.deliveryOrderLine', 'createdBy']);
 
         return Inertia::render('SalesInvoices/Show', [
             'invoice' => $salesInvoice,
@@ -200,10 +210,8 @@ class SalesInvoiceController extends Controller
                 'updated_by' => Auth::id(),
             ]);
 
-            // Delete existing lines
             $salesInvoice->lines()->delete();
 
-            // Create new lines
             foreach ($validated['lines'] as $index => $lineData) {
                 $line = $salesInvoice->lines()->create([
                     'line_number' => $index + 1,
@@ -213,6 +221,7 @@ class SalesInvoiceController extends Controller
                     'unit' => $lineData['unit'],
                     'unit_price' => $lineData['unit_price'],
                     'discount_amount' => $lineData['discount_amount'] ?? 0,
+                    'line_total' => 0,
                 ]);
 
                 $line->calculateTax(0.11);
@@ -220,7 +229,6 @@ class SalesInvoiceController extends Controller
                 $line->save();
             }
 
-            // Recalculate totals
             $salesInvoice->load('lines');
             $salesInvoice->calculateTotals();
             $salesInvoice->save();
@@ -231,6 +239,7 @@ class SalesInvoiceController extends Controller
                 ->with('success', 'Invoice updated successfully');
         } catch (\Exception $e) {
             DB::rollBack();
+
             return back()->withErrors(['error' => 'Failed to update invoice: ' . $e->getMessage()]);
         }
     }
@@ -254,11 +263,26 @@ class SalesInvoiceController extends Controller
         }
 
         try {
-            $salesInvoice->send();
+            $salesInvoice->post();
 
             return back()->with('success', 'Invoice sent successfully');
         } catch (\Exception $e) {
             return back()->withErrors(['error' => 'Failed to send invoice: ' . $e->getMessage()]);
+        }
+    }
+
+    public function post(SalesInvoice $salesInvoice)
+    {
+        if ($salesInvoice->status !== 'draft') {
+            return back()->withErrors(['error' => 'Only draft invoices can be posted']);
+        }
+
+        try {
+            $salesInvoice->post();
+
+            return back()->with('success', 'Invoice posted and journal entry generated');
+        } catch (\Exception $e) {
+            return back()->withErrors(['error' => 'Failed to post invoice: ' . $e->getMessage()]);
         }
     }
 
@@ -295,5 +319,31 @@ class SalesInvoiceController extends Controller
         } catch (\Exception $e) {
             return back()->withErrors(['error' => 'Failed to record payment: ' . $e->getMessage()]);
         }
+    }
+
+    private function buildAvailableLines(DeliveryOrder $deliveryOrder): array
+    {
+        $deliveryOrder->loadMissing(['lines.salesOrderLine', 'lines.item']);
+
+        return $deliveryOrder->lines->map(function ($line) {
+            $alreadyInvoiced = (float) DB::table('sales_invoice_lines')
+                ->where('delivery_order_line_id', $line->id)
+                ->sum('quantity');
+
+            $remaining = max((float) $line->delivery_quantity - $alreadyInvoiced, 0);
+
+            return [
+                'delivery_order_line_id' => $line->id,
+                'sales_order_line_id' => $line->sales_order_line_id,
+                'product_id' => $line->item_id,
+                'product_name' => $line->item?->name ?? $line->description,
+                'description' => $line->description,
+                'unit' => $line->unit,
+                'unit_price' => (float) ($line->salesOrderLine?->unit_price ?? 0),
+                'delivery_quantity' => (float) $line->delivery_quantity,
+                'already_invoiced' => $alreadyInvoiced,
+                'remaining_to_invoice' => $remaining,
+            ];
+        })->filter(fn ($line) => $line['remaining_to_invoice'] > 0)->values()->all();
     }
 }

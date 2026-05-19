@@ -1,8 +1,19 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, router } from '@inertiajs/react';
-import { Button } from '@/Components/ui/button';
-import { Input } from '@/Components/ui/input';
-import { Badge } from '@/Components/ui/badge';
+const Button = ({ className = '', variant = 'default', ...props }) => (
+    <button
+        className={`${variant === 'outline' ? 'border border-gray-300 bg-white text-gray-700 hover:bg-gray-50' : variant === 'ghost' ? 'text-gray-600 hover:text-gray-900' : 'bg-indigo-600 text-white hover:bg-indigo-700'} inline-flex items-center px-4 py-2 rounded-md font-semibold text-xs uppercase tracking-widest disabled:opacity-25 transition ${className}`}
+        {...props}
+    />
+);
+
+const Input = ({ className = '', ...props }) => (
+    <input className={`border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm ${className}`} {...props} />
+);
+
+const Badge = ({ className = '', children }) => (
+    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white ${className}`}>{children}</span>
+);
 import { useState } from 'react';
 
 const statusColors = {

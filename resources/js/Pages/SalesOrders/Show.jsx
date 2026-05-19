@@ -26,6 +26,26 @@ export default function Show({ auth, salesOrder }) {
         }
     };
 
+    const handleReject = () => {
+        const reason = prompt(`Alasan reject Sales Order ${salesOrder.so_number}:`);
+        if (reason) {
+            router.post(route('sales-orders.reject', salesOrder.id), { reason });
+        }
+    };
+
+    const handleCancel = () => {
+        const reason = prompt(`Alasan cancel Sales Order ${salesOrder.so_number}:`);
+        if (reason) {
+            router.post(route('sales-orders.cancel', salesOrder.id), { reason });
+        }
+    };
+
+    const handleDuplicate = () => {
+        if (confirm(`Duplikasi Sales Order ${salesOrder.so_number}?`)) {
+            router.post(route('sales-orders.duplicate', salesOrder.id));
+        }
+    };
+
     const handleDelete = () => {
         if (confirm(`Hapus Sales Order ${salesOrder.so_number}?`)) {
             router.delete(route('sales-orders.destroy', salesOrder.id));
@@ -52,6 +72,12 @@ export default function Show({ auth, salesOrder }) {
                         <div className="p-6">
                             {/* Actions */}
                             <div className="flex justify-end gap-2 mb-6">
+                                <button
+                                    onClick={handleDuplicate}
+                                    className="px-4 py-2 text-white bg-indigo-600 rounded-md hover:bg-indigo-700"
+                                >
+                                    Duplikasi
+                                </button>
                                 {salesOrder.status === 'draft' && (
                                     <>
                                         <Link
@@ -90,7 +116,21 @@ export default function Show({ auth, salesOrder }) {
                                         >
                                             Approve
                                         </button>
+                                        <button
+                                            onClick={handleReject}
+                                            className="px-4 py-2 text-white bg-orange-600 rounded-md hover:bg-orange-700"
+                                        >
+                                            Reject
+                                        </button>
                                     </>
+                                )}
+                                {['draft', 'pending_approval', 'approved', 'in_progress'].includes(salesOrder.status) && (
+                                    <button
+                                        onClick={handleCancel}
+                                        className="px-4 py-2 text-white bg-rose-600 rounded-md hover:bg-rose-700"
+                                    >
+                                        Cancel
+                                    </button>
                                 )}
                             </div>
 

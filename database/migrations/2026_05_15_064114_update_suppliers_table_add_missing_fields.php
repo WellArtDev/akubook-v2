@@ -32,6 +32,10 @@ return new class extends Migration
 
     public function down(): void
     {
+        if (Schema::getConnection()->getDriverName() === 'sqlite') {
+            return;
+        }
+
         Schema::table('suppliers', function (Blueprint $table) {
             // Restore old fields
             $table->string('contact_person')->nullable();
@@ -39,14 +43,14 @@ return new class extends Migration
             $table->string('city')->nullable();
             $table->integer('payment_terms_days')->default(0);
             $table->boolean('is_active')->default(true);
-            
+
             // Drop new fields
             $table->dropColumn([
                 'category', 'tax_type', 'payment_terms', 'website',
                 'delivery_rating', 'quality_rating', 'total_purchase_amount',
                 'last_purchase_date', 'created_by', 'updated_by', 'deleted_at'
             ]);
-            
+
             // Rename back
             $table->renameColumn('supplier_code', 'code');
         });

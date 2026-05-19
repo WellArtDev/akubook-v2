@@ -3,7 +3,7 @@
 **Epic:** 8 - Customer & Sales Management  
 **Story ID:** 8.6  
 **Story Key:** 8-6-sales-invoice  
-**Status:** ready-for-dev  
+**Status:** review  
 **Created:** 2026-05-14  
 **Priority:** P0 (Foundation)
 
@@ -235,13 +235,14 @@ public function cancel(\\, \\);
    - All journal tests passing (3/3)
 
 ### Pending Items
-- **Delivery Order Integration**: Currently using sales_order_line_id (DO not yet implemented)
-- **Product Master Integration**: Using product_name field (Product master not yet implemented)
+- **NPWP/PKP Rules**: Auto-generate faktur pajak masih pakai flag manual `generate_tax_invoice`
+- **Delivery Address Mapping**: Billing address masih input bebas, belum tarik otomatis dari customer address master
 
 ### Files Created/Modified
 - `database/migrations/2026_05_15_045307_create_sales_invoices_table.php`
 - `database/migrations/2026_05_15_045318_create_sales_invoice_lines_table.php`
 - `database/migrations/2026_05_15_052443_add_tax_payable_account.php` ✅
+- `database/migrations/2026_05_17_154026_add_delivery_order_line_id_to_sales_invoice_lines_table.php` ✅
 - `app/Models/SalesInvoice.php` (with journal entry methods) ✅
 - `app/Models/SalesInvoiceLine.php`
 - `app/Http/Controllers/SalesInvoiceController.php`

@@ -12,10 +12,27 @@ class SalesOrder extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected static function booted(): void
+    {
+        static::creating(function (self $salesOrder): void {
+            foreach (['subtotal', 'discount_amount', 'tax_amount', 'grand_total', 'total_amount'] as $field) {
+                if ($salesOrder->{$field} === null) {
+                    $salesOrder->{$field} = 0;
+                }
+            }
+        });
+
+        static::deleting(function (self $salesOrder): void {
+            $salesOrder->lines()->delete();
+        });
+    }
+
     protected $fillable = [
+        'sales_quotation_id',
         'so_number',
         'so_date',
         'customer_id',
+        'branch_id',
         'customer_po_number',
         'sales_person_id',
         'payment_terms',
@@ -28,9 +45,16 @@ class SalesOrder extends Model
         'discount_amount',
         'tax_amount',
         'grand_total',
+        'total_amount',
         'approval_required',
         'approved_by',
         'approved_at',
+        'rejected_by',
+        'rejected_at',
+        'rejection_reason',
+        'cancelled_by',
+        'cancelled_at',
+        'cancellation_reason',
         'credit_check_passed',
         'credit_check_notes',
         'created_by',
@@ -40,13 +64,22 @@ class SalesOrder extends Model
         'so_date' => 'date',
         'requested_delivery_date' => 'date',
         'approved_at' => 'datetime',
+        'rejected_at' => 'datetime',
+        'cancelled_at' => 'datetime',
+        'sales_quotation_id' => 'integer',
         'subtotal' => 'decimal:2',
         'discount_amount' => 'decimal:2',
         'tax_amount' => 'decimal:2',
         'grand_total' => 'decimal:2',
+        'total_amount' => 'decimal:2',
         'approval_required' => 'boolean',
         'credit_check_passed' => 'boolean',
     ];
+
+    public function quotation(): BelongsTo
+    {
+        return $this->belongsTo(SalesQuotation::class, 'sales_quotation_id');
+    }
 
     public function customer(): BelongsTo
     {
@@ -76,6 +109,49 @@ class SalesOrder extends Model
     public function createdBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function rejectedBy(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'rejected_by');
+    }
+
+    public function cancelledBy(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'cancelled_by');
+    }
+
+    public function approvals(): HasMany
+    {
+        return $this->hasMany(SalesOrderApproval::class);
+    }
+
+    public function currentApproval()
+    {
+        return $this->hasOne(SalesOrderApproval::class)->latestOfMany();
+    }
+
+    public function approvalReasons(): array
+    {
+        $reasons = [];
+
+        if ($this->grand_total > 10000000) {
+            $reasons[] = [
+                'type' => 'high_value',
+                'message' => 'Order total exceeds Rp 10,000,000',
+                'value' => (float) $this->grand_total,
+            ];
+        }
+
+        $creditCheck = $this->checkCreditLimit();
+        if (!$creditCheck['passed']) {
+            $reasons[] = [
+                'type' => 'credit_exceeded',
+                'message' => $creditCheck['notes'],
+            ];
+        }
+
+        return $reasons;
     }
 
     public function calculateTotals(): void

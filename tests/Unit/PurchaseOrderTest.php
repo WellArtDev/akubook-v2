@@ -38,7 +38,8 @@ class PurchaseOrderTest extends TestCase
 
         $po->lines()->create([
             'line_number' => 1,
-            'item_id' => $item->id,
+            'product_code' => $item->code,
+            'product_name' => $item->name,
             'quantity' => 10,
             'unit' => 'pcs',
             'unit_price' => 1000,
@@ -48,7 +49,8 @@ class PurchaseOrderTest extends TestCase
 
         $po->lines()->create([
             'line_number' => 2,
-            'item_id' => $item->id,
+            'product_code' => $item->code,
+            'product_name' => $item->name,
             'quantity' => 5,
             'unit' => 'pcs',
             'unit_price' => 2000,
@@ -130,7 +132,8 @@ class PurchaseOrderTest extends TestCase
 
         $po->lines()->create([
             'line_number' => 1,
-            'item_id' => $item->id,
+            'product_code' => $item->code,
+            'product_name' => $item->name,
             'quantity' => 10,
             'unit' => 'pcs',
             'unit_price' => 1000,

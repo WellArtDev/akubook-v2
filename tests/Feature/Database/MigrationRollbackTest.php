@@ -25,7 +25,7 @@ class MigrationRollbackTest extends TestCase
         $this->assertTrue(Schema::hasTable('sales_orders'));
         
         // Rollback all migrations
-        Artisan::call('migrate:rollback', ['--step' => 100]);
+        Artisan::call('migrate:reset');
         
         // Verify all tables are dropped
         $this->assertFalse(Schema::hasTable('branches'));
@@ -42,22 +42,25 @@ class MigrationRollbackTest extends TestCase
         // Fresh migrate
         Artisan::call('migrate:fresh');
         
-        // Get initial table count
+        // Get initial migration count and table count
+        $initialMigrationCount = DB::table('migrations')->count();
         $initialTables = $this->getTableCount();
-        
+
         // Rollback one step
         Artisan::call('migrate:rollback', ['--step' => 1]);
-        
-        // Verify table count decreased
-        $afterRollback = $this->getTableCount();
-        $this->assertLessThan($initialTables, $afterRollback);
-        
+
+        // Verify one migration rolled back
+        $afterRollbackMigrationCount = DB::table('migrations')->count();
+        $this->assertSame($initialMigrationCount - 1, $afterRollbackMigrationCount);
+
         // Re-migrate
         Artisan::call('migrate');
-        
-        // Verify table count restored
-        $afterMigrate = $this->getTableCount();
-        $this->assertEquals($initialTables, $afterMigrate);
+
+        // Verify migration and table counts restored
+        $afterMigrateMigrationCount = DB::table('migrations')->count();
+        $afterMigrateTables = $this->getTableCount();
+        $this->assertSame($initialMigrationCount, $afterMigrateMigrationCount);
+        $this->assertSame($initialTables, $afterMigrateTables);
     }
 
     /**
