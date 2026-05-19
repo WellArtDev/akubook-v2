@@ -286,9 +286,9 @@ development_status:
 
   # Epic 23: Governance Automation
   epic-23: done
-  23-1-retention-execution-engine: review
-  23-2-workflow-enforcement-hooks: review
-  23-3-sensitive-alerting: review
-  23-4-compliance-export-pack: review
-  23-5-governance-dashboard-v2: review
+  23-1-retention-execution-engine: done
+  23-2-workflow-enforcement-hooks: done
+  23-3-sensitive-alerting: done
+  23-4-compliance-export-pack: done
+  23-5-governance-dashboard-v2: done
   epic-23-retrospective: done

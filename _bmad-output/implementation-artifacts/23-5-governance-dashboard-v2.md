@@ -3,7 +3,7 @@
 **Story Key:** `23-5-governance-dashboard-v2`  
 **Epic:** 23  
 **Priority:** P1  
-**Status:** review
+**Status:** done
 
 ## User Story
 Sebagai Compliance Officer, saya ingin dashboard governance terpadu agar bisa memantau posture compliance harian dari retention, approval enforcement, alert, dan export readiness dalam satu layar.

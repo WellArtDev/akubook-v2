@@ -3,7 +3,7 @@
 **Story Key:** `23-3-sensitive-alerting`  
 **Epic:** 23  
 **Priority:** P1  
-**Status:** review
+**Status:** done
 
 ## User Story
 Sebagai Compliance Officer, saya ingin menerima alert untuk aksi sensitif berisiko tinggi agar bisa melakukan tindak lanjut cepat ketika ada aktivitas mencurigakan.

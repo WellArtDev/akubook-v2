@@ -3,7 +3,7 @@
 **Story Key:** `23-1-retention-execution-engine`  
 **Epic:** 23  
 **Priority:** P0  
-**Status:** review
+**Status:** done
 
 ## User Story
 Sebagai Compliance Officer, saya ingin menjalankan retention policy secara terkontrol agar data lama bisa diarsipkan atau dihapus sesuai kebijakan.

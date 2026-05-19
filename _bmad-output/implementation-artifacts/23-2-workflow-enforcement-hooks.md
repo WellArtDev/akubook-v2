@@ -3,7 +3,7 @@
 **Story Key:** `23-2-workflow-enforcement-hooks`  
 **Epic:** 23  
 **Priority:** P0  
-**Status:** review
+**Status:** done
 
 ## User Story
 Sebagai Compliance Officer, saya ingin aksi bisnis sensitif otomatis memeriksa approval workflow aktif agar transaksi tidak lolos tanpa otorisasi yang sesuai kebijakan.

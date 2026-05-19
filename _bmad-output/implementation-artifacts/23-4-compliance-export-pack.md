@@ -3,7 +3,7 @@
 **Story Key:** `23-4-compliance-export-pack`  
 **Epic:** 23  
 **Priority:** P1  
-**Status:** review
+**Status:** done
 
 ## User Story
 Sebagai Compliance Officer, saya ingin mengekspor paket bukti compliance agar proses audit periodik bisa dilakukan cepat dan konsisten.
