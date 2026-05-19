@@ -415,6 +415,11 @@ Route::middleware('auth')->group(function () {
     Route::post('purchase-returns/{purchase_return}/reject', [App\Http\Controllers\PurchaseReturnController::class, 'reject'])
         ->name('purchase-returns.reject');
 
+    Route::get('supplier-statements', [App\Http\Controllers\SupplierStatementController::class, 'index'])
+        ->name('supplier-statements.index');
+    Route::get('supplier-statements/pdf', [App\Http\Controllers\SupplierStatementController::class, 'pdf'])
+        ->name('supplier-statements.pdf');
+
     Route::get('dot-matrix-templates/defaults', [App\Http\Controllers\DotMatrixTemplateController::class, 'defaults'])
         ->name('dot-matrix-templates.defaults');
     Route::resource('dot-matrix-templates', App\Http\Controllers\DotMatrixTemplateController::class);
