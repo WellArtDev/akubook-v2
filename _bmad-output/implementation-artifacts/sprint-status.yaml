@@ -292,3 +292,10 @@ development_status:
   23-4-compliance-export-pack: done
   23-5-governance-dashboard-v2: done
   epic-23-retrospective: done
+
+  # Epic 24: Hardening & CI/CD Quality Gates
+  epic-24: in-progress
+  24-1-ci-governance-gate: ready-for-dev
+  24-2-governance-reliability-jobs: ready-for-dev
+  24-3-governance-performance-baseline: ready-for-dev
+  epic-24-retrospective: optional
