@@ -145,7 +145,7 @@ development_status:
   9-9-purchase-reports: review
   9-10-supplier-statement: review
   9-11-purchase-dashboard: review
-  9-12-document-printing: ready-for-dev
+  9-12-document-printing: review
   epic-9-retrospective: done
 
   # Epic 10: Document Printing System

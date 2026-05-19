@@ -7,7 +7,10 @@ use App\Models\DotMatrixTemplate;
 use App\Models\GoodsReceipt;
 use App\Models\PrintDraft;
 use App\Models\PrintHistory;
+use App\Models\PurchaseInvoice;
 use App\Models\PurchaseOrder;
+use App\Models\PurchaseRequest;
+use App\Models\PurchaseReturn;
 use App\Models\SalesInvoice;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -216,8 +219,11 @@ class PrintDraftController extends Controller
         return match ($documentType) {
             'sales_invoice' => SalesInvoice::query()->latest('id')->limit(50)->get(['id', 'invoice_number as number'])->toArray(),
             'delivery_order' => DeliveryOrder::query()->latest('id')->limit(50)->get(['id', 'do_number as number'])->toArray(),
+            'purchase_request' => PurchaseRequest::query()->latest('id')->limit(50)->get(['id', 'pr_number as number'])->toArray(),
             'purchase_order' => PurchaseOrder::query()->latest('id')->limit(50)->get(['id', 'po_number as number'])->toArray(),
             'goods_receipt' => GoodsReceipt::query()->latest('id')->limit(50)->get(['id', 'gr_number as number'])->toArray(),
+            'purchase_invoice' => PurchaseInvoice::query()->latest('id')->limit(50)->get(['id', 'invoice_number as number'])->toArray(),
+            'debit_note' => PurchaseReturn::query()->latest('id')->limit(50)->get(['id', 'return_number as number'])->toArray(),
             default => [],
         };
     }
@@ -227,8 +233,11 @@ class PrintDraftController extends Controller
         $model = match ($documentType) {
             'sales_invoice' => SalesInvoice::query()->find($documentId),
             'delivery_order' => DeliveryOrder::query()->find($documentId),
+            'purchase_request' => PurchaseRequest::query()->find($documentId),
             'purchase_order' => PurchaseOrder::query()->find($documentId),
             'goods_receipt' => GoodsReceipt::query()->find($documentId),
+            'purchase_invoice' => PurchaseInvoice::query()->find($documentId),
+            'debit_note' => PurchaseReturn::query()->find($documentId),
             default => null,
         };
 
@@ -238,7 +247,12 @@ class PrintDraftController extends Controller
 
         return [
             'id' => $model->id,
-            'number' => $model->invoice_number ?? $model->do_number ?? $model->po_number ?? $model->gr_number,
+            'number' => $model->invoice_number
+                ?? $model->do_number
+                ?? $model->pr_number
+                ?? $model->po_number
+                ?? $model->gr_number
+                ?? $model->return_number,
         ];
     }
 }

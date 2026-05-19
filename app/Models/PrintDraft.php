@@ -15,8 +15,11 @@ class PrintDraft extends Model
     public const DOCUMENT_TYPES = [
         'sales_invoice',
         'delivery_order',
+        'purchase_request',
         'purchase_order',
         'goods_receipt',
+        'purchase_invoice',
+        'debit_note',
     ];
 
     protected $fillable = [
