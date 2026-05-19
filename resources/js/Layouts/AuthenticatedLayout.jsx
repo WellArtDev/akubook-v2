@@ -5,6 +5,16 @@ import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 
+const navItems = [
+    { label: 'Dashboard', route: 'dashboard', active: 'dashboard' },
+    { label: 'Role Dashboard', route: 'role-dashboard.index', active: 'role-dashboard.*' },
+    { label: 'Governance', route: 'governance-dashboard-v2.index', active: 'governance-dashboard-v2.*' },
+    { label: 'Sales', route: 'sales-orders.index', active: 'sales-orders.*' },
+    { label: 'Purchase', route: 'purchase-orders.index', active: 'purchase-orders.*' },
+    { label: 'Customers', route: 'customers.index', active: 'customers.*' },
+    { label: 'Suppliers', route: 'suppliers.index', active: 'suppliers.*' },
+];
+
 export default function AuthenticatedLayout({ header, children }) {
     const user = usePage().props.auth.user;
 
@@ -24,12 +34,15 @@ export default function AuthenticatedLayout({ header, children }) {
                             </div>
 
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink
-                                    href={route('dashboard')}
-                                    active={route().current('dashboard')}
-                                >
-                                    Dashboard
-                                </NavLink>
+                                {navItems.map((item) => (
+                                    <NavLink
+                                        key={item.route}
+                                        href={route(item.route)}
+                                        active={route().current(item.active)}
+                                    >
+                                        {item.label}
+                                    </NavLink>
+                                ))}
                             </div>
                         </div>
 
@@ -128,12 +141,15 @@ export default function AuthenticatedLayout({ header, children }) {
                     }
                 >
                     <div className="space-y-1 pb-3 pt-2">
-                        <ResponsiveNavLink
-                            href={route('dashboard')}
-                            active={route().current('dashboard')}
-                        >
-                            Dashboard
-                        </ResponsiveNavLink>
+                        {navItems.map((item) => (
+                            <ResponsiveNavLink
+                                key={item.route}
+                                href={route(item.route)}
+                                active={route().current(item.active)}
+                            >
+                                {item.label}
+                            </ResponsiveNavLink>
+                        ))}
                     </div>
 
                     <div className="border-t border-gray-200 pb-1 pt-4">

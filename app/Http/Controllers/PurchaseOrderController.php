@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Branch;
+use App\Models\Item;
 use App\Models\PurchaseOrder;
 use App\Models\PurchaseOrderApproval;
 use App\Models\PurchaseOrderLine;
 use App\Models\PurchaseRequest;
 use App\Models\Supplier;
-use App\Models\Branch;
 use App\Services\WorkflowEnforcementService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -50,7 +51,21 @@ class PurchaseOrderController extends Controller
 
     public function create()
     {
-        return Inertia::render('PurchaseOrders/Create');
+        $suppliers = Supplier::query()
+            ->orderBy('name')
+            ->get(['id', 'supplier_code as code', 'name']);
+        $branches = Branch::where('is_active', true)
+            ->orderBy('name')
+            ->get(['id', 'code', 'name']);
+        $items = Item::where('is_active', true)
+            ->orderBy('name')
+            ->get(['id', 'code', 'name', 'unit', 'purchase_price']);
+
+        return Inertia::render('PurchaseOrders/Create', [
+            'suppliers' => $suppliers,
+            'branches' => $branches,
+            'items' => $items,
+        ]);
     }
 
     public function store(Request $request)
@@ -64,8 +79,9 @@ class PurchaseOrderController extends Controller
             'expected_delivery_date' => 'nullable|date|after_or_equal:po_date',
             'notes' => 'nullable|string',
             'lines' => 'required|array|min:1',
+            'lines.*.item_id' => 'nullable|exists:items,id',
             'lines.*.product_code' => 'nullable|string|max:50',
-            'lines.*.product_name' => 'required|string|max:255',
+            'lines.*.product_name' => 'nullable|string|max:255',
             'lines.*.description' => 'nullable|string',
             'lines.*.quantity' => 'required|numeric|min:0.001',
             'lines.*.unit' => 'required|string|max:20',
@@ -89,11 +105,13 @@ class PurchaseOrderController extends Controller
             ]);
 
             foreach ($validated['lines'] as $index => $lineData) {
+                $item = isset($lineData['item_id']) ? Item::find($lineData['item_id']) : null;
+
                 PurchaseOrderLine::create([
                     'purchase_order_id' => $po->id,
                     'line_number' => $index + 1,
-                    'product_code' => $lineData['product_code'] ?? null,
-                    'product_name' => $lineData['product_name'],
+                    'product_code' => $lineData['product_code'] ?? $item?->code,
+                    'product_name' => $lineData['product_name'] ?? $item?->name ?? ('Item ' . ($index + 1)),
                     'description' => $lineData['description'] ?? null,
                     'quantity' => $lineData['quantity'],
                     'unit' => $lineData['unit'],
@@ -149,8 +167,9 @@ class PurchaseOrderController extends Controller
             'expected_delivery_date' => 'nullable|date|after_or_equal:po_date',
             'notes' => 'nullable|string',
             'lines' => 'required|array|min:1',
+            'lines.*.item_id' => 'nullable|exists:items,id',
             'lines.*.product_code' => 'nullable|string|max:50',
-            'lines.*.product_name' => 'required|string|max:255',
+            'lines.*.product_name' => 'nullable|string|max:255',
             'lines.*.description' => 'nullable|string',
             'lines.*.quantity' => 'required|numeric|min:0.001',
             'lines.*.unit' => 'required|string|max:20',
@@ -175,11 +194,13 @@ class PurchaseOrderController extends Controller
             $purchaseOrder->lines()->delete();
 
             foreach ($validated['lines'] as $index => $lineData) {
+                $item = isset($lineData['item_id']) ? Item::find($lineData['item_id']) : null;
+
                 PurchaseOrderLine::create([
                     'purchase_order_id' => $purchaseOrder->id,
                     'line_number' => $index + 1,
-                    'product_code' => $lineData['product_code'] ?? null,
-                    'product_name' => $lineData['product_name'],
+                    'product_code' => $lineData['product_code'] ?? $item?->code,
+                    'product_name' => $lineData['product_name'] ?? $item?->name ?? ('Item ' . ($index + 1)),
                     'description' => $lineData['description'] ?? null,
                     'quantity' => $lineData['quantity'],
                     'unit' => $lineData['unit'],

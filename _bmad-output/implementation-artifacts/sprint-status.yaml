@@ -135,7 +135,8 @@ development_status:
   epic-9: in-progress
   9-1-supplier-master-data: done
   9-2-purchase-request: done
-  9-3-purchase-order-creation: ready-for-dev
+  9-3-purchase-order-creation: review
+
   9-4-purchase-order-approval: done
   9-5-goods-receipt: done
   9-6-purchase-invoice: done
