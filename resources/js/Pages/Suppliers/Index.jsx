@@ -2,7 +2,7 @@ import React from 'react';
 import { Head, Link, router } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 
-export default function Index({ auth, suppliers, filters }) {
+export default function Index({ auth, suppliers, filters = {} }) {
     const handleSearch = (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
@@ -137,18 +137,32 @@ export default function Index({ auth, suppliers, filters }) {
                                         Showing {suppliers.from} to {suppliers.to} of {suppliers.total} results
                                     </div>
                                     <div className="flex space-x-2">
-                                        {suppliers.links.map((link, index) => (
-                                            <Link
-                                                key={index}
-                                                href={link.url}
-                                                className={`px-3 py-1 rounded ${
-                                                    link.active
-                                                        ? 'bg-blue-500 text-white'
-                                                        : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-                                                }`}
-                                                dangerouslySetInnerHTML={{ __html: link.label }}
-                                            />
-                                        ))}
+                                        {suppliers.links.map((link, index) => {
+                                            const baseClass = `px-3 py-1 rounded ${
+                                                link.active
+                                                    ? 'bg-blue-500 text-white'
+                                                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                                            }`;
+
+                                            if (!link.url) {
+                                                return (
+                                                    <span
+                                                        key={index}
+                                                        className={baseClass + ' opacity-60 cursor-not-allowed'}
+                                                        dangerouslySetInnerHTML={{ __html: link.label }}
+                                                    />
+                                                );
+                                            }
+
+                                            return (
+                                                <Link
+                                                    key={index}
+                                                    href={link.url}
+                                                    className={baseClass}
+                                                    dangerouslySetInnerHTML={{ __html: link.label }}
+                                                />
+                                            );
+                                        })}
                                     </div>
                                 </div>
                             )}
