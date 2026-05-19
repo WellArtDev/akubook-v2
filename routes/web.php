@@ -220,6 +220,15 @@ Route::middleware('auth')->group(function () {
         ->name('customer-payments.void');
     Route::get('api/unpaid-invoices', [App\Http\Controllers\CustomerPaymentController::class, 'getUnpaidInvoices'])
         ->name('api.unpaid-invoices');
+
+    // Supplier Payments
+    Route::resource('supplier-payments', App\Http\Controllers\SupplierPaymentController::class)->only(['index', 'create', 'store', 'show']);
+    Route::post('supplier-payments/{supplier_payment}/post', [App\Http\Controllers\SupplierPaymentController::class, 'post'])
+        ->name('supplier-payments.post');
+    Route::post('supplier-payments/{supplier_payment}/void', [App\Http\Controllers\SupplierPaymentController::class, 'void'])
+        ->name('supplier-payments.void');
+    Route::get('api/unpaid-purchase-invoices', [App\Http\Controllers\SupplierPaymentController::class, 'getUnpaidInvoices'])
+        ->name('api.unpaid-purchase-invoices');
     
     Route::resource('suppliers', App\Http\Controllers\SupplierController::class);
     Route::resource('salary-components', App\Http\Controllers\SalaryComponentController::class);

@@ -141,7 +141,7 @@ development_status:
   9-5-goods-receipt: done
   9-6-purchase-invoice: done
   9-7-purchase-return: done
-  9-8-supplier-payment: ready-for-dev
+  9-8-supplier-payment: review
   9-9-purchase-reports: ready-for-dev
   9-10-supplier-statement: ready-for-dev
   9-11-purchase-dashboard: ready-for-dev
