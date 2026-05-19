@@ -126,7 +126,7 @@ development_status:
   8-7-sales-return: done
   8-8-customer-payment: review
   8-9-sales-reports: review
-  8-10-customer-statement: ready-for-dev
+  8-10-customer-statement: review
   8-11-sales-dashboard: ready-for-dev
   8-12-document-printing: ready-for-dev
   epic-8-retrospective: done
