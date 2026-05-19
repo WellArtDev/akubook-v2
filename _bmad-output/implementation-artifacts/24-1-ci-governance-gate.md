@@ -3,7 +3,7 @@
 **Story Key:** `24-1-ci-governance-gate`  
 **Epic:** 24  
 **Priority:** P0  
-**Status:** review
+**Status:** done
 
 ## User Story
 Sebagai Engineering Lead, saya ingin CI gate yang memverifikasi governance module agar perubahan berisiko tidak lolos tanpa validasi otomatis.

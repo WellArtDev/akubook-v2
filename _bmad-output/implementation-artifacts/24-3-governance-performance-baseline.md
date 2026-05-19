@@ -3,7 +3,7 @@
 **Story Key:** `24-3-governance-performance-baseline`  
 **Epic:** 24  
 **Priority:** P1  
-**Status:** review
+**Status:** done
 
 ## User Story
 Sebagai Engineering Lead, saya ingin baseline performa untuk dashboard dan export governance agar growth data tidak langsung menurunkan usability.

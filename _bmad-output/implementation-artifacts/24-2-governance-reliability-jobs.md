@@ -3,7 +3,7 @@
 **Story Key:** `24-2-governance-reliability-jobs`  
 **Epic:** 24  
 **Priority:** P1  
-**Status:** review
+**Status:** done
 
 ## User Story
 Sebagai Compliance Ops, saya ingin job terjadwal untuk governance artifact agar monitoring dan evidence tetap konsisten tanpa trigger manual.
