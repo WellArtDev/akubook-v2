@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Models\ApprovalWorkflow;
+use App\Models\AuditLog;
 use App\Models\PurchaseOrder;
 use App\Models\PurchaseOrderApproval;
 use App\Models\Supplier;
@@ -42,6 +44,72 @@ class PurchaseOrderApprovalTest extends TestCase
             'status' => 'pending',
         ]);
         $this->assertSame('high_value', $purchaseOrder->approvals()->first()->approval_reasons[0]['type']);
+    }
+
+    public function test_submit_enforces_workflow_and_logs_audit_when_rule_matches(): void
+    {
+        ApprovalWorkflow::factory()->create([
+            'entity_type' => 'purchase_order',
+            'is_active' => true,
+            'min_amount' => 10000000,
+            'max_amount' => null,
+            'required_level' => 2,
+            'workflow_key' => 'PO-HV-001',
+            'created_by' => $this->submitter->id,
+        ]);
+
+        $purchaseOrder = $this->purchaseOrder([
+            'grand_total' => 15000000,
+            'approval_required' => false,
+            'status' => 'draft',
+        ]);
+
+        $this->actingAs($this->submitter)
+            ->post(route('purchase-orders.submit-approval', $purchaseOrder))
+            ->assertRedirect();
+
+        $purchaseOrder->refresh();
+
+        $this->assertSame('pending_approval', $purchaseOrder->status);
+        $this->assertTrue($purchaseOrder->approval_required);
+        $this->assertDatabaseHas('purchase_order_approvals', [
+            'purchase_order_id' => $purchaseOrder->id,
+            'status' => 'pending',
+        ]);
+
+        $approval = $purchaseOrder->approvals()->latest()->first();
+        $this->assertNotNull($approval);
+        $this->assertContains('workflow_enforcement', array_column($approval->approval_reasons, 'type'));
+
+        $audit = AuditLog::query()->where('event_key', 'workflow.enforcement.evaluated')->latest()->first();
+        $this->assertNotNull($audit);
+        $this->assertTrue((bool) $audit->is_sensitive);
+        $this->assertSame('enforced', $audit->action);
+    }
+
+    public function test_submit_stays_normal_when_no_workflow_rule_matches(): void
+    {
+        $purchaseOrder = $this->purchaseOrder([
+            'grand_total' => 1000000,
+            'approval_required' => false,
+            'status' => 'draft',
+        ]);
+
+        $this->actingAs($this->submitter)
+            ->post(route('purchase-orders.submit-approval', $purchaseOrder))
+            ->assertRedirect();
+
+        $purchaseOrder->refresh();
+
+        $this->assertSame('approved', $purchaseOrder->status);
+        $this->assertFalse($purchaseOrder->approval_required);
+        $this->assertDatabaseMissing('purchase_order_approvals', [
+            'purchase_order_id' => $purchaseOrder->id,
+        ]);
+
+        $audit = AuditLog::query()->where('event_key', 'workflow.enforcement.evaluated')->latest()->first();
+        $this->assertNotNull($audit);
+        $this->assertSame('not_enforced', $audit->action);
     }
 
     public function test_approval_dashboard_shows_pending_approvals(): void

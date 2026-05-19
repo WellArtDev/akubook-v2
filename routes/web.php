@@ -229,6 +229,10 @@ Route::middleware('auth')->group(function () {
     Route::post('approval-workflows/evaluate', [App\Http\Controllers\ApprovalWorkflowController::class, 'evaluate'])->name('approval-workflows.evaluate');
     Route::get('audit-logs', [App\Http\Controllers\AuditLogController::class, 'index'])->name('audit-logs.index');
     Route::get('sensitive-actions', [App\Http\Controllers\SensitiveActionController::class, 'index'])->name('sensitive-actions.index');
+    Route::resource('sensitive-alerts', App\Http\Controllers\SensitiveAlertController::class)->only(['index', 'store']);
+    Route::resource('compliance-export-packs', App\Http\Controllers\ComplianceExportPackController::class)->only(['index', 'store', 'show']);
+    Route::get('compliance-export-packs/{compliance_export_pack}/download', [App\Http\Controllers\ComplianceExportPackController::class, 'download'])->name('compliance-export-packs.download');
+    Route::get('governance-dashboard-v2', [App\Http\Controllers\GovernanceDashboardV2Controller::class, 'index'])->name('governance-dashboard-v2.index');
     Route::get('role-dashboard', [App\Http\Controllers\RoleDashboardController::class, 'index'])->name('role-dashboard.index');
     Route::get('role-dashboard/metrics', [App\Http\Controllers\RoleDashboardController::class, 'metrics'])->name('role-dashboard.metrics');
     Route::post('role-dashboard/preference', [App\Http\Controllers\RoleDashboardController::class, 'preference'])->name('role-dashboard.preference');

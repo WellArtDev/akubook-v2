@@ -8,12 +8,16 @@ use App\Models\PurchaseOrderLine;
 use App\Models\PurchaseRequest;
 use App\Models\Supplier;
 use App\Models\Branch;
+use App\Services\WorkflowEnforcementService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class PurchaseOrderController extends Controller
 {
+    public function __construct(private readonly WorkflowEnforcementService $workflowEnforcementService)
+    {
+    }
     public function index(Request $request)
     {
         $query = PurchaseOrder::with(['supplier', 'deliveryAddress', 'createdBy'])
@@ -206,18 +210,36 @@ class PurchaseOrderController extends Controller
             ->with('success', 'Purchase Order deleted successfully');
     }
 
-    public function submit(PurchaseOrder $purchaseOrder)
+    public function submit(Request $request, PurchaseOrder $purchaseOrder)
     {
         try {
-            DB::transaction(function () use ($purchaseOrder) {
-                $purchaseOrder->submit();
+            DB::transaction(function () use ($request, $purchaseOrder) {
+                $result = $this->workflowEnforcementService->enforce(
+                    $purchaseOrder,
+                    'purchase_order',
+                    (float) $purchaseOrder->grand_total,
+                    auth()->id(),
+                    $request
+                );
+
+                if ($result['enforced']) {
+                    $purchaseOrder->update([
+                        'status' => 'pending_approval',
+                        'approval_required' => true,
+                    ]);
+                } else {
+                    $purchaseOrder->submit();
+                }
 
                 if ($purchaseOrder->status === 'pending_approval') {
                     PurchaseOrderApproval::create([
                         'purchase_order_id' => $purchaseOrder->id,
                         'submitted_by' => auth()->id(),
                         'submitted_at' => now(),
-                        'approval_reasons' => $purchaseOrder->approvalReasons(),
+                        'approval_reasons' => array_values(array_filter([
+                            ...$purchaseOrder->approvalReasons(),
+                            $result['reason'],
+                        ])),
                         'status' => 'pending',
                     ]);
                 }

@@ -7,12 +7,16 @@ use App\Models\Customer;
 use App\Models\Branch;
 use App\Models\Item;
 use App\Models\SalesOrderApproval;
+use App\Services\WorkflowEnforcementService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class SalesOrderController extends Controller
 {
+    public function __construct(private readonly WorkflowEnforcementService $workflowEnforcementService)
+    {
+    }
     public function index(Request $request)
     {
         $query = SalesOrder::with(['customer', 'salesPerson']);
@@ -341,25 +345,46 @@ class SalesOrderController extends Controller
         }
     }
 
-    public function submitForApproval(SalesOrder $salesOrder)
+    public function submitForApproval(Request $request, SalesOrder $salesOrder)
     {
         if ($salesOrder->status !== 'draft') {
             return back()->withErrors(['error' => 'Hanya draft yang dapat disubmit untuk approval.']);
         }
 
-        if (!$salesOrder->approval_required) {
-            return back()->withErrors(['error' => 'SO ini tidak memerlukan approval.']);
-        }
-
         try {
-            DB::transaction(function () use ($salesOrder) {
-                $salesOrder->update(['status' => 'pending_approval']);
+            DB::transaction(function () use ($request, $salesOrder) {
+                $result = $this->workflowEnforcementService->enforce(
+                    $salesOrder,
+                    'sales_order',
+                    (float) $salesOrder->grand_total,
+                    auth()->id(),
+                    $request
+                );
+
+                $reasons = array_values(array_filter([
+                    ...$salesOrder->approvalReasons(),
+                    $result['reason'],
+                ]));
+
+                if (! $result['enforced'] && ! $salesOrder->approval_required && empty($reasons)) {
+                    $salesOrder->update([
+                        'status' => 'approved',
+                        'approved_at' => now(),
+                    ]);
+
+                    return;
+                }
+
+                $salesOrder->update([
+                    'status' => 'pending_approval',
+                    'approval_required' => true,
+                ]);
 
                 SalesOrderApproval::create([
                     'sales_order_id' => $salesOrder->id,
                     'submitted_by' => auth()->id(),
                     'submitted_at' => now(),
-                    'approval_reasons' => $salesOrder->approvalReasons(),
+                    'approval_reasons' => $reasons,
                     'status' => 'pending',
                 ]);
             });
