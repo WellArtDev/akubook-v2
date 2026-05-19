@@ -1,0 +1,60 @@
+name: Governance CI Gate
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  quality-gates:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: mbstring, intl, sqlite, pdo_sqlite
+          coverage: none
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install PHP dependencies
+        run: composer install --no-interaction --prefer-dist
+
+      - name: Prepare app env
+        run: |
+          cp .env.example .env
+          php artisan key:generate
+
+      - name: Install Node dependencies
+        run: npm ci
+
+      - name: Config validation
+        id: config_validation
+        run: composer validate --strict
+
+      - name: Backend tests
+        id: backend_tests
+        run: composer test
+
+      - name: Frontend build
+        id: frontend_build
+        run: npm run build
+
+      - name: Gate summary
+        if: always()
+        run: |
+          {
+            echo "## Governance CI Gate";
+            echo "- Config validation: ${{ steps.config_validation.outcome || 'completed' }}";
+            echo "- Backend tests: ${{ steps.backend_tests.outcome || 'completed' }}";
+            echo "- Frontend build: ${{ steps.frontend_build.outcome || 'completed' }}";
+          } >> $GITHUB_STEP_SUMMARY
