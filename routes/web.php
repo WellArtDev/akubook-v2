@@ -252,6 +252,8 @@ Route::middleware('auth')->group(function () {
     Route::get('payroll-reports', [App\Http\Controllers\PayrollReportController::class, 'index'])->name('payroll-reports.index');
     Route::get('financial-reports', [App\Http\Controllers\FinancialReportController::class, 'index'])->name('financial-reports.index');
     Route::get('operational-reports', [App\Http\Controllers\OperationalReportController::class, 'index'])->name('operational-reports.index');
+    Route::get('sales-reports', [App\Http\Controllers\SalesReportController::class, 'index'])->name('sales-reports.index');
+    Route::get('sales-reports/export', [App\Http\Controllers\SalesReportController::class, 'export'])->name('sales-reports.export');
     Route::get('purchase-reports', [App\Http\Controllers\PurchaseReportController::class, 'index'])->name('purchase-reports.index');
     Route::get('purchase-reports/export', [App\Http\Controllers\PurchaseReportController::class, 'export'])->name('purchase-reports.export');
     Route::get('purchase-dashboard', [App\Http\Controllers\PurchaseDashboardController::class, 'index'])->name('purchase-dashboard.index');
