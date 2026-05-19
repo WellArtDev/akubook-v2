@@ -12,6 +12,9 @@ use App\Models\PurchaseOrder;
 use App\Models\PurchaseRequest;
 use App\Models\PurchaseReturn;
 use App\Models\SalesInvoice;
+use App\Models\SalesOrder;
+use App\Models\SalesQuotation;
+use App\Models\SalesReturn;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -217,8 +220,11 @@ class PrintDraftController extends Controller
     private function sourceDocuments(string $documentType): array
     {
         return match ($documentType) {
-            'sales_invoice' => SalesInvoice::query()->latest('id')->limit(50)->get(['id', 'invoice_number as number'])->toArray(),
+            'sales_quotation' => SalesQuotation::query()->latest('id')->limit(50)->get(['id', 'quotation_number as number'])->toArray(),
+            'sales_order' => SalesOrder::query()->latest('id')->limit(50)->get(['id', 'so_number as number'])->toArray(),
             'delivery_order' => DeliveryOrder::query()->latest('id')->limit(50)->get(['id', 'do_number as number'])->toArray(),
+            'sales_invoice' => SalesInvoice::query()->latest('id')->limit(50)->get(['id', 'invoice_number as number'])->toArray(),
+            'credit_note' => SalesReturn::query()->latest('id')->limit(50)->get(['id', 'rma_number as number'])->toArray(),
             'purchase_request' => PurchaseRequest::query()->latest('id')->limit(50)->get(['id', 'pr_number as number'])->toArray(),
             'purchase_order' => PurchaseOrder::query()->latest('id')->limit(50)->get(['id', 'po_number as number'])->toArray(),
             'goods_receipt' => GoodsReceipt::query()->latest('id')->limit(50)->get(['id', 'gr_number as number'])->toArray(),
@@ -231,8 +237,11 @@ class PrintDraftController extends Controller
     private function sourceDocumentDetail(string $documentType, int $documentId): ?array
     {
         $model = match ($documentType) {
-            'sales_invoice' => SalesInvoice::query()->find($documentId),
+            'sales_quotation' => SalesQuotation::query()->find($documentId),
+            'sales_order' => SalesOrder::query()->find($documentId),
             'delivery_order' => DeliveryOrder::query()->find($documentId),
+            'sales_invoice' => SalesInvoice::query()->find($documentId),
+            'credit_note' => SalesReturn::query()->find($documentId),
             'purchase_request' => PurchaseRequest::query()->find($documentId),
             'purchase_order' => PurchaseOrder::query()->find($documentId),
             'goods_receipt' => GoodsReceipt::query()->find($documentId),
@@ -247,8 +256,11 @@ class PrintDraftController extends Controller
 
         return [
             'id' => $model->id,
-            'number' => $model->invoice_number
+            'number' => $model->quotation_number
+                ?? $model->so_number
                 ?? $model->do_number
+                ?? $model->invoice_number
+                ?? $model->rma_number
                 ?? $model->pr_number
                 ?? $model->po_number
                 ?? $model->gr_number

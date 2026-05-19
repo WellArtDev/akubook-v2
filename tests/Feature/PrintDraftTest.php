@@ -166,6 +166,15 @@ class PrintDraftTest extends TestCase
         ]);
     }
 
+    public function test_sales_document_types_can_open_create_page(): void
+    {
+        foreach (['sales_quotation', 'sales_order', 'delivery_order', 'sales_invoice', 'credit_note'] as $documentType) {
+            $this->actingAs($this->user)
+                ->get(route('print-drafts.create', ['document_type' => $documentType]))
+                ->assertOk();
+        }
+    }
+
     public function test_purchase_document_types_can_open_create_page(): void
     {
         foreach (['purchase_request', 'purchase_order', 'goods_receipt', 'purchase_invoice', 'debit_note'] as $documentType) {

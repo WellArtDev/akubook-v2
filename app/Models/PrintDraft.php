@@ -13,8 +13,11 @@ class PrintDraft extends Model
     use HasFactory, SoftDeletes;
 
     public const DOCUMENT_TYPES = [
-        'sales_invoice',
+        'sales_quotation',
+        'sales_order',
         'delivery_order',
+        'sales_invoice',
+        'credit_note',
         'purchase_request',
         'purchase_order',
         'goods_receipt',
