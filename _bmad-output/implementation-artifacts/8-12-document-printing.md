@@ -3,7 +3,7 @@
 **Epic:** 8 - Customer & Sales Management  
 **Story ID:** 8.12  
 **Story Key:** 8-12-document-printing  
-**Status:** review  
+**Status:** done  
 **Priority:** P1 (Should Have)
 
 ---

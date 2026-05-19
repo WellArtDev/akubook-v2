@@ -1,6 +1,6 @@
 ﻿# Story 9.11: Purchase Dashboard
 **Epic:** 9 | **Story ID:** 9.11 | **Key:** 9-11-purchase-dashboard | **Priority:** P2
-**Status:** review
+**Status:** done
 
 ## User Story
 **Sebagai** Purchasing Manager, **Saya ingin** view purchase dashboard, **Sehingga** monitor procurement performance

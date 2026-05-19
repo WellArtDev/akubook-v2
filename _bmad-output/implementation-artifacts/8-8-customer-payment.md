@@ -1,6 +1,6 @@
 ﻿# Story 8.8: Customer Payment
 **Epic:** 8 | **Story ID:** 8.8 | **Key:** 8-8-customer-payment | **Priority:** P0
-**Status:** review
+**Status:** done
 
 ## User Story
 **Sebagai** Finance Staff, **Saya ingin** record customer payments dengan allocation ke invoice, **Sehingga** AR accurate dan cash receipts tercatat benar

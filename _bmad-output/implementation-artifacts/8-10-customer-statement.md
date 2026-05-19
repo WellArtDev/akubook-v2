@@ -3,7 +3,7 @@
 **Epic:** 8 - Customer & Sales Management  
 **Story ID:** 8.10  
 **Story Key:** 8-10-customer-statement  
-**Status:** review  
+**Status:** done  
 **Created:** 2026-05-14  
 **Priority:** P2 (Nice to Have)
 

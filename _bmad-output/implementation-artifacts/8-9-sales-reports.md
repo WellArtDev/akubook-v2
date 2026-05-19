@@ -1,6 +1,6 @@
 ﻿# Story 8.9: Sales Reports
 **Epic:** 8 | **Story ID:** 8.9 | **Key:** 8-9-sales-reports | **Priority:** P1
-**Status:** review
+**Status:** done
 
 ## User Story
 **Sebagai** Sales Manager, **Saya ingin** melihat sales reports dan analytics, **Sehingga** bisa monitor performa penjualan dan ambil keputusan strategis

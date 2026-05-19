@@ -1,6 +1,6 @@
 ﻿# Story 9.10: Supplier Statement
 **Epic:** 9 | **Story ID:** 9.10 | **Key:** 9-10-supplier-statement | **Priority:** P2
-**Status:** review
+**Status:** done
 
 ## User Story
 **Sebagai** Finance Staff, **Saya ingin** generate supplier statements, **Sehingga** reconcile AP dengan supplier

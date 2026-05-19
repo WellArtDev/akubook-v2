@@ -3,7 +3,7 @@
 **Epic:** 9 - Supplier & Purchase Management  
 **Story ID:** 9.3  
 **Story Key:** 9-3-purchase-order-creation  
-**Status:** review  
+**Status:** done  
 
 **Created:** 2026-05-14  
 **Priority:** P0 (Foundation)

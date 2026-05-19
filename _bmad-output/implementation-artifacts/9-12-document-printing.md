@@ -1,6 +1,6 @@
 ﻿# Story 9.12: Document Printing
 **Epic:** 9 | **Story ID:** 9.12 | **Key:** 9-12-document-printing | **Priority:** P1
-**Status:** review
+**Status:** done
 
 ## User Story
 **Sebagai** User, **Saya ingin** print purchase documents, **Sehingga** provide physical copies

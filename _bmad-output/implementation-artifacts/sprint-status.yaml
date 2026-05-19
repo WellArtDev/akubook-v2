@@ -116,7 +116,7 @@ development_status:
   # ============================================================
 
   # Epic 8: Customer & Sales Management
-  epic-8: in-progress
+  epic-8: done
   8-1-customer-master-data: done
   8-2-sales-quotation: done
   8-3-sales-order-creation: done
@@ -124,28 +124,28 @@ development_status:
   8-5-delivery-order: done
   8-6-sales-invoice: done
   8-7-sales-return: done
-  8-8-customer-payment: review
-  8-9-sales-reports: review
-  8-10-customer-statement: review
-  8-11-sales-dashboard: review
-  8-12-document-printing: review
+  8-8-customer-payment: done
+  8-9-sales-reports: done
+  8-10-customer-statement: done
+  8-11-sales-dashboard: done
+  8-12-document-printing: done
   epic-8-retrospective: done
 
   # Epic 9: Supplier & Purchasing Management
-  epic-9: in-progress
+  epic-9: done
   9-1-supplier-master-data: done
   9-2-purchase-request: done
-  9-3-purchase-order-creation: review
+  9-3-purchase-order-creation: done
 
   9-4-purchase-order-approval: done
   9-5-goods-receipt: done
   9-6-purchase-invoice: done
   9-7-purchase-return: done
-  9-8-supplier-payment: review
-  9-9-purchase-reports: review
-  9-10-supplier-statement: review
-  9-11-purchase-dashboard: review
-  9-12-document-printing: review
+  9-8-supplier-payment: done
+  9-9-purchase-reports: done
+  9-10-supplier-statement: done
+  9-11-purchase-dashboard: done
+  9-12-document-printing: done
   epic-9-retrospective: done
 
   # Epic 10: Document Printing System

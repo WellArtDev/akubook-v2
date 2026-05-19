@@ -3,7 +3,7 @@
 **Epic:** 8 - Customer & Sales Management  
 **Story ID:** 8.11  
 **Story Key:** 8-11-sales-dashboard  
-**Status:** review  
+**Status:** done  
 **Created:** 2026-05-14  
 **Priority:** P2 (Nice to Have)
 

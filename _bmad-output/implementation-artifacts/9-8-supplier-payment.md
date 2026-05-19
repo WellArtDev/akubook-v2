@@ -1,6 +1,6 @@
 ﻿# Story 9.8: Supplier Payment
 **Epic:** 9 | **Story ID:** 9.8 | **Key:** 9-8-supplier-payment | **Priority:** P0
-**Status:** review
+**Status:** done
 
 ## User Story
 **Sebagai** Finance Staff, **Saya ingin** record supplier payments, **Sehingga** track AP dan cash flow
