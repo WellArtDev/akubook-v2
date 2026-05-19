@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-05-19T00:00:00Z",
+  "period": {
+    "date_from": "2026-05-01",
+    "date_to": "2026-05-19"
+  },
+  "dataset_assumption": {
+    "retention_runs": 1,
+    "enforcement_logs": 1,
+    "sensitive_alerts": 1,
+    "export_packs": 1,
+    "notes": "Baseline sample from automated feature test dataset (GovernancePerformanceBaselineCommandTest)."
+  },
+  "threshold_ms": 1500,
+  "benchmarks": {
+    "dashboard_queries": {
+      "retention_runs_count_ms": 0,
+      "enforcement_count_ms": 0,
+      "sensitive_alerts_count_ms": 0,
+      "export_packs_count_ms": 0,
+      "total_ms": 0
+    },
+    "compliance_export_generation": {
+      "duration_ms": 0,
+      "pack_id": null,
+      "pack_number": null,
+      "record_counts": {
+        "audit_logs_sensitive": 0,
+        "data_retention_executions": 0,
+        "workflow_decisions": 0
+      }
+    }
+  },
+  "recommendations": [
+    "Baseline within threshold on test dataset; rerun command on production-like dataset for operational baseline."
+  ]
+}

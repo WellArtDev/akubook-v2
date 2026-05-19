@@ -297,5 +297,5 @@ development_status:
   epic-24: in-progress
   24-1-ci-governance-gate: review
   24-2-governance-reliability-jobs: review
-  24-3-governance-performance-baseline: ready-for-dev
+  24-3-governance-performance-baseline: review
   epic-24-retrospective: optional

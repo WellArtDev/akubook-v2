@@ -9,3 +9,4 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote');
 
 Schedule::command('governance:run-reliability-jobs')->hourly();
+Schedule::command('governance:benchmark-baseline')->dailyAt('01:30');
