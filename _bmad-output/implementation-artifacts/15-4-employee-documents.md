@@ -3,8 +3,7 @@
 Story Key: `15-4-employee-documents`
 Priority: P0
 
-## Status
-`review`
+**Status:** done
 
 ## User Story
 Sebagai HR Staff, saya ingin mencatat dokumen penting karyawan agar data kontrak, identitas, dan legal dokumen terkelola rapi dan mudah dipantau masa berlaku.
@@ -62,3 +61,4 @@ Sebagai HR Staff, saya ingin mencatat dokumen penting karyawan agar data kontrak
 
 ### Change Log
 - `2026-05-18`: Implemented Story 15.4 Employee Documents MVP.
+

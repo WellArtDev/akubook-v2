@@ -1,6 +1,6 @@
 # Story 7.5: Post-Migration Reconciliation
 
-Status: review
+**Status:** done
 
 ## Story
 
@@ -79,6 +79,7 @@ so that data migrasi tervalidasi, selisih terdeteksi, dan siap dipakai closing/r
 - Konteks meneruskan rangkaian migrasi Epic 7.
 - Implementasi `PostMigrationReconciliationService` selesai: summary modul, validasi posted journal balance, validasi trial balance, validasi pemakaian header/inactive account, issue list severity + recommended action.
 - Endpoint reconciliation selesai: index + run.
+### Validation
 - Focused tests pass: `php artisan test tests/Unit/Services/PostMigrationReconciliationServiceTest.php tests/Feature/PostMigrationReconciliationControllerTest.php` -> 4 passed, 17 assertions.
 - Full `composer test` masih gagal baseline unrelated; output: `C:\Users\WellA\.local\share\opencode\tool-output\tool_e359c912c0018MLDVg6Z2y5VUk`.
 - `vendor/bin/pint --test` masih gagal baseline formatting luas, termasuk beberapa file baru story 7.5.
@@ -95,3 +96,4 @@ so that data migrasi tervalidasi, selisih terdeteksi, dan siap dipakai closing/r
 ## Change Log
 
 - 2026-05-17: Implementasi Story 7.5 selesai dan status dipindah ke review.
+

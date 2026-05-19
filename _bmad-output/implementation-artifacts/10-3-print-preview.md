@@ -2,7 +2,7 @@
 
 **Story Key:** `10-3-print-preview`  
 **Priority:** P0  
-**Status:** review
+**Status:** done
 
 ## User Story
 As Admin/Staff,
@@ -62,3 +62,4 @@ so that saya bisa verifikasi layout dan isi sebelum kirim ke printer.
 
 ### Change Log
 - 2026-05-18: Implement Story 10.3 Print Preview MVP.
+

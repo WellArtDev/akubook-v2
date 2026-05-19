@@ -2,7 +2,7 @@
 
 **Story Key:** `12-4-payment-receipt-vouchers`  
 **Priority:** P0  
-**Status:** review
+**Status:** done
 
 ## User Story
 Sebagai **Finance Staff**, saya ingin membuat voucher penerimaan dan pengeluaran kas/bank agar setiap transaksi kas-bank tercatat dengan dokumen yang konsisten, memiliki jejak audit, dan siap direkonsiliasi.
@@ -62,3 +62,4 @@ Sebagai **Finance Staff**, saya ingin membuat voucher penerimaan dan pengeluaran
 
 ### Change Log
 - 2026-05-18: Implemented Story 12.4 Payment & Receipt Vouchers MVP.
+

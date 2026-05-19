@@ -2,7 +2,7 @@
 
 **Story Key:** 17-3-attendance-integration
 **Priority:** P0
-**Status:** review
+**Status:** done
 
 ## User Story
 
@@ -75,3 +75,4 @@ As HR/Payroll Staff, I want payroll calculation to include attendance and overti
 ### Change Log
 
 - 2026-05-18: Implemented Story 17.3 Attendance Integration MVP and validations.
+

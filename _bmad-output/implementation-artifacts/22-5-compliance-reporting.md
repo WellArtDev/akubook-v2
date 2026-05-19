@@ -3,7 +3,7 @@
 **Story Key:** `22-5-compliance-reporting`  
 **Epic:** 22  
 **Priority:** P0  
-**Status:** review
+**Status:** done
 
 ## User Story
 Sebagai Compliance Officer, saya ingin melihat ringkasan compliance dalam satu report agar status audit, sensitive actions, retention policy, dan workflow governance bisa dipantau cepat.
@@ -67,3 +67,4 @@ Sebagai Compliance Officer, saya ingin melihat ringkasan compliance dalam satu r
 
 ### Change Log
 - 2026-05-19: Story 22.5 dibuat dan diimplementasikan.
+

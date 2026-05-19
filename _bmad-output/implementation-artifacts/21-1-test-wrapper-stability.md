@@ -2,7 +2,7 @@
 
 **Story Key:** 21-1-test-wrapper-stability
 **Priority:** P0
-**Status:** review
+**Status:** done
 
 ## User Story
 
@@ -65,3 +65,4 @@ As a developer, I want the repository test command to return a successful exit c
 ### Change Log
 
 - 2026-05-19: Implemented Story 21.1 Test Wrapper Stability investigation/fix and validations.
+

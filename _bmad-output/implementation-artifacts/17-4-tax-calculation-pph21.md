@@ -2,7 +2,7 @@
 
 **Story Key:** 17-4-tax-calculation-pph21
 **Priority:** P0
-**Status:** review
+**Status:** done
 
 ## User Story
 
@@ -76,3 +76,4 @@ As HR/Finance Staff, I want payroll runs to calculate PPh21 tax per employee so 
 ### Change Log
 
 - 2026-05-18: Implemented Story 17.4 Tax Calculation PPh21 MVP and validations.
+

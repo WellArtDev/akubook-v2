@@ -2,7 +2,7 @@
 
 **Story Key:** `13-2-tax-calculation`  
 **Priority:** P0  
-**Status:** review
+**Status:** done
 
 ## User Story
 Sebagai Finance Staff, saya ingin menghitung pajak transaksi penjualan/pembelian secara konsisten dari konfigurasi pajak agar nilai DPP, pajak, dan total transaksi akurat.
@@ -62,3 +62,4 @@ Sebagai Finance Staff, saya ingin menghitung pajak transaksi penjualan/pembelian
 
 ### Change Log
 - 2026-05-18: Implemented Story 13.2 Tax Calculation MVP.
+

@@ -1,6 +1,6 @@
-﻿# Story 9.5: Goods Receipt
+# Story 9.5: Goods Receipt
 **Epic:** 9 | **Story ID:** 9.5 | **Key:** 9-5-goods-receipt | **Priority:** P0
-**Status:** review
+**Status:** done
 
 ## User Story
 **Sebagai** Warehouse Staff, **Saya ingin** receive goods dari supplier, **Sehingga** update inventory
@@ -45,3 +45,4 @@
 
 ### Change Log
 - 2026-05-18: Implemented Story 9.5 Goods Receipt MVP and updated validations.
+

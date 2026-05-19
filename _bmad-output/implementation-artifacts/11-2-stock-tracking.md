@@ -2,7 +2,7 @@
 
 **Story Key:** `11-2-stock-tracking`  
 **Priority:** P0  
-**Status:** review
+**Status:** done
 
 ## User Story
 
@@ -71,3 +71,4 @@ As an Inventory Staff, I want stock movement tracked per item so current on-hand
 
 ### Change Log
 - 2026-05-18: Implement Story 11.2 Stock Tracking MVP.
+

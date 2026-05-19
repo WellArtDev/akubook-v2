@@ -2,7 +2,7 @@
 
 **Story Key:** 18-4-dashboard-refresh
 **Priority:** P0
-**Status:** review
+**Status:** done
 
 ## User Story
 
@@ -75,3 +75,4 @@ As a dashboard user, I want configurable refresh controls so dashboard metrics s
 ### Change Log
 
 - 2026-05-18: Implemented Story 18.4 Dashboard Refresh MVP and validations.
+

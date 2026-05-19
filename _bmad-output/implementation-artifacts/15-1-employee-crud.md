@@ -2,7 +2,7 @@
 
 **Story Key:** `15-1-employee-crud`  
 **Priority:** P0 - Core HR Foundation  
-**Status:** review
+**Status:** done
 
 ## User Story
 As an HR Admin, I want to create, view, update, and deactivate employee data so that employee records are centralized and ready for assignment, leave, and payroll workflows.
@@ -64,3 +64,4 @@ As an HR Admin, I want to create, view, update, and deactivate employee data so 
 
 ### Change Log
 - 2026-05-18: Implemented Story 15.1 Employee CRUD MVP.
+

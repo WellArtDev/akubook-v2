@@ -1,6 +1,6 @@
-﻿# Story 9.6: Purchase Invoice
+# Story 9.6: Purchase Invoice
 **Epic:** 9 | **Story ID:** 9.6 | **Key:** 9-6-purchase-invoice | **Priority:** P0
-**Status:** review
+**Status:** done
 
 ## User Story
 **Sebagai** Finance Staff, **Saya ingin** record supplier invoices, **Sehingga** track accounts payable
@@ -47,3 +47,4 @@
 
 ### Change Log
 - 2026-05-18: Implemented Story 9.6 Purchase Invoice MVP with GR-based creation, 3-way matching validation, posting + journal automation, AP tracking, and feature tests.
+

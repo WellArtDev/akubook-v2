@@ -3,7 +3,7 @@
 **Epic:** 5 - Journal Entry & Posting System  
 **Story ID:** 5.4  
 **Story Key:** 5-4-auto-generated-journals-from-sales  
-**Status:** review  
+**Status:** done  
 **Created:** 2026-05-14  
 **Priority:** Low (Deferred - Sales module belum ada)
 
@@ -256,3 +256,4 @@ Story ini **deferred** karena:
 
 **Created by:** BMad Create Story Workflow  
 **Last Updated:** 2026-05-17
+

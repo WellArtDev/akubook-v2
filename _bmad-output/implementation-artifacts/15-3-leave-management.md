@@ -3,8 +3,7 @@
 Story Key: `15-3-leave-management`
 Priority: P0
 
-## Status
-`review`
+**Status:** done
 
 ## User Story
 Sebagai HR Staff dan Atasan, saya ingin mengelola pengajuan cuti karyawan agar proses approval, monitoring saldo, dan histori cuti tercatat rapi.
@@ -64,3 +63,4 @@ Sebagai HR Staff dan Atasan, saya ingin mengelola pengajuan cuti karyawan agar p
 
 ### Change Log
 - `2026-05-18`: Implemented Story 15.3 Leave Management MVP.
+

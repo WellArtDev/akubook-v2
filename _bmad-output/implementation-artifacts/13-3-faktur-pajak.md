@@ -2,7 +2,7 @@
 
 **Story Key:** `13-3-faktur-pajak`  
 **Priority:** P0  
-**Status:** review
+**Status:** done
 
 ## User Story
 Sebagai Finance Staff, saya ingin membuat dan mengelola Faktur Pajak dari Sales Invoice agar dokumen pajak keluaran tercatat rapi dan siap diekspor ke e-Faktur.
@@ -64,3 +64,4 @@ Sebagai Finance Staff, saya ingin membuat dan mengelola Faktur Pajak dari Sales 
 
 ### Change Log
 - 2026-05-18: Implemented Story 13.3 Faktur Pajak MVP.
+

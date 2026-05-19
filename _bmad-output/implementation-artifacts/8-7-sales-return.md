@@ -1,9 +1,9 @@
-﻿# Story 8.7: Sales Return
+# Story 8.7: Sales Return
 
 **Epic:** 8 - Customer & Sales Management  
 **Story ID:** 8.7  
 **Story Key:** 8-7-sales-return  
-**Status:** review  
+**Status:** done  
 **Created:** 2026-05-14  
 **Priority:** P1 (Core)
 
@@ -137,3 +137,4 @@ CREATE TABLE sales_return_lines (
 - Return window: 30 days dari invoice date
 - Quality check required
 - Credit note auto-generated saat completed
+

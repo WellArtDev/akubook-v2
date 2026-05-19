@@ -1,6 +1,6 @@
 # Story 7.4: Historical Transactions Import
 
-Status: review
+**Status:** done
 
 ## Story
 
@@ -93,6 +93,8 @@ so that histori operasional dan akuntansi tetap lengkap setelah migrasi ke AkuBo
 - Konteks implementasi meneruskan pattern migrasi 7.1 → 7.3.
 - Implementasi `HistoricalTransactionsImportService` selesai untuk modul `sales_orders`, `purchase_orders`, dan `customer_payments` dengan parser payload, mapping header/lines, validasi relasi master, validasi status, validasi journal balance, dan persistence transactional.
 - Endpoint migration historical transactions selesai: index, preview, import.
+
+### Validation
 - Focused tests pass: `php artisan test tests/Unit/Services/HistoricalTransactionsImportServiceTest.php tests/Feature/HistoricalTransactionsImportControllerTest.php` → 6 passed, 27 assertions.
 - Full `composer test` masih gagal karena baseline unrelated; output: `C:\Users\WellA\.local\share\opencode\tool-output\tool_e35920102001ngipw5OzHhfkSk`.
 - `vendor/bin/pint --test` masih gagal karena baseline formatting luas, termasuk file baru 7.4.
@@ -110,3 +112,4 @@ so that histori operasional dan akuntansi tetap lengkap setelah migrasi ke AkuBo
 ## Change Log
 
 - 2026-05-17: Implementasi Story 7.4 selesai dan status dipindah ke review.
+

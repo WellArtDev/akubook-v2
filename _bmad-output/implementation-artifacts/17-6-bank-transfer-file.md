@@ -2,7 +2,7 @@
 
 **Story Key:** 17-6-bank-transfer-file
 **Priority:** P0
-**Status:** review
+**Status:** done
 
 ## User Story
 
@@ -84,3 +84,4 @@ As a Finance Staff, I want to generate bank transfer batch files from calculated
 ### Change Log
 
 - 2026-05-18: Implemented Story 17.6 Bank Transfer File MVP and validations.
+

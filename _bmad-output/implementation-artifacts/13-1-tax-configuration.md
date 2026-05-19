@@ -2,7 +2,7 @@
 
 **Story Key:** `13-1-tax-configuration`  
 **Priority:** P0  
-**Status:** review
+**Status:** done
 
 ## User Story
 Sebagai **Finance/Tax Admin**, saya ingin mengelola konfigurasi pajak agar persentase PPN/withholding dan akun pajak dapat digunakan konsisten oleh modul penjualan, pembelian, dan pelaporan pajak.
@@ -59,3 +59,4 @@ Sebagai **Finance/Tax Admin**, saya ingin mengelola konfigurasi pajak agar perse
 
 ### Change Log
 - 2026-05-18: Implemented Story 13.1 Tax Configuration MVP.
+

@@ -2,7 +2,7 @@
 
 **Story Key:** 20-4-offline-data-sync
 **Priority:** P0
-**Status:** review
+**Status:** done
 
 ## User Story
 
@@ -76,3 +76,4 @@ As a mobile user, I want queued offline actions to sync safely when connection i
 ### Change Log
 
 - 2026-05-19: Implemented Story 20.4 Offline Data Sync MVP and validations.
+

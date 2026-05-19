@@ -2,7 +2,7 @@
 
 **Story Key:** 20-3-offline-clock-in-out
 **Priority:** P0
-**Status:** review
+**Status:** done
 
 ## User Story
 
@@ -74,3 +74,4 @@ As an employee using unstable internet, I want to clock in/out while offline so 
 ### Change Log
 
 - 2026-05-19: Implemented Story 20.3 Offline Clock-In/Out MVP and validations.
+

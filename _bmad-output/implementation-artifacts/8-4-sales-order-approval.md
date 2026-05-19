@@ -1,9 +1,9 @@
-﻿# Story 8.4: Sales Order Approval
+# Story 8.4: Sales Order Approval
 
 **Epic:** 8 - Customer & Sales Management  
 **Story ID:** 8.4  
 **Story Key:** 8-4-sales-order-approval  
-**Status:** review  
+**Status:** done  
 **Created:** 2026-05-14  
 **Priority:** P1 (Core)
 
@@ -771,3 +771,4 @@ test('can reject sales order', function() {
 - Bulk approval max: request payload driven
 - Notification system: TODO (separate story)
 - Permission middleware for approval routes: TODO
+

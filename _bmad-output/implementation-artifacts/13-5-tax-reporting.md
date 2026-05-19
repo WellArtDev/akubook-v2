@@ -2,7 +2,7 @@
 
 **Story Key:** `13-5-tax-reporting`  
 **Priority:** P0  
-**Status:** review
+**Status:** done
 
 ## User Story
 As a Finance/Tax Staff, I want a tax reporting page that summarizes output VAT, input VAT, and withholding tax by period so that monthly tax preparation is faster and consistent.
@@ -59,3 +59,4 @@ As a Finance/Tax Staff, I want a tax reporting page that summarizes output VAT, 
 
 ### Change Log
 - 2026-05-18: Implemented Story 13.5 Tax Reporting MVP.
+

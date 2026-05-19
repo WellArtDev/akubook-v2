@@ -1,9 +1,9 @@
-﻿# Story 8.5: Delivery Order
+# Story 8.5: Delivery Order
 
 **Epic:** 8 - Customer & Sales Management  
 **Story ID:** 8.5  
 **Story Key:** 8-5-delivery-order  
-**Status:** review  
+**Status:** done  
 **Created:** 2026-05-14  
 **Priority:** P0 (Foundation)
 
@@ -1067,3 +1067,4 @@ test('cannot exceed remaining quantity', function() {
 - POD: Signature upload optional
 - Cancellation: Restore inventory jika already delivered
 - Cannot cancel jika sudah ada invoice (implement in Story 8.6)
+

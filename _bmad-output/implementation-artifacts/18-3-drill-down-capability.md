@@ -2,7 +2,7 @@
 
 **Story Key:** 18-3-drill-down-capability
 **Priority:** P0
-**Status:** review
+**Status:** done
 
 ## User Story
 
@@ -69,3 +69,4 @@ As a manager, I want to click dashboard widgets and inspect the underlying recor
 ### Change Log
 
 - 2026-05-18: Implemented Story 18.3 Drill-Down Capability MVP and validations.
+

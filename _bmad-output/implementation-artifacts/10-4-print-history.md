@@ -2,7 +2,7 @@
 
 **Story Key:** `10-4-print-history`  
 **Priority:** P0  
-**Status:** review
+**Status:** done
 
 ## User Story
 As Admin/Staff,
@@ -66,3 +66,4 @@ so that saya bisa audit siapa print apa, kapan, dan pakai draft/template mana.
 
 ### Change Log
 - 2026-05-18: Implement Story 10.4 Print History MVP.
+

@@ -3,7 +3,7 @@
 **Story Key:** `22-4-sensitive-action-tracking`  
 **Epic:** 22  
 **Priority:** P0  
-**Status:** review
+**Status:** done
 
 ## User Story
 Sebagai Compliance Officer, saya ingin aksi sensitif terekam dengan flag khusus agar audit high-risk bisa difilter dan ditinjau cepat.
@@ -70,3 +70,4 @@ Sebagai Compliance Officer, saya ingin aksi sensitif terekam dengan flag khusus 
 
 ### Change Log
 - 2026-05-19: Story 22.4 dibuat dan diimplementasikan.
+

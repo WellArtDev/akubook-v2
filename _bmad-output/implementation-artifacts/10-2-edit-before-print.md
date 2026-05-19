@@ -2,7 +2,7 @@
 
 **Story Key:** `10-2-edit-before-print`  
 **Priority:** P0  
-**Status:** review
+**Status:** done
 
 ## User Story
 As Admin/Staff, I want edit dokumen sementara sebelum print, so that hasil cetak sesuai kebutuhan operasional tanpa ubah data transaksi asli.
@@ -63,3 +63,4 @@ As Admin/Staff, I want edit dokumen sementara sebelum print, so that hasil cetak
 
 ### Change Log
 - 2026-05-18: Implement Story 10.2 Edit Before Print MVP.
+

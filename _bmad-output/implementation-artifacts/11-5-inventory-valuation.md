@@ -2,7 +2,7 @@
 
 **Story Key:** `11-5-inventory-valuation`  
 **Priority:** P0  
-**Status:** review
+**Status:** done
 
 ## User Story
 Sebagai Finance/Admin, saya ingin melihat nilai persediaan berbasis transaksi stok agar nilai inventory dapat dipakai untuk laporan internal dan kontrol margin.
@@ -56,3 +56,4 @@ Sebagai Finance/Admin, saya ingin melihat nilai persediaan berbasis transaksi st
 - `php artisan test tests/Feature/InventoryValuationTest.php` ✅ (3 tests pass)
 - `composer test` ✅ PHPUnit pass (249 tests), wrapper masih return code 1 (known issue)
 - `npm run build` ✅ (warning Vite `esbuild` -> `oxc` masih existing)
+

@@ -3,8 +3,7 @@
 Story Key: `16-1-online-attendance`
 Priority: P0
 
-## Status
-`review`
+**Status:** done
 
 ## User Story
 Sebagai Karyawan dan HR Staff, saya ingin mencatat absensi online check-in/check-out agar kehadiran harian tercatat rapi sebagai dasar operasional HR.
@@ -62,3 +61,4 @@ Sebagai Karyawan dan HR Staff, saya ingin mencatat absensi online check-in/check
 
 ### Change Log
 - `2026-05-18`: Implemented Story 16.1 Online Attendance MVP.
+

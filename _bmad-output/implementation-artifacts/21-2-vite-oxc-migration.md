@@ -2,7 +2,7 @@
 
 **Story Key:** 21-2-vite-oxc-migration
 **Priority:** P0
-**Status:** review
+**Status:** done
 
 ## User Story
 
@@ -62,3 +62,4 @@ As a developer, I want frontend build pipeline to use OXC-compatible React plugi
 ### Change Log
 
 - 2026-05-19: Implemented Story 21.2 Vite OXC migration and validations.
+

@@ -2,7 +2,7 @@
 
 **Story Key:** `11-3-stock-opname`  
 **Priority:** P0  
-**Status:** review
+**Status:** done
 
 ## User Story
 
@@ -52,3 +52,4 @@ As an Inventory Staff, I want to run stock opname so physical count differences 
 
 ### Change Log
 - 2026-05-18: Implement Story 11.3 Stock Opname MVP.
+

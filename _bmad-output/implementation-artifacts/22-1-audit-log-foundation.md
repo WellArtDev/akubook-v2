@@ -2,7 +2,7 @@
 
 **Story Key:** 22-1-audit-log-foundation  
 **Priority:** P0  
-**Status:** review
+**Status:** done
 
 ## User Story
 Sebagai admin/compliance, saya ingin semua aksi penting tercatat dalam audit log agar perubahan data bisa ditelusuri dengan jelas.
@@ -62,3 +62,4 @@ Sebagai admin/compliance, saya ingin semua aksi penting tercatat dalam audit log
 
 ### Change Log
 - 2026-05-19: Implemented Story 22.1 Audit Log Foundation MVP and validations.
+

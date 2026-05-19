@@ -2,7 +2,7 @@
 
 **Story Key:** `11-1-item-master`  
 **Priority:** P0 - Foundation  
-**Status:** review
+**Status:** done
 
 ## User Story
 
@@ -72,3 +72,4 @@ As an Inventory Admin, I want to manage item master data so all stock transactio
 
 ### Change Log
 - 2026-05-18: Implement Story 11.1 Item Master MVP.
+

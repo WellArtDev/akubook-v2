@@ -1,6 +1,6 @@
 # Story 7.1: Chart of Accounts Import
 
-Status: review
+**Status:** done
 
 ## Story
 
@@ -93,3 +93,4 @@ so that struktur akun historis pindah ke AkuBook akurat dan siap dipakai transak
 ## Change Log
 
 - 2026-05-17: Implementasi Story 7.1 selesai dan status dipindah ke review.
+

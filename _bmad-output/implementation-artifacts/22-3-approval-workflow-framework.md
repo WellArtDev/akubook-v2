@@ -2,7 +2,7 @@
 
 **Story Key:** 22-3-approval-workflow-framework  
 **Priority:** P0  
-**Status:** review
+**Status:** done
 
 ## User Story
 Sebagai admin/compliance, saya ingin framework approval workflow generik agar proses persetujuan lintas modul bisa distandarkan dan diaudit.
@@ -62,3 +62,4 @@ Sebagai admin/compliance, saya ingin framework approval workflow generik agar pr
 
 ### Change Log
 - 2026-05-19: Implemented Story 22.3 Approval Workflow Framework MVP and validations.
+

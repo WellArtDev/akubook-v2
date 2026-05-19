@@ -1,6 +1,6 @@
 # Story 10.1: Dot Matrix Templates
 **Epic:** 10 | **Story ID:** 10.1 | **Key:** 10-1-dot-matrix-templates | **Priority:** P0
-**Status:** review
+**Status:** done
 
 ## User Story
 **Sebagai** Admin/Staff, **Saya ingin** template dot-matrix untuk dokumen transaksi, **Sehingga** bisa cetak formulir legal/operasional dengan format konsisten.
@@ -39,6 +39,10 @@
 - CRUD aktif untuk dokumen `sales_invoice`, `delivery_order`, `purchase_order`, `goods_receipt`.
 - Tambah endpoint `dot-matrix-templates.defaults` untuk ambil field map default sesuai tipe dokumen.
 - Tambah feature tests untuk index, create, default uniqueness per document type, update, dan endpoint defaults.
+### Validation
+- `php artisan test tests/Feature/DotMatrixTemplateTest.php` pass.
+- `composer test` pass payload (wrapper issue saat itu).
+- `npm run build` pass.
 - Validasi jalan: test targeted pass, full phpunit pass (wrapper composer masih return code 1 seperti issue lama), build pass dengan warning Vite lama.
 
 ### File List
@@ -56,3 +60,4 @@
 
 ### Change Log
 - 2026-05-18: Implement Story 10.1 Dot Matrix Templates MVP, tests pass, build pass.
+

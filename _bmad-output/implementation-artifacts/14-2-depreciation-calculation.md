@@ -2,7 +2,7 @@
 
 **Story Key:** `14-2-depreciation-calculation`  
 **Priority:** P0  
-**Status:** review
+**Status:** done
 
 ## User Story
 As a Finance Staff, I want to calculate monthly depreciation for active fixed assets so that periodic depreciation values are ready before journal posting.
@@ -60,3 +60,4 @@ As a Finance Staff, I want to calculate monthly depreciation for active fixed as
 
 ### Change Log
 - 2026-05-18: Implemented Story 14.2 Depreciation Calculation MVP.
+

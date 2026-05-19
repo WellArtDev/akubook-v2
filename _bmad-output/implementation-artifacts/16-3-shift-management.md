@@ -2,7 +2,7 @@
 
 **Story Key:** 16-3-shift-management
 **Priority:** P0
-**Status:** review
+**Status:** done
 
 ## User Story
 
@@ -86,3 +86,4 @@ As an HR/Admin Staff, I want to manage work shifts and assign them to employees 
 ### Change Log
 
 - 2026-05-18: Implemented Story 16.3 Shift Management MVP and validations.
+

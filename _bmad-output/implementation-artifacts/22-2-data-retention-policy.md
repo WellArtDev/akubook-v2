@@ -2,7 +2,7 @@
 
 **Story Key:** 22-2-data-retention-policy  
 **Priority:** P0  
-**Status:** review
+**Status:** done
 
 ## User Story
 Sebagai admin/compliance, saya ingin mendefinisikan kebijakan retensi data agar masa simpan data sensitif jelas dan bisa diaudit.
@@ -64,3 +64,4 @@ Sebagai admin/compliance, saya ingin mendefinisikan kebijakan retensi data agar 
 
 ### Change Log
 - 2026-05-19: Implemented Story 22.2 Data Retention Policy MVP and validations.
+

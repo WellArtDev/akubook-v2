@@ -2,7 +2,7 @@
 
 **Story Key:** 19-1-financial-reports
 **Priority:** P0
-**Status:** review
+**Status:** done
 
 ## User Story
 
@@ -71,3 +71,4 @@ As a finance user, I want core financial reports by period so I can monitor comp
 ### Change Log
 
 - 2026-05-18: Implemented Story 19.1 Financial Reports MVP and validations.
+

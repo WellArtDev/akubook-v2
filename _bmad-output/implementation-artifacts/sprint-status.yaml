@@ -90,8 +90,8 @@ development_status:
   5-1-manual-journal-entry-creation: done
   5-2-journal-entry-posting: done
   5-3-journal-entry-reversal: done
-  5-4-auto-generated-journals-from-sales: review
-  5-5-auto-generated-journals-from-purchases: review
+  5-4-auto-generated-journals-from-sales: done
+  5-5-auto-generated-journals-from-purchases: done
   epic-5-retrospective: optional
 
   # Epic 6: Financial Reporting
@@ -104,11 +104,11 @@ development_status:
 
   # Epic 7: Data Migration from Accurate
   epic-7: in-progress
-  7-1-chart-of-accounts-import: review
-  7-2-master-data-import: review
-  7-3-opening-balances-import: review
-  7-4-historical-transactions-import: review
-  7-5-post-migration-reconciliation: review
+  7-1-chart-of-accounts-import: done
+  7-2-master-data-import: done
+  7-3-opening-balances-import: done
+  7-4-historical-transactions-import: done
+  7-5-post-migration-reconciliation: done
   epic-7-retrospective: optional
 
   # ============================================================
@@ -117,32 +117,42 @@ development_status:
 
   # Epic 8: Customer & Sales Management
   epic-8: in-progress
-  8-1-customer-crud: review
-  8-2-quotation: review
-  8-3-sales-order: review
-  8-4-delivery-order: review
-  8-5-sales-invoice: review
-  8-6-sales-return: review
-  8-7-customer-payments: review
+  8-1-customer-master-data: done
+  8-2-sales-quotation: done
+  8-3-sales-order-creation: done
+  8-4-sales-order-approval: done
+  8-5-delivery-order: done
+  8-6-sales-invoice: done
+  8-7-sales-return: done
+  8-8-customer-payment: ready-for-dev
+  8-9-sales-reports: ready-for-dev
+  8-10-customer-statement: ready-for-dev
+  8-11-sales-dashboard: ready-for-dev
+  8-12-document-printing: ready-for-dev
   epic-8-retrospective: done
 
   # Epic 9: Supplier & Purchasing Management
   epic-9: in-progress
-  9-1-supplier-crud: done
+  9-1-supplier-master-data: done
   9-2-purchase-request: done
-  9-3-purchase-order: review
-  9-4-goods-receipt: review
-  9-5-purchase-invoice: review
-  9-6-purchase-return: review
-  9-7-supplier-payments: review
+  9-3-purchase-order-creation: ready-for-dev
+  9-4-purchase-order-approval: done
+  9-5-goods-receipt: done
+  9-6-purchase-invoice: done
+  9-7-purchase-return: done
+  9-8-supplier-payment: ready-for-dev
+  9-9-purchase-reports: ready-for-dev
+  9-10-supplier-statement: ready-for-dev
+  9-11-purchase-dashboard: ready-for-dev
+  9-12-document-printing: ready-for-dev
   epic-9-retrospective: done
 
   # Epic 10: Document Printing System
   epic-10: in-progress
-  10-1-dot-matrix-templates: review
-  10-2-edit-before-print: review
-  10-3-print-preview: review
-  10-4-print-history: review
+  10-1-dot-matrix-templates: done
+  10-2-edit-before-print: done
+  10-3-print-preview: done
+  10-4-print-history: done
   epic-10-retrospective: done
 
   # ============================================================
@@ -151,11 +161,11 @@ development_status:
 
   # Epic 11: Inventory Management & Valuation
   epic-11: in-progress
-  11-1-item-master: review
-  11-2-stock-tracking: review
-  11-3-stock-opname: review
-  11-4-stock-transfer: review
-  11-5-inventory-valuation: review
+  11-1-item-master: done
+  11-2-stock-tracking: done
+  11-3-stock-opname: done
+  11-4-stock-transfer: done
+  11-5-inventory-valuation: done
   epic-11-retrospective: done
 
   # ============================================================
@@ -164,11 +174,11 @@ development_status:
 
   # Epic 12: Cash & Bank Management
   epic-12: in-progress
-  12-1-cash-accounts: review
-  12-2-bank-accounts: review
-  12-3-bank-reconciliation: review
-  12-4-payment-receipt-vouchers: review
-  12-5-cash-flow-report: review
+  12-1-cash-accounts: done
+  12-2-bank-accounts: done
+  12-3-bank-reconciliation: done
+  12-4-payment-receipt-vouchers: done
+  12-5-cash-flow-report: done
   epic-12-retrospective: done
 
   # ============================================================
@@ -177,11 +187,11 @@ development_status:
 
   # Epic 13: Tax Management & Compliance
   epic-13: in-progress
-  13-1-tax-configuration: review
-  13-2-tax-calculation: review
-  13-3-faktur-pajak: review
-  13-4-e-faktur-export: review
-  13-5-tax-reporting: review
+  13-1-tax-configuration: done
+  13-2-tax-calculation: done
+  13-3-faktur-pajak: done
+  13-4-e-faktur-export: done
+  13-5-tax-reporting: done
   epic-13-retrospective: done
 
   # ============================================================
@@ -190,11 +200,11 @@ development_status:
 
   # Epic 14: Fixed Assets Management
   epic-14: in-progress
-  14-1-asset-registration: review
-  14-2-depreciation-calculation: review
-  14-3-depreciation-journal: review
-  14-4-asset-disposal: review
-  14-5-asset-reports: review
+  14-1-asset-registration: done
+  14-2-depreciation-calculation: done
+  14-3-depreciation-journal: done
+  14-4-asset-disposal: done
+  14-5-asset-reports: done
   epic-14-retrospective: done
 
   # ============================================================
@@ -203,19 +213,19 @@ development_status:
 
   # Epic 15: Employee & HR Management
   epic-15: in-progress
-  15-1-employee-crud: review
-  15-2-employee-assignment: review
-  15-3-leave-management: review
-  15-4-employee-documents: review
+  15-1-employee-crud: done
+  15-2-employee-assignment: done
+  15-3-leave-management: done
+  15-4-employee-documents: done
   epic-15-retrospective: done
 
   # Epic 16: Attendance Management & ZKTeco Integration
   epic-16: in-progress
-  16-1-online-attendance: review
-  16-2-zkteco-integration: review
-  16-3-shift-management: review
-  16-4-overtime-tracking: review
-  16-5-attendance-reports: review
+  16-1-online-attendance: done
+  16-2-zkteco-integration: done
+  16-3-shift-management: done
+  16-4-overtime-tracking: done
+  16-5-attendance-reports: done
   epic-16-retrospective: done
 
   # ============================================================
@@ -224,12 +234,12 @@ development_status:
 
   # Epic 17: Payroll Processing & Integration
   epic-17: in-progress
-  17-1-salary-components: review
-  17-2-payroll-calculation: review
-  17-3-attendance-integration: review
-  17-4-tax-calculation-pph21: review
-  17-5-payroll-reports: review
-  17-6-bank-transfer-file: review
+  17-1-salary-components: done
+  17-2-payroll-calculation: done
+  17-3-attendance-integration: done
+  17-4-tax-calculation-pph21: done
+  17-5-payroll-reports: done
+  17-6-bank-transfer-file: done
   epic-17-retrospective: done
 
   # ============================================================
@@ -238,19 +248,19 @@ development_status:
 
   # Epic 18: Dashboard & Analytics
   epic-18: in-progress
-  18-1-role-based-dashboards: review
-  18-2-real-time-metrics: review
-  18-3-drill-down-capability: review
-  18-4-dashboard-refresh: review
+  18-1-role-based-dashboards: done
+  18-2-real-time-metrics: done
+  18-3-drill-down-capability: done
+  18-4-dashboard-refresh: done
   epic-18-retrospective: done
 
   # Epic 19: Comprehensive Reporting System
   epic-19: in-progress
-  19-1-financial-reports: review
-  19-2-operational-reports: review
-  19-3-hr-reports: review
-  19-4-custom-report-builder: review
-  19-5-export-functionality: review
+  19-1-financial-reports: done
+  19-2-operational-reports: done
+  19-3-hr-reports: done
+  19-4-custom-report-builder: done
+  19-5-export-functionality: done
   epic-19-retrospective: done
 
   # ============================================================
@@ -259,29 +269,29 @@ development_status:
 
   # Epic 20: Progressive Web App & Offline Capability
   epic-20: in-progress
-  20-1-pwa-manifest: review
-  20-2-service-worker: review
-  20-3-offline-clock-in-out: review
-  20-4-offline-data-sync: review
-  20-5-encryption: review
+  20-1-pwa-manifest: done
+  20-2-service-worker: done
+  20-3-offline-clock-in-out: done
+  20-4-offline-data-sync: done
+  20-5-encryption: done
   epic-20-retrospective: done
 
   # Epic 21: Platform Hardening & Stability
   epic-21: in-progress
-  21-1-test-wrapper-stability: review
-  21-2-vite-oxc-migration: review
-  21-3-lint-and-static-guardrails: review
-  21-4-security-and-permission-audit: review
-  21-5-release-readiness-checklist: review
+  21-1-test-wrapper-stability: done
+  21-2-vite-oxc-migration: done
+  21-3-lint-and-static-guardrails: done
+  21-4-security-and-permission-audit: done
+  21-5-release-readiness-checklist: done
   epic-21-retrospective: done
 
   # Epic 22: Compliance & Governance
   epic-22: in-progress
-  22-1-audit-log-foundation: review
-  22-2-data-retention-policy: review
-  22-3-approval-workflow-framework: review
-  22-4-sensitive-action-tracking: review
-  22-5-compliance-reporting: review
+  22-1-audit-log-foundation: done
+  22-2-data-retention-policy: done
+  22-3-approval-workflow-framework: done
+  22-4-sensitive-action-tracking: done
+  22-5-compliance-reporting: done
   epic-22-retrospective: done
 
   # Epic 23: Governance Automation
@@ -299,3 +309,4 @@ development_status:
   24-2-governance-reliability-jobs: done
   24-3-governance-performance-baseline: done
   epic-24-retrospective: done
+

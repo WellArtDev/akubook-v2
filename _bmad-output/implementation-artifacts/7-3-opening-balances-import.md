@@ -1,6 +1,6 @@
 # Story 7.3: Opening Balances Import
 
-Status: review
+**Status:** done
 
 ## Story
 
@@ -114,3 +114,4 @@ so that saldo awal akun AkuBook terbentuk balance dan siap dipakai laporan keuan
 ## Change Log
 
 - 2026-05-17: Implementasi Story 7.3 selesai dan status dipindah ke review.
+

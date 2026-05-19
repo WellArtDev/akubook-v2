@@ -2,7 +2,7 @@
 
 **Story Key:** `12-5-cash-flow-report`  
 **Priority:** P0  
-**Status:** review
+**Status:** done
 
 ## User Story
 Sebagai **Finance Staff**, saya ingin melihat laporan arus kas periode tertentu agar bisa memantau arus masuk/keluar kas-bank dan posisi saldo bersih operasional.
@@ -55,3 +55,4 @@ Sebagai **Finance Staff**, saya ingin melihat laporan arus kas periode tertentu 
 
 ### Change Log
 - 2026-05-18: Implemented Story 12.5 Cash Flow Report MVP.
+

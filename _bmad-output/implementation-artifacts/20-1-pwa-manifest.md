@@ -2,7 +2,7 @@
 
 **Story Key:** 20-1-pwa-manifest
 **Priority:** P0
-**Status:** review
+**Status:** done
 
 ## User Story
 
@@ -66,3 +66,4 @@ As a mobile user, I want the app to provide a valid web app manifest so I can in
 ### Change Log
 
 - 2026-05-18: Implemented Story 20.1 PWA Manifest MVP and validations.
+

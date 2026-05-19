@@ -2,7 +2,7 @@
 
 **Story Key:** 17-1-salary-components
 **Priority:** P0
-**Status:** review
+**Status:** done
 
 ## User Story
 
@@ -76,3 +76,4 @@ As an HR/Payroll Admin, I want to manage salary component master data so payroll
 ### Change Log
 
 - 2026-05-18: Implemented Story 17.1 Salary Components MVP and validations.
+

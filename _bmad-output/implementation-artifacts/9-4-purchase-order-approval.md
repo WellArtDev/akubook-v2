@@ -1,6 +1,6 @@
-﻿# Story 9.4: Purchase Order Approval
+# Story 9.4: Purchase Order Approval
 **Epic:** 9 | **Story ID:** 9.4 | **Key:** 9-4-purchase-order-approval | **Priority:** P1
-**Status:** review
+**Status:** done
 
 
 ## User Story
@@ -62,4 +62,5 @@ CREATE TABLE purchase_order_approvals (
 
 ### Change Log
 - 2026-05-17: Implemented Story 9.4 Purchase Order Approval MVP and updated status to review.
+
 

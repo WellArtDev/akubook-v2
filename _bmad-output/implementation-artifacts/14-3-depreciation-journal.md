@@ -2,7 +2,7 @@
 
 **Story Key:** `14-3-depreciation-journal`  
 **Priority:** P0  
-**Status:** review
+**Status:** done
 
 ## User Story
 Sebagai Finance Staff, saya ingin generate jurnal depresiasi dari hasil perhitungan depresiasi bulanan supaya posting beban dan akumulasi depresiasi konsisten dan terkontrol.
@@ -58,3 +58,4 @@ Sebagai Finance Staff, saya ingin generate jurnal depresiasi dari hasil perhitun
 
 ### Change Log
 - 2026-05-18: Implemented Story 14.3 Depreciation Journal MVP.
+

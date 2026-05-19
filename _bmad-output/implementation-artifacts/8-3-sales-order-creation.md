@@ -1,9 +1,9 @@
-﻿# Story 8.3: Sales Order Creation
+# Story 8.3: Sales Order Creation
 
 **Epic:** 8 - Customer & Sales Management  
 **Story ID:** 8.3  
 **Story Key:** 8-3-sales-order-creation  
-**Status:** review  
+**Status:** done  
 **Created:** 2026-05-14  
 **Priority:** P0 (Foundation)
 
@@ -1411,4 +1411,5 @@ test('cannot cancel SO with delivery orders', function() {
 - Stock check: Deferred until stock module exists
 - Status auto-update: Saat create DO atau Invoice
 - Cancellation: Requires reason; downstream DO/Invoice blocking deferred to dependent modules
+
 

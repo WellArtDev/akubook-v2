@@ -2,7 +2,7 @@
 
 **Story Key:** 20-2-service-worker
 **Priority:** P0
-**Status:** review
+**Status:** done
 
 ## User Story
 
@@ -72,3 +72,4 @@ As a mobile/web user, I want app shell assets cached by a service worker so the 
 ### Change Log
 
 - 2026-05-18: Implemented Story 20.2 Service Worker MVP and validations.
+

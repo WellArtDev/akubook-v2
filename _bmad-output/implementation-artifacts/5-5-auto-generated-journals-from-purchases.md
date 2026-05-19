@@ -3,7 +3,7 @@
 **Epic:** 5 - Journal Entry & Posting System  
 **Story ID:** 5.5  
 **Story Key:** 5-5-auto-generated-journals-from-purchases  
-**Status:** review  
+**Status:** done  
 **Created:** 2026-05-14  
 **Priority:** Low (Deferred - Purchase module belum ada)
 
@@ -253,3 +253,4 @@ Story ini **deferred** karena:
 ### Change Log
 
 - 2026-05-17: Implemented deferred purchase journal placeholder and marked story ready for review.
+

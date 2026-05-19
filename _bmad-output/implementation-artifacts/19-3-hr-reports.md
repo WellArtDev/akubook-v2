@@ -2,7 +2,7 @@
 
 **Story Key:** 19-3-hr-reports
 **Priority:** P0
-**Status:** review
+**Status:** done
 
 ## User Story
 
@@ -72,3 +72,4 @@ As an HR manager, I want HR reports by period so I can monitor workforce status,
 ### Change Log
 
 - 2026-05-18: Implemented Story 19.3 HR Reports MVP and validations.
+

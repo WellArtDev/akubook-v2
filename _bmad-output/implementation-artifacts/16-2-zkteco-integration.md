@@ -2,7 +2,7 @@
 
 **Story Key:** 16-2-zkteco-integration
 **Priority:** P0
-**Status:** review
+**Status:** done
 
 ## User Story
 
@@ -87,3 +87,4 @@ ZKTeco integration MVP selesai: device registry, import raw log, mapping employe
 ### Change Log
 
 - 2026-05-18: Implemented Story 16.2 ZKTeco Integration MVP.
+

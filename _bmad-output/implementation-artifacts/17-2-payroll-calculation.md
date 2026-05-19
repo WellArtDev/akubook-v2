@@ -2,7 +2,7 @@
 
 **Story Key:** 17-2-payroll-calculation
 **Priority:** P0
-**Status:** review
+**Status:** done
 
 ## User Story
 
@@ -81,3 +81,4 @@ As an HR/Payroll Admin, I want to run monthly payroll calculation per employee u
 ### Change Log
 
 - 2026-05-18: Implemented Story 17.2 Payroll Calculation MVP and validations.
+

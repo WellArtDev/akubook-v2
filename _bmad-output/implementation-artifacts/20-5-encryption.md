@@ -2,7 +2,7 @@
 
 **Story Key:** 20-5-encryption
 **Priority:** P0
-**Status:** review
+**Status:** done
 
 ## User Story
 
@@ -71,3 +71,4 @@ As a mobile/offline user, I want sensitive offline sync payloads encrypted at re
 ### Change Log
 
 - 2026-05-19: Implemented Story 20.5 Encryption MVP and validations.
+

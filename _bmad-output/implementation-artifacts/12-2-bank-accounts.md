@@ -2,7 +2,7 @@
 
 **Story Key:** `12-2-bank-accounts`  
 **Priority:** P0  
-**Status:** review
+**Status:** done
 
 ## User Story
 Sebagai Finance Staff, saya ingin mengelola akun bank agar transaksi bank bisa dipetakan ke COA dan data rekening tersimpan rapi.
@@ -56,3 +56,4 @@ Sebagai Finance Staff, saya ingin mengelola akun bank agar transaksi bank bisa d
 - `php artisan test tests/Feature/BankAccountTest.php` ✅ (4 tests pass)
 - `composer test` ✅ PHPUnit pass (258 tests), wrapper masih return code 1 (known issue)
 - `npm run build` ✅ (warning Vite `esbuild` -> `oxc` masih existing)
+

@@ -1,9 +1,9 @@
-﻿# Story 8.6: Sales Invoice
+# Story 8.6: Sales Invoice
 
 **Epic:** 8 - Customer & Sales Management  
 **Story ID:** 8.6  
 **Story Key:** 8-6-sales-invoice  
-**Status:** review  
+**Status:** done  
 **Created:** 2026-05-14  
 **Priority:** P0 (Foundation)
 
@@ -238,7 +238,7 @@ public function cancel(\\, \\);
 - **NPWP/PKP Rules**: Auto-generate faktur pajak masih pakai flag manual `generate_tax_invoice`
 - **Delivery Address Mapping**: Billing address masih input bebas, belum tarik otomatis dari customer address master
 
-### Files Created/Modified
+### File List
 - `database/migrations/2026_05_15_045307_create_sales_invoices_table.php`
 - `database/migrations/2026_05_15_045318_create_sales_invoice_lines_table.php`
 - `database/migrations/2026_05_15_052443_add_tax_payable_account.php` ✅
@@ -255,7 +255,7 @@ public function cancel(\\, \\);
 - `tests/Feature/SalesInvoiceJournalTest.php` ✅
 
 ### Status
-**Status:** review
+**Status:** done
 
 ---
 
@@ -269,3 +269,4 @@ public function cancel(\\, \\);
 - Journal entry: Created saat status → Sent (auto_sales type)
 - Journal reversal: Created saat invoice cancelled (manual type)
 - Cannot cancel if has payments
+

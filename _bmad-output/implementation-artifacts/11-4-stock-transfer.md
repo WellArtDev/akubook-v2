@@ -2,7 +2,7 @@
 
 **Story Key:** `11-4-stock-transfer`  
 **Priority:** P0  
-**Status:** review
+**Status:** done
 
 ## User Story
 
@@ -60,3 +60,4 @@ As an Inventory Staff, I want to record stock transfer between locations so move
 ### Change Log
 
 - 2026-05-18: Implement Story 11.4 Stock Transfer MVP.
+

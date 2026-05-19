@@ -2,7 +2,7 @@
 
 **Story Key:** 18-2-real-time-metrics
 **Priority:** P0
-**Status:** review
+**Status:** done
 
 ## User Story
 
@@ -64,3 +64,4 @@ As a dashboard user, I want metrics to refresh automatically so I can monitor ne
 ### Change Log
 
 - 2026-05-18: Implemented Story 18.2 Real-Time Metrics MVP and validations.
+

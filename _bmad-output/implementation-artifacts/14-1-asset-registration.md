@@ -2,7 +2,7 @@
 
 **Story Key:** `14-1-asset-registration`  
 **Priority:** P0  
-**Status:** review
+**Status:** done
 
 ## User Story
 As a Finance/Asset Staff, I want to register fixed assets with core metadata and accounting mapping so that assets are ready for depreciation and reporting processes.
@@ -64,3 +64,4 @@ As a Finance/Asset Staff, I want to register fixed assets with core metadata and
 
 ### Change Log
 - 2026-05-18: Implemented Story 14.1 Asset Registration MVP.
+

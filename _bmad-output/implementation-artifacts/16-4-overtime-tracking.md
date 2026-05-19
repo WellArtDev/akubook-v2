@@ -2,7 +2,7 @@
 
 **Story Key:** 16-4-overtime-tracking
 **Priority:** P0
-**Status:** review
+**Status:** done
 
 ## User Story
 
@@ -75,3 +75,4 @@ As an HR/Admin Staff, I want to record overtime based on attendance and shift co
 ### Change Log
 
 - 2026-05-18: Implemented Story 16.4 Overtime Tracking MVP and validations.
+

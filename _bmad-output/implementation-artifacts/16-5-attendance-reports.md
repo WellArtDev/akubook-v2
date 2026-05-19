@@ -2,7 +2,7 @@
 
 **Story Key:** 16-5-attendance-reports
 **Priority:** P0
-**Status:** review
+**Status:** done
 
 ## User Story
 
@@ -69,3 +69,4 @@ As an HR/Admin Staff, I want attendance summary and detail reports by employee a
 ### Change Log
 
 - 2026-05-18: Implemented Story 16.5 Attendance Reports MVP and validations.
+

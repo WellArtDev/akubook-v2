@@ -2,7 +2,7 @@
 
 **Story Key:** 12-3-bank-reconciliation
 **Priority:** P0
-**Status:** review
+**Status:** done
 
 ## User Story
 
@@ -82,3 +82,4 @@ As a Finance Staff, I want to reconcile bank statement lines against system bank
 
 - 2026-05-18: Created Story 12.3 Bank Reconciliation.
 - 2026-05-18: Implemented Story 12.3 Bank Reconciliation MVP.
+

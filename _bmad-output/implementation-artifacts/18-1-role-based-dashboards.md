@@ -2,7 +2,7 @@
 
 **Story Key:** 18-1-role-based-dashboards
 **Priority:** P0
-**Status:** review
+**Status:** done
 
 ## User Story
 
@@ -71,3 +71,4 @@ As a user from different business functions, I want to see dashboard widgets rel
 ### Change Log
 
 - 2026-05-18: Implemented Story 18.1 Role-Based Dashboards MVP and validations.
+

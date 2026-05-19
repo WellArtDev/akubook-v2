@@ -2,7 +2,7 @@
 
 **Story Key:** 21-5-release-readiness-checklist
 **Priority:** P0
-**Status:** review
+**Status:** done
 
 ## User Story
 
@@ -71,3 +71,4 @@ As a release owner, I want a single readiness checklist page so I can quickly ve
 
 - 2026-05-19: Created Story 21.5 Release Readiness Checklist context.
 - 2026-05-19: Implemented Story 21.5 Release Readiness Checklist MVP and validations.
+

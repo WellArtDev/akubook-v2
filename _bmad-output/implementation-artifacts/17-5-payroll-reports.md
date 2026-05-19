@@ -2,7 +2,7 @@
 
 **Story Key:** 17-5-payroll-reports
 **Priority:** P0
-**Status:** review
+**Status:** done
 
 ## User Story
 
@@ -68,3 +68,4 @@ As an HR/Finance Staff, I want payroll reports per period so I can review payrol
 ### Change Log
 
 - 2026-05-18: Implemented Story 17.5 Payroll Reports MVP and validations.
+

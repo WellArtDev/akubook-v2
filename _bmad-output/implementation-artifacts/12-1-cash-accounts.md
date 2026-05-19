@@ -2,7 +2,7 @@
 
 **Story Key:** `12-1-cash-accounts`  
 **Priority:** P0  
-**Status:** review
+**Status:** done
 
 ## User Story
 Sebagai Finance Staff, saya ingin mengelola akun kas agar transaksi kas dapat dipetakan ke akun COA yang benar.
@@ -55,3 +55,4 @@ Sebagai Finance Staff, saya ingin mengelola akun kas agar transaksi kas dapat di
 - `php artisan test tests/Feature/CashAccountTest.php` ✅ (5 tests pass)
 - `composer test` ✅ PHPUnit pass (254 tests), wrapper masih return code 1 (known issue)
 - `npm run build` ✅ (warning Vite `esbuild` -> `oxc` masih existing)
+

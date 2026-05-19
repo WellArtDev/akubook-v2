@@ -3,7 +3,7 @@
 **Epic:** 8 - Customer & Sales Management  
 **Story ID:** 8.1  
 **Story Key:** 8-1-customer-master-data  
-**Status:** review  
+**Status:** done  
 **Created:** 2026-05-14  
 **Priority:** P0 (Foundation)
 
@@ -634,3 +634,4 @@ test('cannot delete customer with transactions', function() {
 - Soft delete untuk maintain referential integrity
 - Audit logging untuk compliance
 - Future: Customer groups, price lists, loyalty program
+

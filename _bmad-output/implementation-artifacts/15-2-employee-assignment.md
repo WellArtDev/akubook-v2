@@ -2,7 +2,7 @@
 
 **Story Key:** `15-2-employee-assignment`  
 **Priority:** P0 - Core HR Structure  
-**Status:** review
+**Status:** done
 
 ## User Story
 As an HR Admin, I want to assign employees to branch/department/position with effective date so that organizational structure is tracked and ready for attendance/payroll modules.
@@ -64,3 +64,4 @@ As an HR Admin, I want to assign employees to branch/department/position with ef
 
 ### Change Log
 - 2026-05-18: Implemented Story 15.2 Employee Assignment MVP.
+

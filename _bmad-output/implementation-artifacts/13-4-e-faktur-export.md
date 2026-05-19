@@ -2,7 +2,7 @@
 
 **Story Key:** `13-4-e-faktur-export`  
 **Priority:** P0  
-**Status:** review
+**Status:** done
 
 ## User Story
 As a Finance/Tax Staff, I want to export issued Faktur Pajak into e-Faktur compatible file format so that tax reporting submission can be prepared quickly and consistently.
@@ -69,3 +69,4 @@ As a Finance/Tax Staff, I want to export issued Faktur Pajak into e-Faktur compa
 
 ### Change Log
 - 2026-05-18: Implemented Story 13.4 E-Faktur Export MVP.
+

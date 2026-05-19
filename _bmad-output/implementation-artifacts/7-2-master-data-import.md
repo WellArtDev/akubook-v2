@@ -1,6 +1,6 @@
 # Story 7.2: Master Data Import
 
-Status: review
+**Status:** done
 
 ## Story
 
@@ -99,3 +99,4 @@ so that data bisnis inti siap dipakai modul sales, purchasing, dan inventory di 
 ## Change Log
 
 - 2026-05-17: Implementasi Story 7.2 selesai dan status dipindah ke review.
+

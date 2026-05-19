@@ -2,7 +2,7 @@
 
 **Story Key:** `14-4-asset-disposal`  
 **Priority:** P0  
-**Status:** review
+**Status:** done
 
 ## User Story
 Sebagai Finance Staff, saya ingin mencatat pelepasan aset tetap supaya status aset, nilai buku, dan jurnal pelepasan tercatat rapi untuk audit.
@@ -61,3 +61,4 @@ Sebagai Finance Staff, saya ingin mencatat pelepasan aset tetap supaya status as
 
 ### Change Log
 - 2026-05-18: Implemented Story 14.4 Asset Disposal MVP.
+

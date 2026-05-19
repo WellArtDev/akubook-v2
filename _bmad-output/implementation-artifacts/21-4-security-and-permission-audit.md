@@ -2,7 +2,7 @@
 
 **Story Key:** 21-4-security-and-permission-audit
 **Priority:** P0
-**Status:** review
+**Status:** done
 
 ## User Story
 
@@ -74,3 +74,4 @@ As an administrator/developer, I want a security and permission audit page so I 
 
 - 2026-05-19: Created Story 21.4 Security and Permission Audit context.
 - 2026-05-19: Implemented Security and Permission Audit MVP and validations.
+

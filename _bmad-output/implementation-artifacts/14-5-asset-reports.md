@@ -2,7 +2,7 @@
 
 **Story Key:** 14-5-asset-reports
 **Priority:** P0
-**Status:** review
+**Status:** done
 
 ## User Story
 
@@ -65,3 +65,4 @@ As a Finance Manager, I want fixed asset reports so I can review asset register,
 
 - 2026-05-18: Created Story 14.5 Asset Reports.
 - 2026-05-18: Implemented Story 14.5 Asset Reports MVP.
+

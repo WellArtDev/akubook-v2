@@ -2,7 +2,7 @@
 
 **Story Key:** 21-3-lint-and-static-guardrails
 **Priority:** P0
-**Status:** review
+**Status:** done
 
 ## User Story
 
@@ -66,3 +66,4 @@ As a developer, I want one consistent quality gate command so broken formatting,
 
 - 2026-05-19: Created Story 21.3 Lint and Static Guardrails context.
 - 2026-05-19: Implemented guardrail scripts and documented wrapper + formatting debt constraints.
+

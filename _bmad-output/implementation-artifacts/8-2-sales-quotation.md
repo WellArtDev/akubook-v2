@@ -1,9 +1,9 @@
-﻿# Story 8.2: Sales Quotation
+# Story 8.2: Sales Quotation
 
 **Epic:** 8 - Customer & Sales Management  
 **Story ID:** 8.2  
 **Story Key:** 8-2-sales-quotation  
-**Status:** review  
+**Status:** done  
 **Created:** 2026-05-14  
 **Priority:** P0 (Foundation)
 
@@ -1243,3 +1243,4 @@ test('can create revision', function() {
 ### Change Log
 
 - 2026-05-17: Implemented Story 8.2 Sales Quotation full MVP and passed validation suite.
+
