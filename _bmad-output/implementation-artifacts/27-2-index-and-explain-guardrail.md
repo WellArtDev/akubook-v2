@@ -3,7 +3,7 @@
 **Story Key:** `27-2-index-and-explain-guardrail`  
 **Epic:** 27  
 **Priority:** P0  
-**Status:** review
+**Status:** done
 
 ## User Story
 Sebagai backend engineer, saya ingin guardrail EXPLAIN/index untuk query kritis agar regresi performa terdeteksi saat perubahan schema/query.

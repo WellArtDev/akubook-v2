@@ -3,7 +3,7 @@
 **Story Key:** `27-3-runtime-health-endpoint-and-smoke`  
 **Epic:** 27  
 **Priority:** P1  
-**Status:** review
+**Status:** done
 
 ## User Story
 Sebagai operator aplikasi, saya ingin health endpoint dan smoke runtime yang cepat agar insiden route/database/service bisa dideteksi sebelum user terdampak.

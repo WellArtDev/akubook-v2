@@ -3,7 +3,7 @@
 **Story Key:** `27-1-query-performance-baseline-v2`  
 **Epic:** 27  
 **Priority:** P0  
-**Status:** review
+**Status:** done
 
 ## User Story
 Sebagai Engineering Lead, saya ingin baseline performa query lintas modul agar bottleneck utama terukur sebelum optimasi lanjutan.
