@@ -60,6 +60,10 @@ jobs:
         id: query_plan_guard
         run: php artisan app:guard-query-plan
 
+      - name: Route permission guardrail
+        id: route_permission_guard
+        run: php artisan app:guard-route-permissions
+
       - name: Frontend build
         id: frontend_build
         run: npm run build
@@ -85,6 +89,7 @@ jobs:
             echo "- Backend tests: ${{ steps.backend_tests.outcome || 'completed' }}";
             echo "- Migration dependency guard: ${{ steps.migration_guard.outcome || 'completed' }}";
             echo "- Query plan guardrail: ${{ steps.query_plan_guard.outcome || 'completed' }}";
+            echo "- Route permission guardrail: ${{ steps.route_permission_guard.outcome || 'completed' }}";
             echo "- Frontend build: ${{ steps.frontend_build.outcome || 'completed' }}";
             echo "- Playwright install: ${{ steps.playwright_install.outcome || 'completed' }}";
             echo "- UI smoke: ${{ steps.ui_smoke.outcome || 'completed' }}";

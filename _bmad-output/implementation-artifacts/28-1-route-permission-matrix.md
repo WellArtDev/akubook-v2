@@ -3,7 +3,7 @@
 **Story Key:** `28-1-route-permission-matrix`  
 **Epic:** 28  
 **Priority:** P0  
-**Status:** ready-for-dev
+**Status:** review
 
 ## User Story
 Sebagai Security Lead, saya ingin matriks route-permission untuk route kritis agar akses modul tidak bergantung pada asumsi UI/menu saja.
@@ -26,20 +26,31 @@ Sebagai Security Lead, saya ingin matriks route-permission untuk route kritis ag
 - UI permission editor.
 
 ## Definition of Done
-- [ ] Route permission matrix tersedia.
-- [ ] Audit command/test tersedia.
-- [ ] Route kritis tanpa mapping menggagalkan guardrail.
-- [ ] Validation pass dan status story ke review.
+- [x] Route permission matrix tersedia.
+- [x] Audit command/test tersedia.
+- [x] Route kritis tanpa mapping menggagalkan guardrail.
+- [x] Validation pass dan status story ke review.
 
 ## Dev Agent Record
 ### Completion Notes
-- Pending implementation.
+- Menambahkan matrix route-permission di `config/route_permission_matrix.php` untuk route kritis core, governance, master data, sales, purchase, dan finance.
+- Menambahkan command `app:guard-route-permissions` untuk memverifikasi route matrix, route existence, dan expected middleware.
+- Menambahkan simulated fail mode `--simulate-missing-map` agar guardrail failure path teruji.
+- Menambahkan step `Route permission guardrail` ke Governance CI Gate.
 
 ### File List
-- Pending.
+- `.github/workflows/governance-ci-gate.yml`
+- `app/Console/Commands/GuardRoutePermissionMatrixCommand.php`
+- `config/route_permission_matrix.php`
+- `tests/Feature/GuardRoutePermissionMatrixCommandTest.php`
+- `_bmad-output/implementation-artifacts/28-1-route-permission-matrix.md`
+- `_bmad-output/implementation-artifacts/sprint-status.yaml`
 
 ### Validation
-- Pending.
+- `php artisan test tests/Feature/GuardRoutePermissionMatrixCommandTest.php` pass (2 tests, 4 assertions).
+- `composer test` pass (486 tests, 486 passed, 2213 assertions).
+- `npm run build` pass.
 
 ## Change Log
 - 2026-05-20: Story created (ready-for-dev).
+- 2026-05-20: Implemented route permission matrix guardrail and moved story to review.
