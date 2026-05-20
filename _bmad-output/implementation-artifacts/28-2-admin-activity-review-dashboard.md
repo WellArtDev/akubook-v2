@@ -3,7 +3,7 @@
 **Story Key:** `28-2-admin-activity-review-dashboard`  
 **Epic:** 28  
 **Priority:** P1  
-**Status:** ready-for-dev
+**Status:** review
 
 ## User Story
 Sebagai Compliance Officer, saya ingin dashboard aktivitas admin agar perubahan sensitif bisa ditinjau cepat.
@@ -27,20 +27,31 @@ Sebagai Compliance Officer, saya ingin dashboard aktivitas admin agar perubahan 
 - Advanced anomaly detection ML.
 
 ## Definition of Done
-- [ ] Admin activity dashboard tersedia.
-- [ ] Filter dan KPI dasar bekerja.
-- [ ] Metadata aman ditampilkan.
-- [ ] Tests/build pass dan story ke review.
+- [x] Admin activity dashboard tersedia.
+- [x] Filter dan KPI dasar bekerja.
+- [x] Metadata aman ditampilkan.
+- [x] Tests/build pass dan story ke review.
 
 ## Dev Agent Record
 ### Completion Notes
-- Pending implementation.
+- Added `AdminActivityReviewController` for sensitive/admin audit activity review.
+- Added Inertia page with KPI cards, filters, activity table, and sanitized metadata rendering.
+- Added metadata masking for secret-like keys (`password`, `secret`, `token`, `api_key`, `authorization`) including nested metadata.
+- Added feature tests for page shape and secret masking behavior.
 
 ### File List
-- Pending.
+- `app/Http/Controllers/AdminActivityReviewController.php`
+- `resources/js/Pages/AdminActivityReview/Index.jsx`
+- `routes/web.php`
+- `tests/Feature/AdminActivityReviewTest.php`
+- `_bmad-output/implementation-artifacts/28-2-admin-activity-review-dashboard.md`
+- `_bmad-output/implementation-artifacts/sprint-status.yaml`
 
 ### Validation
-- Pending.
+- `php artisan test tests/Feature/AdminActivityReviewTest.php` pass (2 tests, 31 assertions).
+- `composer test` pass (488 tests, 488 passed, 2244 assertions).
+- `npm run build` pass.
 
 ## Change Log
 - 2026-05-20: Story created (ready-for-dev).
+- 2026-05-20: Implemented admin activity review dashboard and moved story to review.

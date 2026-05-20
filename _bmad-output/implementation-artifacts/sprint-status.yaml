@@ -333,7 +333,7 @@ development_status:
   # Epic 28: Security & Access Hardening
   epic-28: in-progress
   28-1-route-permission-matrix: review
-  28-2-admin-activity-review-dashboard: ready-for-dev
+  28-2-admin-activity-review-dashboard: review
   28-3-config-secret-safety-guardrail: ready-for-dev
   epic-28-retrospective: optional
 
