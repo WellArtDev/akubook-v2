@@ -325,7 +325,7 @@ development_status:
 
   # Epic 27: Performance & Runtime Hardening
   epic-27: in-progress
-  27-1-query-performance-baseline-v2: ready-for-dev
+  27-1-query-performance-baseline-v2: review
   27-2-index-and-explain-guardrail: ready-for-dev
   27-3-runtime-health-endpoint-and-smoke: ready-for-dev
   epic-27-retrospective: optional
