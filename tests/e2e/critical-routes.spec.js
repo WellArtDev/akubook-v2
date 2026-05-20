@@ -1,4 +1,8 @@
 import { test, expect } from '@playwright/test';
+import fs from 'node:fs';
+import path from 'node:path';
+
+test.describe.configure({ mode: 'serial' });
 
 test('health endpoint returns ok status', async ({ request }) => {
     const response = await request.get('/healthz');
@@ -93,25 +97,54 @@ async function login(page) {
     await expect(page).toHaveURL(/dashboard/);
 }
 
-test('critical authenticated routes render without console errors', async ({ page }) => {
+test('critical authenticated routes render without console errors', async ({ page, request }) => {
     const errors = [];
+    const checks = [];
+
     page.on('console', (msg) => {
         if (msg.type() === 'error') {
             errors.push(`${page.url()} :: ${msg.text()}`);
         }
     });
 
+    const healthStarted = Date.now();
+    const healthResponse = await request.get('/healthz');
+    checks.push({
+        path: '/healthz',
+        status: healthResponse.status(),
+        duration_ms: Date.now() - healthStarted,
+        console_errors: 0,
+        ok: healthResponse.status() < 400,
+    });
+
     await login(page);
 
     for (const route of routes) {
         await test.step(`${route.group}: ${route.path}`, async () => {
+            const started = Date.now();
             const response = await page.goto(route.path);
-            expect(response?.status(), `${route.path} should not return HTTP error`).toBeLessThan(400);
-            await expect(page).toHaveURL(new RegExp(route.path.replace('/', '\\/')));
+            const status = response?.status() ?? 0;
+            const duration = Date.now() - started;
+            const consoleErrorCount = errors.length;
+
+            expect(status, `${route.path} should not return HTTP error`).toBeLessThan(400);
+            await expect(page).toHaveURL(new RegExp(route.path.replace('/', '\/')));
             await expect(page).toHaveTitle(route.title);
             await expect(page.locator('body')).toBeVisible();
+
+            checks.push({
+                path: route.path,
+                status,
+                duration_ms: duration,
+                console_errors: consoleErrorCount,
+                ok: status < 400 && consoleErrorCount === 0,
+            });
         });
     }
+
+    const outputPath = path.resolve('test-results/slo-smoke-results.json');
+    fs.mkdirSync(path.dirname(outputPath), { recursive: true });
+    fs.writeFileSync(outputPath, `${JSON.stringify({ generated_at: new Date().toISOString(), checks }, null, 2)}\n`);
 
     expect(errors).toEqual([]);
 });
