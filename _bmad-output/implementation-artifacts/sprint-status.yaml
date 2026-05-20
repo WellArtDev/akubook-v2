@@ -320,7 +320,7 @@ development_status:
   epic-26: in-progress
   26-1-migration-dependency-guardrail: review
   26-2-deterministic-local-bootstrap: review
-  26-3-critical-route-coverage-expansion: ready-for-dev
+  26-3-critical-route-coverage-expansion: review
   epic-26-retrospective: optional
 
 

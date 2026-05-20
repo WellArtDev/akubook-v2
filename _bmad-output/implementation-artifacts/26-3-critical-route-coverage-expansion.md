@@ -3,7 +3,7 @@
 **Story Key:** `26-3-critical-route-coverage-expansion`  
 **Epic:** 26  
 **Priority:** P1  
-**Status:** ready-for-dev
+**Status:** review
 
 ## User Story
 Sebagai QA/Engineering, saya ingin smoke coverage diperluas ke modul sales, purchase, finance, HR, dan governance agar blank page/runtime error cepat tertangkap.
@@ -27,20 +27,27 @@ Sebagai QA/Engineering, saya ingin smoke coverage diperluas ke modul sales, purc
 - Browser matrix lengkap.
 
 ## Definition of Done
-- [ ] Route matrix smoke tersedia.
-- [ ] Sales/purchase/finance/governance route utama tercakup.
-- [ ] `npm run smoke:ui` pass lokal.
-- [ ] CI tetap menjalankan smoke.
+- [x] Route matrix smoke tersedia.
+- [x] Sales/purchase/finance/governance route utama tercakup.
+- [x] `npm run smoke:ui` pass lokal.
+- [x] CI tetap menjalankan smoke.
 
 ## Dev Agent Record
 ### Completion Notes
-- Pending implementation.
+- Refactor smoke test ke route matrix berkelompok (Core, Governance, Master Data, Sales, Purchase, Finance Reports).
+- Menambahkan verifikasi HTTP status < 400, title match, body visible, dan koleksi console error per route.
+- Menjaga smoke tetap Chromium-only dan kompatibel dengan workflow CI yang sudah ada.
 
 ### File List
-- Pending.
+- `tests/e2e/critical-routes.spec.js`
+- `_bmad-output/implementation-artifacts/26-3-critical-route-coverage-expansion.md`
+- `_bmad-output/implementation-artifacts/sprint-status.yaml`
 
 ### Validation
-- Pending.
+- `npm run smoke:ui` pass (1 test, seluruh route matrix lulus).
+- `composer test` pass (479 tests, 479 passed, 2189 assertions).
+- `npm run build` pass.
 
 ## Change Log
 - 2026-05-20: Story created (ready-for-dev).
+- 2026-05-20: Expanded critical route smoke coverage and moved story to review.
