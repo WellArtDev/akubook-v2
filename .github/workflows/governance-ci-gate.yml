@@ -52,6 +52,10 @@ jobs:
         id: backend_tests
         run: composer test
 
+      - name: Migration dependency guard
+        id: migration_guard
+        run: php artisan app:verify-migration-dependencies
+
       - name: Frontend build
         id: frontend_build
         run: npm run build
@@ -75,6 +79,7 @@ jobs:
             echo "## Governance CI Gate";
             echo "- Config validation: ${{ steps.config_validation.outcome || 'completed' }}";
             echo "- Backend tests: ${{ steps.backend_tests.outcome || 'completed' }}";
+            echo "- Migration dependency guard: ${{ steps.migration_guard.outcome || 'completed' }}";
             echo "- Frontend build: ${{ steps.frontend_build.outcome || 'completed' }}";
             echo "- Playwright install: ${{ steps.playwright_install.outcome || 'completed' }}";
             echo "- UI smoke: ${{ steps.ui_smoke.outcome || 'completed' }}";
