@@ -88,6 +88,10 @@ jobs:
         id: slo_guard
         run: php artisan app:guard-slo-error-budget
 
+      - name: Release readiness report v2
+        id: release_readiness
+        run: php artisan app:release-readiness-report-v2
+
       - name: Gate summary
         if: always()
         run: |
@@ -103,4 +107,5 @@ jobs:
             echo "- Playwright install: ${{ steps.playwright_install.outcome || 'completed' }}";
             echo "- UI smoke: ${{ steps.ui_smoke.outcome || 'completed' }}";
             echo "- SLO guardrail: ${{ steps.slo_guard.outcome || 'completed' }}";
+            echo "- Release readiness: ${{ steps.release_readiness.outcome || 'completed' }}";
           } >> $GITHUB_STEP_SUMMARY

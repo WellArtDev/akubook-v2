@@ -341,7 +341,7 @@ development_status:
   epic-29: in-progress
   29-1-error-budget-and-slo-guardrail: review
   29-2-audit-log-retention-integrity-check: review
-  29-3-release-readiness-auto-report-v2: ready-for-dev
+  29-3-release-readiness-auto-report-v2: review
   epic-29-retrospective: optional
 
 

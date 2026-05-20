@@ -3,7 +3,7 @@
 **Story Key:** `29-3-release-readiness-auto-report-v2`  
 **Epic:** 29  
 **Priority:** P1  
-**Status:** ready-for-dev
+**Status:** review
 
 ## User Story
 Sebagai Release Manager, saya ingin auto-report readiness yang merangkum test/build/smoke/guardrail agar keputusan release lebih cepat dan konsisten.
@@ -27,20 +27,31 @@ Sebagai Release Manager, saya ingin auto-report readiness yang merangkum test/bu
 - Integrasi ticketing eksternal.
 
 ## Definition of Done
-- [ ] Command readiness report tersedia.
-- [ ] Final decision rule tervalidasi.
-- [ ] Artifact historis tersimpan.
-- [ ] Test output shape pass.
+- [x] Command readiness report tersedia.
+- [x] Final decision rule tervalidasi.
+- [x] Artifact historis tersimpan.
+- [x] Test output shape pass.
 
 ## Dev Agent Record
 ### Completion Notes
-- Pending implementation.
+- Menambahkan command `app:release-readiness-report-v2` untuk menghasilkan report readiness terpadu dengan decision `ready|warning|blocked`.
+- Menambahkan gate override option `--gate=key:status` untuk uji skenario warning/fail.
+- Menyimpan artifact report di `_bmad-output/implementation-artifacts/release-readiness/release-readiness-latest.json`.
+- Menambahkan step CI `Release readiness report v2` dan summary outcome.
 
 ### File List
-- Pending.
+- `app/Console/Commands/GenerateReleaseReadinessReportV2Command.php`
+- `tests/Feature/GenerateReleaseReadinessReportV2CommandTest.php`
+- `.github/workflows/governance-ci-gate.yml`
+- `_bmad-output/implementation-artifacts/29-3-release-readiness-auto-report-v2.md`
+- `_bmad-output/implementation-artifacts/sprint-status.yaml`
 
 ### Validation
-- Pending.
+- `php artisan test tests/Feature/GenerateReleaseReadinessReportV2CommandTest.php` pass (3 tests, 9 assertions).
+- `php artisan app:release-readiness-report-v2` pass (`decision: warning` pada local artifact state).
+- `composer test` pass (498 tests, 498 passed, 2269 assertions).
+- `npm run build` pass.
 
 ## Change Log
 - 2026-05-20: Story created (ready-for-dev).
+- 2026-05-20: Implemented release readiness auto-report v2 and moved story to review.
