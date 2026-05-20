@@ -3,7 +3,7 @@
 **Epic:** 25 - UI Hardening & Smoke Automation  
 **Story ID:** 25.1  
 **Story Key:** 25-1-critical-route-smoke-automation  
-**Status:** review  
+**Status:** done  
 **Created:** 2026-05-19  
 **Priority:** P0 (Critical)
 

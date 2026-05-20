@@ -312,8 +312,8 @@ development_status:
   epic-24-retrospective: done
 
   # Epic 25: UI Hardening & Smoke Automation
-  epic-25: in-progress
-  25-1-critical-route-smoke-automation: review
-  epic-25-retrospective: optional
+  epic-25: done
+  25-1-critical-route-smoke-automation: done
+  epic-25-retrospective: done
 
 
