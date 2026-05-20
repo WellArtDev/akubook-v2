@@ -95,21 +95,21 @@ development_status:
   epic-5-retrospective: optional
 
   # Epic 6: Financial Reporting
-  epic-6: in-progress
+  epic-6: done
   6-1-trial-balance-report: done
   6-2-general-ledger-report: done
   6-3-profit-and-loss-statement: done
   6-4-balance-sheet: done
-  epic-6-retrospective: optional
+  epic-6-retrospective: done
 
-  # Epic 7: Data Migration from Accurate
-  epic-7: in-progress
+  # Epic 7: Legacy Data Migration
+  epic-7: done
   7-1-chart-of-accounts-import: done
   7-2-master-data-import: done
   7-3-opening-balances-import: done
   7-4-historical-transactions-import: done
   7-5-post-migration-reconciliation: done
-  epic-7-retrospective: optional
+  epic-7-retrospective: done
 
   # ============================================================
   # PHASE 3 - SALES & PURCHASING
