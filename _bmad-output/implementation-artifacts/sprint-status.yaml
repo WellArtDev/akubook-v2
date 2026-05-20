@@ -337,4 +337,11 @@ development_status:
   28-3-config-secret-safety-guardrail: done
   epic-28-retrospective: done
 
+  # Epic 29: Reliability Reporting & Release Readiness
+  epic-29: in-progress
+  29-1-error-budget-and-slo-guardrail: ready-for-dev
+  29-2-audit-log-retention-integrity-check: ready-for-dev
+  29-3-release-readiness-auto-report-v2: ready-for-dev
+  epic-29-retrospective: optional
+
 
