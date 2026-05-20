@@ -17,7 +17,7 @@ export default defineConfig({
         },
     ],
     webServer: {
-        command: 'php artisan serve --host=127.0.0.1 --port=8000',
+        command: "php -r \"if (file_exists('public/hot')) { unlink('public/hot'); }\" && php artisan serve --host=127.0.0.1 --port=8000",
         url: 'http://127.0.0.1:8000',
         reuseExistingServer: true,
         timeout: 120000,

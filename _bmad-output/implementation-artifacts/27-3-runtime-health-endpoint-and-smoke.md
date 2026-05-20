@@ -3,7 +3,7 @@
 **Story Key:** `27-3-runtime-health-endpoint-and-smoke`  
 **Epic:** 27  
 **Priority:** P1  
-**Status:** ready-for-dev
+**Status:** review
 
 ## User Story
 Sebagai operator aplikasi, saya ingin health endpoint dan smoke runtime yang cepat agar insiden route/database/service bisa dideteksi sebelum user terdampak.
@@ -26,20 +26,39 @@ Sebagai operator aplikasi, saya ingin health endpoint dan smoke runtime yang cep
 - Full synthetic monitoring.
 
 ## Definition of Done
-- [ ] Health endpoint tersedia.
-- [ ] Smoke health check tersedia.
-- [ ] CI menjalankan health smoke.
-- [ ] Troubleshooting notes tersedia.
+- [x] Health endpoint tersedia.
+- [x] Smoke health check tersedia.
+- [x] CI menjalankan health smoke.
+- [x] Troubleshooting notes tersedia.
 
 ## Dev Agent Record
 ### Completion Notes
-- Pending implementation.
+- Menambahkan `HealthCheckController` sebagai endpoint `/healthz` untuk verifikasi status aplikasi dan koneksi database.
+- Menambahkan feature test health endpoint.
+- Memperluas Playwright smoke agar mencakup health check endpoint.
+- Memperbaiki helper login smoke test agar tahan kondisi session/login-page fallback.
+- Menambahkan hardening Playwright webServer command untuk menghapus `public/hot` stale file sebelum smoke run.
+
+### Troubleshooting Notes
+- Jika smoke gagal pada login dengan error `input email not found`, periksa file `public/hot` stale dari Vite dev mode.
+- Jalankan ulang smoke dengan memastikan `public/hot` dihapus atau gunakan command smoke yang sudah membersihkan file itu.
+- Jika `/healthz` gagal 503, cek koneksi DB dan hasil `php artisan migrate --force`.
 
 ### File List
-- Pending.
+- `app/Http/Controllers/HealthCheckController.php`
+- `tests/Feature/HealthCheckTest.php`
+- `tests/e2e/critical-routes.spec.js`
+- `playwright.config.js`
+- `routes/web.php`
+- `_bmad-output/implementation-artifacts/27-3-runtime-health-endpoint-and-smoke.md`
+- `_bmad-output/implementation-artifacts/sprint-status.yaml`
 
 ### Validation
-- Pending.
+- `php artisan test tests/Feature/HealthCheckTest.php` pass (1 test, 4 assertions).
+- `npm run smoke:ui` pass (2 tests: health endpoint + critical authenticated routes).
+- `composer test` pass (484 tests, 484 passed, 2209 assertions).
+- `npm run build` pass.
 
 ## Change Log
 - 2026-05-20: Story created (ready-for-dev).
+- 2026-05-20: Implemented runtime health endpoint and smoke hardening, moved story to review.

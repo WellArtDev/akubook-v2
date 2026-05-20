@@ -1,5 +1,15 @@
 import { test, expect } from '@playwright/test';
 
+test('health endpoint returns ok status', async ({ request }) => {
+    const response = await request.get('/healthz');
+    expect(response.status()).toBe(200);
+
+    const payload = await response.json();
+    expect(payload.status).toBe('ok');
+    expect(payload.app).toBe('ok');
+    expect(payload.database).toBe('ok');
+});
+
 const routeGroups = [
     {
         group: 'Core',
@@ -58,9 +68,28 @@ const routes = routeGroups.flatMap(({ group, routes }) => routes.map((route) => 
 
 async function login(page) {
     await page.goto('/login');
-    await page.getByLabel('Email').fill(process.env.E2E_EMAIL || 'admin@akubook.com');
-    await page.getByLabel('Password').fill(process.env.E2E_PASSWORD || 'password');
-    await page.getByRole('button', { name: 'Masuk' }).click();
+
+    if (/dashboard/.test(page.url())) {
+        return;
+    }
+
+    const emailInput = page.locator('input[name="email"], input[type="email"]');
+    const passwordInput = page.locator('input[name="password"], input[type="password"]');
+
+    if ((await emailInput.count()) === 0) {
+        await page.goto('/dashboard');
+        if (/dashboard/.test(page.url())) {
+            return;
+        }
+        await page.goto('/login');
+    }
+
+    await expect(emailInput.first()).toBeVisible();
+    await expect(passwordInput.first()).toBeVisible();
+
+    await emailInput.first().fill(process.env.E2E_EMAIL || 'admin@akubook.com');
+    await passwordInput.first().fill(process.env.E2E_PASSWORD || 'password');
+    await page.getByRole('button', { name: /Masuk|Log in|Login/i }).click();
     await expect(page).toHaveURL(/dashboard/);
 }
 

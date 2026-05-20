@@ -327,7 +327,7 @@ development_status:
   epic-27: in-progress
   27-1-query-performance-baseline-v2: review
   27-2-index-and-explain-guardrail: review
-  27-3-runtime-health-endpoint-and-smoke: ready-for-dev
+  27-3-runtime-health-endpoint-and-smoke: review
   epic-27-retrospective: optional
 
 

@@ -27,8 +27,11 @@ Route::get('/manifest.webmanifest', App\Http\Controllers\PwaManifestController::
     ->name('pwa.manifest');
 Route::get('/service-worker.js', App\Http\Controllers\ServiceWorkerController::class)
     ->name('pwa.service-worker');
+Route::get('/healthz', App\Http\Controllers\HealthCheckController::class)
+    ->name('healthz');
 
 Route::get('/dashboard', function () {
+
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
