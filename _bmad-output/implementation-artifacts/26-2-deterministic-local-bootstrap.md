@@ -3,7 +3,7 @@
 **Story Key:** `26-2-deterministic-local-bootstrap`  
 **Epic:** 26  
 **Priority:** P0  
-**Status:** review
+**Status:** done
 
 ## User Story
 Sebagai developer, saya ingin satu command bootstrap lokal yang menyiapkan database, admin user, role, dan smoke-ready state agar dev server bisa langsung dipakai.

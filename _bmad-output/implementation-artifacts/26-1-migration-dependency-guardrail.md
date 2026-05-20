@@ -3,7 +3,7 @@
 **Story Key:** `26-1-migration-dependency-guardrail`  
 **Epic:** 26  
 **Priority:** P0  
-**Status:** review
+**Status:** done
 
 ## User Story
 Sebagai Engineering Lead, saya ingin guardrail migrasi yang mendeteksi urutan migration rusak agar environment baru tidak gagal saat setup database.

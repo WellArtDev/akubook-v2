@@ -3,7 +3,7 @@
 **Story Key:** `26-3-critical-route-coverage-expansion`  
 **Epic:** 26  
 **Priority:** P1  
-**Status:** review
+**Status:** done
 
 ## User Story
 Sebagai QA/Engineering, saya ingin smoke coverage diperluas ke modul sales, purchase, finance, HR, dan governance agar blank page/runtime error cepat tertangkap.

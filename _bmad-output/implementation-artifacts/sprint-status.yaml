@@ -317,10 +317,10 @@ development_status:
   epic-25-retrospective: done
 
   # Epic 26: Runtime Stability & Bootstrap Reliability
-  epic-26: in-progress
-  26-1-migration-dependency-guardrail: review
-  26-2-deterministic-local-bootstrap: review
-  26-3-critical-route-coverage-expansion: review
-  epic-26-retrospective: optional
+  epic-26: done
+  26-1-migration-dependency-guardrail: done
+  26-2-deterministic-local-bootstrap: done
+  26-3-critical-route-coverage-expansion: done
+  epic-26-retrospective: done
 
 
