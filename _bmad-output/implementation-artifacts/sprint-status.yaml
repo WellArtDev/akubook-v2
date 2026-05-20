@@ -149,7 +149,7 @@ development_status:
   epic-9-retrospective: done
 
   # Epic 10: Document Printing System
-  epic-10: in-progress
+  epic-10: done
   10-1-dot-matrix-templates: done
   10-2-edit-before-print: done
   10-3-print-preview: done
@@ -161,7 +161,7 @@ development_status:
   # ============================================================
 
   # Epic 11: Inventory Management & Valuation
-  epic-11: in-progress
+  epic-11: done
   11-1-item-master: done
   11-2-stock-tracking: done
   11-3-stock-opname: done
@@ -174,7 +174,7 @@ development_status:
   # ============================================================
 
   # Epic 12: Cash & Bank Management
-  epic-12: in-progress
+  epic-12: done
   12-1-cash-accounts: done
   12-2-bank-accounts: done
   12-3-bank-reconciliation: done
@@ -187,7 +187,7 @@ development_status:
   # ============================================================
 
   # Epic 13: Tax Management & Compliance
-  epic-13: in-progress
+  epic-13: done
   13-1-tax-configuration: done
   13-2-tax-calculation: done
   13-3-faktur-pajak: done
@@ -200,7 +200,7 @@ development_status:
   # ============================================================
 
   # Epic 14: Fixed Assets Management
-  epic-14: in-progress
+  epic-14: done
   14-1-asset-registration: done
   14-2-depreciation-calculation: done
   14-3-depreciation-journal: done
@@ -213,7 +213,7 @@ development_status:
   # ============================================================
 
   # Epic 15: Employee & HR Management
-  epic-15: in-progress
+  epic-15: done
   15-1-employee-crud: done
   15-2-employee-assignment: done
   15-3-leave-management: done
@@ -221,7 +221,7 @@ development_status:
   epic-15-retrospective: done
 
   # Epic 16: Attendance Management & ZKTeco Integration
-  epic-16: in-progress
+  epic-16: done
   16-1-online-attendance: done
   16-2-zkteco-integration: done
   16-3-shift-management: done
@@ -234,7 +234,7 @@ development_status:
   # ============================================================
 
   # Epic 17: Payroll Processing & Integration
-  epic-17: in-progress
+  epic-17: done
   17-1-salary-components: done
   17-2-payroll-calculation: done
   17-3-attendance-integration: done
@@ -248,7 +248,7 @@ development_status:
   # ============================================================
 
   # Epic 18: Dashboard & Analytics
-  epic-18: in-progress
+  epic-18: done
   18-1-role-based-dashboards: done
   18-2-real-time-metrics: done
   18-3-drill-down-capability: done
@@ -256,7 +256,7 @@ development_status:
   epic-18-retrospective: done
 
   # Epic 19: Comprehensive Reporting System
-  epic-19: in-progress
+  epic-19: done
   19-1-financial-reports: done
   19-2-operational-reports: done
   19-3-hr-reports: done
@@ -269,7 +269,7 @@ development_status:
   # ============================================================
 
   # Epic 20: Progressive Web App & Offline Capability
-  epic-20: in-progress
+  epic-20: done
   20-1-pwa-manifest: done
   20-2-service-worker: done
   20-3-offline-clock-in-out: done
@@ -278,7 +278,7 @@ development_status:
   epic-20-retrospective: done
 
   # Epic 21: Platform Hardening & Stability
-  epic-21: in-progress
+  epic-21: done
   21-1-test-wrapper-stability: done
   21-2-vite-oxc-migration: done
   21-3-lint-and-static-guardrails: done
@@ -287,7 +287,7 @@ development_status:
   epic-21-retrospective: done
 
   # Epic 22: Compliance & Governance
-  epic-22: in-progress
+  epic-22: done
   22-1-audit-log-foundation: done
   22-2-data-retention-policy: done
   22-3-approval-workflow-framework: done
