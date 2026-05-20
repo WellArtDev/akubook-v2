@@ -39,7 +39,7 @@ jobs:
       - name: Prepare smoke database
         run: |
           php artisan migrate --force
-          php artisan tinker --execute="use App\\Models\\User; use Illuminate\\Support\\Facades\\Hash; \$user = User::updateOrCreate(['email' => 'admin@akubook.com'], ['name' => 'Admin AkuBook', 'password' => Hash::make('password'), 'email_verified_at' => now()]); if (method_exists(\$user, 'assignRole')) { \$role = Spatie\\Permission\\Models\\Role::firstOrCreate(['name' => 'Administrator']); \$user->assignRole(\$role); }"
+          php artisan app:bootstrap-local --email=admin@akubook.com --password=password
 
       - name: Install Node dependencies
         run: npm ci
