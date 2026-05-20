@@ -316,4 +316,11 @@ development_status:
   25-1-critical-route-smoke-automation: done
   epic-25-retrospective: done
 
+  # Epic 26: Runtime Stability & Bootstrap Reliability
+  epic-26: in-progress
+  26-1-migration-dependency-guardrail: ready-for-dev
+  26-2-deterministic-local-bootstrap: ready-for-dev
+  26-3-critical-route-coverage-expansion: ready-for-dev
+  epic-26-retrospective: optional
+
 
