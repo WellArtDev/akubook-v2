@@ -3,7 +3,7 @@
 **Story Key:** `27-2-index-and-explain-guardrail`  
 **Epic:** 27  
 **Priority:** P0  
-**Status:** ready-for-dev
+**Status:** review
 
 ## User Story
 Sebagai backend engineer, saya ingin guardrail EXPLAIN/index untuk query kritis agar regresi performa terdeteksi saat perubahan schema/query.
@@ -26,20 +26,32 @@ Sebagai backend engineer, saya ingin guardrail EXPLAIN/index untuk query kritis 
 - Multi-database optimizer tuning.
 
 ## Definition of Done
-- [ ] Plan guardrail tersedia.
-- [ ] Baseline query plan terdokumentasi.
-- [ ] CI menjalankan guardrail.
-- [ ] Laporan regresi plan tersedia.
+- [x] Plan guardrail tersedia.
+- [x] Baseline query plan terdokumentasi.
+- [x] CI menjalankan guardrail.
+- [x] Laporan regresi plan tersedia.
 
 ## Dev Agent Record
 ### Completion Notes
-- Pending implementation.
+- Menambahkan command `app:guard-query-plan` untuk menjalankan EXPLAIN pada query kritis sales, purchase, dan governance.
+- Command menulis baseline otomatis saat baseline belum ada dan membandingkan scan count saat baseline tersedia.
+- Menambahkan simulasi regresi `--simulate-regression` untuk membuktikan failure mode.
+- CI governance gate kini menjalankan query plan guardrail.
+- Baseline dapat di-refresh manual dengan `php artisan app:guard-query-plan --write-baseline`.
 
 ### File List
-- Pending.
+- `app/Console/Commands/GuardQueryPlanCommand.php`
+- `tests/Feature/GuardQueryPlanCommandTest.php`
+- `.github/workflows/governance-ci-gate.yml`
+- `_bmad-output/implementation-artifacts/27-2-index-and-explain-guardrail.md`
+- `_bmad-output/implementation-artifacts/sprint-status.yaml`
 
 ### Validation
-- Pending.
+- `php artisan test tests/Feature/GuardQueryPlanCommandTest.php` pass (2 tests, 6 assertions).
+- `php artisan app:guard-query-plan` pass and writes/uses baseline path.
+- `composer test` pass (483 tests, 483 passed, 2205 assertions).
+- `npm run build` pass.
 
 ## Change Log
 - 2026-05-20: Story created (ready-for-dev).
+- 2026-05-20: Implemented query plan guardrail and moved story to review.
