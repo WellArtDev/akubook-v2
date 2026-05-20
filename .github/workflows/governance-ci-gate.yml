@@ -33,6 +33,13 @@ jobs:
         run: |
           cp .env.example .env
           php artisan key:generate
+          touch database/database.sqlite
+          php -r "$path = realpath('database/database.sqlite'); $env = file_get_contents('.env'); $env = preg_replace('/^DB_CONNECTION=.*/m', 'DB_CONNECTION=sqlite', $env); $env = preg_replace('/^DB_DATABASE=.*/m', 'DB_DATABASE=' . str_replace('\\\\', '/', $path), $env); file_put_contents('.env', $env);"
+
+      - name: Prepare smoke database
+        run: |
+          php artisan migrate --force
+          php artisan tinker --execute="use App\\Models\\User; use Illuminate\\Support\\Facades\\Hash; \$user = User::updateOrCreate(['email' => 'admin@akubook.com'], ['name' => 'Admin AkuBook', 'password' => Hash::make('password'), 'email_verified_at' => now()]); if (method_exists(\$user, 'assignRole')) { \$role = Spatie\\Permission\\Models\\Role::firstOrCreate(['name' => 'Administrator']); \$user->assignRole(\$role); }"
 
       - name: Install Node dependencies
         run: npm ci
@@ -49,6 +56,18 @@ jobs:
         id: frontend_build
         run: npm run build
 
+      - name: Install Playwright browser
+        id: playwright_install
+        run: npx playwright install --with-deps chromium
+
+      - name: UI smoke test
+        id: ui_smoke
+        env:
+          E2E_EMAIL: admin@akubook.com
+          E2E_PASSWORD: password
+          PLAYWRIGHT_BASE_URL: http://127.0.0.1:8000
+        run: npm run smoke:ui
+
       - name: Gate summary
         if: always()
         run: |
@@ -57,4 +76,6 @@ jobs:
             echo "- Config validation: ${{ steps.config_validation.outcome || 'completed' }}";
             echo "- Backend tests: ${{ steps.backend_tests.outcome || 'completed' }}";
             echo "- Frontend build: ${{ steps.frontend_build.outcome || 'completed' }}";
+            echo "- Playwright install: ${{ steps.playwright_install.outcome || 'completed' }}";
+            echo "- UI smoke: ${{ steps.ui_smoke.outcome || 'completed' }}";
           } >> $GITHUB_STEP_SUMMARY

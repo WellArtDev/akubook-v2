@@ -311,3 +311,9 @@ development_status:
   24-3-governance-performance-baseline: done
   epic-24-retrospective: done
 
+  # Epic 25: UI Hardening & Smoke Automation
+  epic-25: in-progress
+  25-1-critical-route-smoke-automation: review
+  epic-25-retrospective: optional
+
+
