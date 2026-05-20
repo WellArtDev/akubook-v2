@@ -3,7 +3,7 @@
 **Story Key:** `28-3-config-secret-safety-guardrail`  
 **Epic:** 28  
 **Priority:** P1  
-**Status:** ready-for-dev
+**Status:** review
 
 ## User Story
 Sebagai Engineering Lead, saya ingin guardrail config/secret agar credential atau konfigurasi berbahaya tidak ikut commit atau masuk CI.
@@ -27,20 +27,33 @@ Sebagai Engineering Lead, saya ingin guardrail config/secret agar credential ata
 - Git history scanning.
 
 ## Definition of Done
-- [ ] Guardrail scan tersedia.
-- [ ] CI menjalankan scan.
-- [ ] Tests cover pass/fail/allowlist.
-- [ ] Story status ke review setelah validasi.
+- [x] Guardrail scan tersedia.
+- [x] CI menjalankan scan.
+- [x] Tests cover pass/fail/allowlist.
+- [x] Story status ke review setelah validasi.
 
 ## Dev Agent Record
 ### Completion Notes
-- Pending implementation.
+- Added `app:guard-config-secrets` command to scan config, workflow, package, and env example files for secret-like committed values.
+- Added `config/secret_guard.php` allowlist for safe placeholders and patterns.
+- Added CI `Config secret guardrail` step with summary output.
+- Added tests for safe placeholder pass path and secret-like failure path.
+- Guard output masks values and reports file, line, and key only.
 
 ### File List
-- Pending.
+- `app/Console/Commands/GuardConfigSecretsCommand.php`
+- `config/secret_guard.php`
+- `tests/Feature/GuardConfigSecretsCommandTest.php`
+- `.github/workflows/governance-ci-gate.yml`
+- `_bmad-output/implementation-artifacts/28-3-config-secret-safety-guardrail.md`
+- `_bmad-output/implementation-artifacts/sprint-status.yaml`
 
 ### Validation
-- Pending.
+- `php artisan test tests/Feature/GuardConfigSecretsCommandTest.php` pass (2 tests, 4 assertions).
+- `php artisan app:guard-config-secrets` pass.
+- `composer test` pass (490 tests, 490 passed, 2248 assertions).
+- `npm run build` pass.
 
 ## Change Log
 - 2026-05-20: Story created (ready-for-dev).
+- 2026-05-20: Implemented config secret safety guardrail and moved story to review.
