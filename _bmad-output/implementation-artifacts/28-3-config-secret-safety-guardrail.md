@@ -3,7 +3,7 @@
 **Story Key:** `28-3-config-secret-safety-guardrail`  
 **Epic:** 28  
 **Priority:** P1  
-**Status:** review
+**Status:** done
 
 ## User Story
 Sebagai Engineering Lead, saya ingin guardrail config/secret agar credential atau konfigurasi berbahaya tidak ikut commit atau masuk CI.

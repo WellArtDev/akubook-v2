@@ -3,7 +3,7 @@
 **Story Key:** `28-1-route-permission-matrix`  
 **Epic:** 28  
 **Priority:** P0  
-**Status:** review
+**Status:** done
 
 ## User Story
 Sebagai Security Lead, saya ingin matriks route-permission untuk route kritis agar akses modul tidak bergantung pada asumsi UI/menu saja.

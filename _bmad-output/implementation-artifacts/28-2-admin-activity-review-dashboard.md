@@ -3,7 +3,7 @@
 **Story Key:** `28-2-admin-activity-review-dashboard`  
 **Epic:** 28  
 **Priority:** P1  
-**Status:** review
+**Status:** done
 
 ## User Story
 Sebagai Compliance Officer, saya ingin dashboard aktivitas admin agar perubahan sensitif bisa ditinjau cepat.

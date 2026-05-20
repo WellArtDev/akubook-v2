@@ -331,10 +331,10 @@ development_status:
   epic-27-retrospective: done
 
   # Epic 28: Security & Access Hardening
-  epic-28: in-progress
-  28-1-route-permission-matrix: review
-  28-2-admin-activity-review-dashboard: review
-  28-3-config-secret-safety-guardrail: review
-  epic-28-retrospective: optional
+  epic-28: done
+  28-1-route-permission-matrix: done
+  28-2-admin-activity-review-dashboard: done
+  28-3-config-secret-safety-guardrail: done
+  epic-28-retrospective: done
 
 
